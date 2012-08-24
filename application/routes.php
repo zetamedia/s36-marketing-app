@@ -111,7 +111,8 @@ Route::get('test', function(){
     return $output;
     */
 
-    //$email = new S36Email('new_account');
+    //$email = new S36Email();
+    //$email->create_new_account_email();
     //$email->to('kennwel.labarda@microsourcing.ph')->send();
 
 });
