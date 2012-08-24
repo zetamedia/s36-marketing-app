@@ -1,1 +1,1 @@
-# 36Stories Marketing Application Platform (Mathew Branch)
+# 36Stories Marketing Application Platform (Master Branch)

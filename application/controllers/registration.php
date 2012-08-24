@@ -51,7 +51,8 @@
 
 
                 // send email to customer.
-                $email = new S36Email('registration');
+                $email = new S36Email();
+                $email->create_new_account_email();
                 $email->to(Input::get('email'))->send();
 
                 

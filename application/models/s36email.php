@@ -7,29 +7,36 @@
         
         private $key = '11c0c3be-3d0c-47b2-99a6-02fb1c4eed71';
         private $sender = 'news@36stories.com';
-        //private $bcc = 'ryanchua6@gmail.com,wrm932@gmail.com';
-        private $bcc = 'kennwel.labarda@microsourcing.ph'; // for testing.
+        private $bcc = 'ryanchua6@gmail.com,wrm932@gmail.com';
+        //private $bcc = 'kennwel.labarda@microsourcing.ph';
         private $receiver;
         private $subject;
         private $body;
 
 
 
-        function __construct($type, $key = null, $sender = null, $bcc = null){
+        function __construct($key = null, $sender = null, $bcc = null){
             
             // reset the key, sender, bcc if given.
             $this->key = (is_null($key) ? $this->key : $key);
             $this->sender = (is_null($sender) ? $this->sender : $sender);
             $this->bcc = (is_null($bcc) ? $this->bcc : $bcc);
 
+        }
 
-            // create email content for registration success.
-            if( $type == 'registration' ){
-                
-                $this->subject = '36Stories Account';
-                $this->body = 'Username: ' . HTML::entities(Input::get('username')) . '<br/> Password: ' . HTML::entities(Input::get('password1'));
 
-            }
+
+        // create new account email.
+        function create_new_account_email(){
+            
+            $data['firstname'] = HTML::entities(Input::get('firstname'));
+            $data['username'] = HTML::entities(Input::get('username'));
+            $data['password'] = HTML::entities(Input::get('password1'));
+            $data['customer_email'] = HTML::entities(Input::get('email'));
+            $data['account_login_url'] = 'https://' . HTML::entities(Input::get('website')) . '.36storiesapp.com/login';
+
+            $this->subject = '36Stories New Account';
+            $this->body = View::make('emails.new-account', $data);
 
         }
 
