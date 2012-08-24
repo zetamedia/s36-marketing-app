@@ -7,8 +7,8 @@
         
         private $key = '11c0c3be-3d0c-47b2-99a6-02fb1c4eed71';
         private $sender = 'news@36stories.com';
-        //private $bcc = 'ryanchua6@gmail.com,wrm932@gmail.com';
-        private $bcc = 'kennwel.labarda@microsourcing.ph';
+        private $bcc = 'ryanchua6@gmail.com,wrm932@gmail.com';
+        //private $bcc = 'kennwel.labarda@microsourcing.ph';
         private $receiver;
         private $subject;
         private $body;
