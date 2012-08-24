@@ -91,51 +91,27 @@ Route::get('registration-successful', function(){
 
 Route::get('test', function(){
     
+    /*
     $output = '';
-    $pattern = '/a/';
+    $pattern = '/^[\w*\d*]+(-*_*\.*)?[\w*\d*]+$/';
     
-    $str[] = 'test';
-    $str[] = 'ching';
-    $str[] = 'abc';
+    $str[] = 'abc.abc';
+    $str[] = 'abc-abc';
+    $str[] = 'abc_abc';
+    $str[] = 'abc-abc.abc';
+    $str[] = 'abc-abc_abc';
+    $str[] = 'abc_abc.abc';
+    $str[] = 'abc.abc-abc';
+
 
     foreach( $str as $k => $v ){
         if( preg_match($pattern, $v) ) $output .= $k . ' => ' . $v . '<br/>';
     }
 
     return $output;
-
-
-
-    //$test = new RawPDO();
-    //return print_r($test); 
-    //$plan = new Plan('basic');
-    //return $plan->get_plan_id();
-
-    //$country = new Country(4);
-    //return $country->get_name();
-
-    //return print_r(Plan::get_all_names());
-    //return 'test' . $_GET['test'];
-    /*
-    // send email to customer.
-    $site_name = Input::get('website');
-    $key = '11c0c3be-3d0c-47b2-99a6-02fb1c4eed71';
-    $sender = 'news@36stories.com';
-    $receiver = Input::get('email');
-    $bcc = 'ryanchua6@gmail.com,wrm932@gmail.com';
-    $subject = 'test subject';
-    $body = 'test body';
-    
-    // data for email testing.
-    $site_name = 'razer';
-    $receiver = 'kennwel.labarda@microsourcing.ph,kennwel@gmail.com';
-    $bcc = 'kennwel.labarda@microsourcing.ph';
-
-    $postmark = new PostMark($key, $sender, $bcc);
-    $postmark->to($receiver)->subject($subject)->html_message($body)->send();
     */
 
-    //$email = new S36Email('registration');
+    //$email = new S36Email('new_account');
     //$email->to('kennwel.labarda@microsourcing.ph')->send();
 
 });

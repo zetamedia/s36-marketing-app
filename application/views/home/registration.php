@@ -553,6 +553,15 @@
 <!-- end of content -->
 <script type="text/javascript">
     
+    // clear the text of err-text.
+    $('.err-text').click(function(){
+        
+        $(this).removeClass('err-text');
+
+    });
+
+
+
     // validate form when submitted.
     $('input[type=submit]').click(function(e){
         
@@ -585,11 +594,13 @@
                         if( span.indexOf(name) == -1 ){
                             
                             $('input[name=' + name + ']').val( error_msg );
+                            $('input[name=' + name + ']').addClass('err-text');
 
                         // if name is in span array, display the error in item's span.
                         }else{
                             
                             $('span[name=' + name + ']').text( error_msg );
+                            $('span[name=' + name + ']').addClass('err-text');
 
                         }
                         
