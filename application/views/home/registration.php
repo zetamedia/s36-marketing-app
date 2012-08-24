@@ -351,8 +351,12 @@
                                         array('class' => 'reg-text')
                                     ); 
                                 ?><br/>
-                                <span name="password1"><?= ($errors->has('password1') ? $errors->first('password1') : ''); ?></span><br/>
-                                <span name="password2"><?= ($errors->has('password2') ? $errors->first('password2') : ''); ?></span>
+                                <span name="password1" class="<?= ($errors->has('password1') ? 'err-text' : ''); ?>">
+                                    <?= ($errors->has('password1') ? $errors->first('password1') : ''); ?>
+                                </span><br/>
+                                <span name="password2" class="<?= ($errors->has('password2') ? 'err-text' : ''); ?>">
+                                    <?= ($errors->has('password2') ? $errors->first('password2') : ''); ?>
+                                </span>
                             </td>
                         </tr>
                     </table>
@@ -553,13 +557,10 @@
 <!-- end of content -->
 <script type="text/javascript">
     
-    // clear the text of err-text.
-    $('.err-text').click(function(){
-        
-        $(this).removeClass('err-text');
-
+    // remove the red text in input.
+    $('input').keydown(function(){
+        if( $(this).val() == '' ) $(this).removeClass('err-text');
     });
-
 
 
     // validate form when submitted.
