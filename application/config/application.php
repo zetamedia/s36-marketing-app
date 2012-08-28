@@ -1,5 +1,8 @@
 <?php
 
+require_once 'determiner.php';
+$determine = new Determiner;  
+
 return array(
 
 	/*
@@ -13,7 +16,8 @@ return array(
 	|
 	*/
 
-	'url' => 'http://Marketing-Site-Laravel-',
+	//'url' => 'http://Marketing-Site-Laravel-',
+    'url' => $determine->d->host,
 
 	/*
 	|--------------------------------------------------------------------------
