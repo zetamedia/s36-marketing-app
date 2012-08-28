@@ -363,9 +363,9 @@
                 </div>
                 <div class="leftcontentblock">
                 	<h2><span>3.</span> Create your <span>36</span>Stories site address</h2>
-                    <p>Every 36Stories account has its own web address. For example, if you want <br />your account to be at https://acme.36stories.com you'd enter acme <br /> in the field below. Letters and Numbers only.</p>
+                    <p>Every 36Stories account has its own web address. For example, if you want <br />your account to be at https://acme.36storiesapp.com you'd enter acme <br /> in the field below. Letters and Numbers only.</p>
                     <p>
-                        <span style="font-size:13px;">http://</span>
+                        <span style="font-size:13px;">https://</span>
                         <?=
                             Form::text(
                                 'website',
@@ -373,7 +373,7 @@
                                 array('class' => 'reg-text')
                             ); 
                         ?>
-                        .36Stories.com
+                        .36Storiesapp.com
                     </p>
                 </div>
                 <?php if($creditcard): ?>
