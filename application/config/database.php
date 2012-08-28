@@ -1,5 +1,8 @@
 <?php
 
+require_once 'determiner.php';
+$determine = new Determiner;  
+
 return array(
 
 	/*
@@ -42,7 +45,7 @@ return array(
 	|
 	*/
 
-	'default' => 'mysql',
+	'default' => 'master',
 
 	/*
 	|--------------------------------------------------------------------------
@@ -62,11 +65,11 @@ return array(
 	'connections' => array(
         
         'master' => array(
-			'driver'   => 'mysql',
-			'host'     => 'localhost',
+			'driver'   => 'mysql',	
+			'host'     => $determine->d->db['host'],
 			'database' => 's36',
-			'username' => 'root',
-			'password' => 'brx4*svv',
+			'username' => $determine->d->db['username'],
+			'password' => $determine->d->db['password'],
 			'charset'  => 'utf8',
 			'prefix'   => '',
 		),
