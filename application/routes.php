@@ -44,6 +44,7 @@ View::composer('partial.layout', function($view){
 });
 
 Route::get('/', function(){
+    print_r("Mathew");
     return View::of('layout')->nest('contents', 'home.index');
 });
 
