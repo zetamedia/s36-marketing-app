@@ -7,8 +7,8 @@
         
         private $key = '11c0c3be-3d0c-47b2-99a6-02fb1c4eed71';
         private $sender = 'news@36stories.com';
-        private $bcc = 'ryanchua6@gmail.com,wrm932@gmail.com';
-        //private $bcc = 'kennwel.labarda@microsourcing.ph';
+        //private $bcc = 'ryanchua6@gmail.com,wrm932@gmail.com';
+        private $bcc = 'kennwel.labarda@microsourcing.ph';
         private $receiver;
         private $subject;
         private $body;
@@ -29,11 +29,22 @@
         // create new account email.
         function create_new_account_email(){
             
-            $data['firstname'] = HTML::entities(Input::get('firstname'));
-            $data['username'] = HTML::entities(Input::get('username'));
-            $data['password'] = HTML::entities(Input::get('password1'));
-            $data['customer_email'] = HTML::entities(Input::get('email'));
-            $data['account_login_url'] = 'https://' . HTML::entities(Input::get('website')) . '.36storiesapp.com/login';
+            // get the inputs.
+            $input = Input::get('transaction');
+            $account_input = Input::get('account');
+            $customer_input = $input['customer'];
+            $billing_input = $input['billing'];
+            $credit_card_input = $input['credit_card'];
+
+            $data['firstname'] = HTML::entities( $customer_input['first_name'] );
+            $data['username'] = HTML::entities( $account_input['username'] );
+            $data['password'] = HTML::entities( $account_input['password1'] );
+            $data['customer_email'] = HTML::entities( $customer_input['email'] );
+            $site = URL::base();
+            $site = str_replace('http://', 'https://' . $customer_input['website'] . '.', $site);
+            $site = $site . '/login';
+            $data['account_login_url'] = HTML::entities( $site );
+            //$data['account_login_url'] = 'https://' . HTML::entities( $customer_input['website'] ) . '.36storiesapp.com/login';
 
             $this->subject = '36Stories New Account';
             $this->body = View::make('emails.new-account', $data);

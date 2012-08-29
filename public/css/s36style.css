@@ -39,6 +39,7 @@ body{
 }		
 a{text-decoration:none;color:#b0b0b0;border:none;}
 a img{border:none;}
+a.navy{ color: #274D71; }
 /* end of reset */
 
 #the-main-content{width:100%;margin:0 auto;}
@@ -309,4 +310,4 @@ select option{padding:7px 10px;}
 .inputs{padding-left:30px;}
 
 input.err-text,
-span.err-text{ color: #d88 !important; }
+span.err-text{ color: #d88; }

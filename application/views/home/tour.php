@@ -314,7 +314,7 @@ function onAfter(curr, next, opts, fwd) {
             <div class="subinfo-text">
               <h2>Word of mouth marketing - on steroids</h2>
               <p>It's not enough just having your endorsements listed on your website. Get people talking about your business and brand out there by being on your customer's social profiles such as Facebook and Twitter.</p>
-              <p>Every time you publish an endorsement sent by your customer via your admin panel, 36Stories sends an automated response to encourage him or her share their feedback on their favorite social networks. Freeing your brand to be spread even further through your customers' friends.</p>
+              <p>Every time you publish an endorsement sent by your customer via your admin panel, 36Stories sends an automated response to encourage him or her  to share their feedback on their favorite social networks. Freeing your brand to be spread even further through your customers' friends.</p>
               <br class="clear" />
             </div>
             <div class="subinfo-image right">
@@ -465,7 +465,7 @@ function onAfter(curr, next, opts, fwd) {
           <div class="sub-info">
             <div class="subinfo-text">
               <h2>Powerful contact manager</h2>
-              <p>Follow up customers with our in-built contact manager that imports, emails and manages follow-up feedback and endorsements from your database without you having to do the hard work. Have an immediate overview on who has replied to your requests and feature experiences from happy customers, all with their given permission.</p>
+              <p>Follow up customers with our built-in contact manager that imports, emails and manages follow-up feedback and endorsements from your database without you having to do the hard work. Have an immediate overview on who has replied to your requests and feature experiences from happy customers, all with their given permission.</p>
               <br class="clear" />
             </div>
             <div class="subinfo-image right">
@@ -488,7 +488,7 @@ function onAfter(curr, next, opts, fwd) {
           <div class="sub-info">
             <div class="subinfo-text">
               <h2>Export your data anytime</h2>
-              <p>Your data is yours - never ours. Export it anytime you wish. You can download them via excel, CSV format or have it sent to your email. You don't need to pay a cent to us to release it back to you either.</p>
+              <p>Your data is yours - never ours. Export it anytime you wish. You can download them via Excel, CSV format or have it sent to your email. You don't need to pay a cent to us to release it back to you either.</p>
               <br class="clear" />
             </div>
             <div class="subinfo-image right">

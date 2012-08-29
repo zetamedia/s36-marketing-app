@@ -34,7 +34,7 @@
         static function get_all_names(){
             
             $names = array();
-            $countries = DB::table(self::$table)->get('name');
+            $countries = DB::table(self::$table)->order_by('name')->get('name');
 
             // maybe it won't hurt to reformat a 277 result of country names.
             foreach( $countries as $country ){
