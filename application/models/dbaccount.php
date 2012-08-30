@@ -18,28 +18,35 @@ class DBAccount extends s36dataobject {
 
     public function create_account() {
         
+        // get the inputs.
+        $input = Input::get('transaction');
+        $account_input = Input::get('account');
+        $customer_input = $input['customer'];
+        $billing_input = $input['billing'];
+        $credit_card_input = $input['credit_card'];
+
         $encrypt = new Encryption();
-        $password_string = Input::get('password1');
+        $password_string = $account_input['password1'];
         $password = crypt( $password_string );
-        $name = $this->escape( Input::get('firstname') . ' ' . Input::get('lastname') );
-        $email = $this->escape( Input::get('email') );
+        $name = $this->escape( $customer_input['first_name'] . ' ' . $customer_input['last_name'] );
+        $email = $this->escape( $customer_input['email'] );
         $encrypt_string = $encrypt->encrypt($email."|".$password_string);
-        $company = $this->escape(strtolower( Input::get('company') ));
-        $username = $this->escape( Input::get('username') );
-        $fullName = $this->escape( Input::get('firstname') . ' ' . Input::get('lastname') );
-        $site = $this->escape('www.' . Input::get('website') . '.com');
-        $site_name = $this->escape(strtolower( Input::get('website') ));
-        $plan = new Plan(Input::get('plan'));
+        $company = $this->escape(strtolower( $customer_input['company'] ));
+        $username = $this->escape( $account_input['username'] );
+        $fullName = $this->escape( $customer_input['first_name'] . ' ' . $customer_input['last_name'] );
+        $site = $this->escape('www.' . $customer_input['website'] . '.com');
+        $site_name = $this->escape(strtolower( $customer_input['website'] ));
+        $plan = new Plan($account_input['plan']);
         $plan_id = $plan->get_plan_id();
         
-        $billing_name = Input::get('billingfirstname') . ' ' . Input::get('billinglastname');
-        $billing_address = Input::get('billingaddress1');
-        $billing_city = Input::get('billingcity');
-        $billing_state = Input::get('billingstate');
-        $billing_country = Input::get('billingcountry');
-        $billing_zip = Input::get('billingzip');
+        $billing_name = $billing_input['first_name'] . ' ' . $billing_input['last_name'];
+        $billing_address = $billing_input['street_address'];
+        $billing_city = $billing_input['locality'];
+        $billing_state = $billing_input['region'];
+        $billing_country = $billing_input['country_name'];
+        $billing_zip = $billing_input['postal_code'];
         $bill_to = "$billing_name, $billing_address, $billing_city, $billing_state, $billing_country, $billing_zip";
-        
+
         
         if($this->company($company)) {
             

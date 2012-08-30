@@ -12,10 +12,10 @@
             if( ! in_array($plan, $valid_plans) ) return Redirect::to('pricing');
             
 
-            $data['creditcard'] = true;
             $data['plan'] = $plan;
             $data['country_names'] = Country::get_all_names();
-            $data['errors'] = $errors;
+            $data['err'] = $errors;
+            $data['input'] = Input::get();
             
             return View::of('layout')->nest('contents', 'home.registration', $data);
 
@@ -26,25 +26,20 @@
         // do all the process in registration.
         function action_process(){
             
-            // set the validation rules.
-            $rules = $this->get_validation_rules();
-            $messages = $this->get_validation_messages();
-            $validation = Validator::make(Input::get(), $rules, $messages);
+            // get the inputs.
+            $input = Input::get('transaction');
+            $account_input = Input::get('account');
+            $customer_input = $input['customer'];
+            $billing_input = $input['billing'];
+            $credit_card_input = $input['credit_card'];
             
 
-            // if the validation fails, show the regs form with errors.
-            if( $validation->fails() ){
+            // run the validation and get the errors if there are. 
+            $errors = $this->run_validation();
+
+            // do the registration processing if no errors.
+            if( empty($errors) ){
                 
-                return $this->action_show_form(Input::get('plan'), $validation->errors);
-
-            
-            // if validation succeeds, do the registration processing.
-            }else{
-                
-                // create cc details obj.
-                $cc_details = new CCDetails(Input::get());
-
-
                 // save customer account in db.
                 $dbaccount = new DBAccount();
                 $dbaccount->create_account();
@@ -53,14 +48,77 @@
                 // send email to customer.
                 $email = new S36Email();
                 $email->create_new_account_email();
-                $email->to(Input::get('email'))->send();
+                $email->to($customer_input['email'])->send();
 
                 
                 // redirect to success page with the customer's site name.
-                $site = 'https://' . Input::get('website') . '.36storiesapp.com/login';
+                $site = URL::base();
+                $site = str_replace('http://', 'https://' . $customer_input['website'] . '.', $site);
+                $site = $site . '/login';
                 return Redirect::to('registration-successful/?login_url=' . $site);
 
+                //$site = 'https://' . $customer_input['website'] . '.36storiesapp.com/login';
+                //return Redirect::to('registration-successful/?login_url=' . $site);
+
+
+            // if any of the validations failed, show the regs form with errors.
+            }else{
+                
+                return $this->action_show_form($account_input['plan'], $errors);
+
             }
+
+        }
+
+
+
+        // run the validation of registration form. 
+        // return the errors if there are. return false if none.
+        function run_validation(){
+            
+            // get the inputs.
+            $input = Input::get('transaction');
+            $account_input = Input::get('account');
+            $customer_input = $input['customer'];
+            $billing_input = $input['billing'];
+            $credit_card_input = $input['credit_card'];
+
+            // get the validation rules.
+            $account_rules = $this->get_validation_rules('account');
+            $customer_rules = $this->get_validation_rules('customer');
+            $billing_rules = $this->get_validation_rules('billing');
+            $credit_card_rules = $this->get_validation_rules('credit_card');
+
+            // create validation objects.
+            $account_val = Validator::make($account_input, $account_rules);
+            $customer_val = Validator::make($customer_input, $customer_rules);
+            $billing_val = Validator::make($billing_input, $billing_rules);
+            $credit_card_val = Validator::make($credit_card_input, $credit_card_rules);
+            
+            // run the validations.
+            $account_val->passes();
+            $customer_val->passes();
+            $billing_val->passes();
+            $credit_card_val->passes();
+            
+            // get the errors from validations.
+            $errors['account'] = $account_val->errors;
+            $errors['customer'] = $customer_val->errors;
+            $errors['billing'] = $billing_val->errors;
+            $errors['credit_card'] = $credit_card_val->errors;
+
+
+            // return the errors if there are. return false if none.
+            if( empty($account_val->errors->messages) && 
+            empty($customer_val->errors->messages) && 
+            empty($billing_val->errors->messages) && 
+            empty($credit_card_val->errors->messages) ){
+                
+                return false;
+
+            }
+
+            return $errors;
 
         }
 
@@ -69,35 +127,31 @@
         // set and return the validation rules.
         function get_validation_rules($key = null){
             
-            $rules['firstname'] = 'required';
-            $rules['lastname'] = 'required';
-            $rules['email'] = 'required|email';
-            $rules['company'] = 'required|unique:Company,name';
-            $rules['username'] = 'required';
-            $rules['password1'] = 'required|min:6';
-            $rules['password2'] = 'required|min:6';
-            $rules['website'] = 'required|match:/^[\w*\d*]+(-*_*\.*)?[\w*\d*]+$/';
-            $rules['billingfirstname'] = 'required';
-            $rules['billinglastname'] = 'required';
-            $rules['billingaddress1'] = 'required';
-            $rules['billingcity'] = 'required';
-            $rules['billingstate'] = 'required';
-            $rules['billingcountry'] = 'required|exists:Country,name';
-            $rules['billingzip'] = 'required';
-            $rules['cardnumber'] = 'required|numeric';
-            $rules['expirymonth'] = 'required|in:01,02,03,04,05,06,07,08,09,10,11,12';
-            $rules['expiryyear'] = 'required|in:' . implode(',', range(date('Y'), date('Y') + 5) );
-            $rules['cvv'] = 'required';
-            $rules['plan'] = 'required|exists:Plan,name';
+            $rules['account']['username'] = 'required|max:45';
+            $rules['account']['password1'] = 'required|min:6|same:password2';
+            $rules['account']['password2'] = 'required|min:6';
+            $rules['account']['plan'] = 'required|exists:Plan,name';
 
-
-            // if key is not given, add this to password1's rule.
-            // this additional rule will validate the equality of password1 and password2 in server side.
-            $rules['password1'] .= ( is_null($key) ? '|same:password2' : '' );
+            $rules['customer']['first_name'] = 'required|max:24';
+            $rules['customer']['last_name'] = 'required|max:24';
+            $rules['customer']['email'] = 'required|email|max:45';
+            $rules['customer']['company'] = 'required|max:45|unique:Company,name';
+            $rules['customer']['website'] = 'required|max:100|match:/^[\w*\d*]+(-*_*\.*)?[\w*\d*]+$/';
             
+            $rules['billing']['first_name'] = 'required';
+            $rules['billing']['last_name'] = 'required';
+            $rules['billing']['street_address'] = 'required';
+            $rules['billing']['locality'] = 'required';
+            $rules['billing']['region'] = 'required';
+            $rules['billing']['country_name'] = 'required|exists:Country,name';
+            $rules['billing']['postal_code'] = 'required';
             
-            // if key is given, return only the validation rule for that key.
-            return ( ! is_null($key) ? array($key => $rules[$key]) : $rules );
+            $rules['credit_card']['number'] = 'required|numeric';
+            $rules['credit_card']['expiration_month'] = 'required|in:01,02,03,04,05,06,07,08,09,10,11,12';
+            $rules['credit_card']['expiration_year'] = 'required|in:' . implode(',', range(date('Y'), date('Y') + 5) );
+            $rules['credit_card']['cvv'] = 'required';
+            
+            return $rules[$key];
 
         }
 
@@ -106,32 +160,32 @@
         // set and return the custom validation messages.
         function get_validation_messages(){
             
-            $msg['firstname_required'] = 'Please Enter Your First Name';
-            $msg['lastname_required'] = 'Please Enter Your Last Name';
-            $msg['email_required'] = 'Please Enter Your Email';
-            $msg['company_required'] = 'Please Enter Your Company';
+            $msg['transaction[customer][first_name]_required'] = 'Please Enter Your First Name';
+            $msg['transaction[customer][last_name]_required'] = 'Please Enter Your Last Name';
+            $msg['transaction[customer][email]_required'] = 'Please Enter Your Email';
+            $msg['transaction[customer][company]_required'] = 'Please Enter Your Company';
             $msg['username_required'] = 'Please Enter Your Username';
             $msg['password1_required'] = 'Please Enter Your Password';
             $msg['password1_min'] = 'Password must be at lest :min characters';
             $msg['password1_same'] = 'Your passwords don\'t match';
             $msg['password2_required'] = 'Please Enter Your Password Confirmation';
             $msg['password2_min'] = 'Password Confirmation must be at lest :min characters';
-            $msg['website_required'] = 'Please Enter Your Site Address';
-            $msg['billingfirstname_required'] = 'Please Enter Your Billing First Name';
-            $msg['billinglastname_required'] = 'Please Enter Your Billing Last Name';
-            $msg['billingaddress1_required'] = 'Please Enter Your Billing Address';
-            $msg['billingcity_required'] = 'Please Enter Your Billing City';
-            $msg['billingstate_required'] = 'Please Enter Your Billing State';
-            $msg['billingcountry_required'] = 'Please Enter Your Billing Country';
-            $msg['billingcountry_exists'] = 'The Selected Billing Country is invalid';
-            $msg['billingzip_required'] = 'Please Enter Your Billing Zip';
-            $msg['cardnumber_required'] = 'Please Enter Your Credit Card Number';
-            $msg['cardnumber_numeric'] = 'Credit Card Number must be numeric';
-            $msg['expirymonth_required'] = 'Please Enter Expiry Month';
-            $msg['expirymonth_in'] = 'The selected Expiry Month is invalid';
-            $msg['expiryyear_required'] = 'Please Enter Expiry Year';
-            $msg['expiryyear_in'] = 'The selected Expiry Year is invalid';
-            $msg['cvv_required'] = 'Please Enter Your CVV';
+            $msg['transaction[customer][website]_required'] = 'Please Enter Your Site Address';
+            $msg['transaction[billing][first_name]_required'] = 'Please Enter Your Billing First Name';
+            $msg['transaction[billing][last_name]_required'] = 'Please Enter Your Billing Last Name';
+            $msg['transaction[billing][street_address]_required'] = 'Please Enter Your Billing Address';
+            $msg['transaction[billing][locality]_required'] = 'Please Enter Your Billing City';
+            $msg['transaction[billing][region]_required'] = 'Please Enter Your Billing State';
+            $msg['transaction[billing][country_name]_required'] = 'Please Enter Your Billing Country';
+            $msg['transaction[billing][country_name]_exists'] = 'The Selected Billing Country is invalid';
+            $msg['transaction[billing][postal_code]_required'] = 'Please Enter Your Billing Zip';
+            $msg['transaction[credit_card][number]_required'] = 'Please Enter Your Credit Card Number';
+            $msg['transaction[credit_card][number]_numeric'] = 'Credit Card Number must be numeric';
+            $msg['transaction[credit_card][expiration_month]_required'] = 'Please Enter Expiry Month';
+            $msg['transaction[credit_card][expiration_month]_in'] = 'The selected Expiry Month is invalid';
+            $msg['transaction[credit_card][expiration_year]_required'] = 'Please Enter Expiry Year';
+            $msg['transaction[credit_card][expiration_year]_in'] = 'The selected Expiry Year is invalid';
+            $msg['transaction[credit_card][cvv]_required'] = 'Please Enter Your CVV';
 
             return $msg;
 
@@ -139,23 +193,40 @@
 
 
 
-        // function that validates a single field.
+        // function that makes an ajax validation.
         function action_ajax_validation($key = null){
             
-            // if the given key is not known to humanity, return no error.
-            if( ! array_key_exists($key, $this->get_validation_rules()) ) return '';
-            
+            // run the validation and get errors if there are.
+            $errors = $this->run_validation();
 
-            // get the validation rule of the single field. $key is the name of that field.
-            $rules = $this->get_validation_rules($key);
-            $messages = $this->get_validation_messages();
-            $validation = new Validator(Input::get(), $rules, $messages);
-            
-            // if validation fails, return the error to be outputted.
-            if( $validation->fails() ){
+            // check if there returned errors.
+            if( ! empty($errors) ){
                 
-                return $validation->errors->first($key);
+                // var to hold the json.
+                $err_json = array();
+                
+                // loop through the field sections.
+                foreach( $errors as $section => $section_errors ){
+                    
+                    // format the field name to be like their name in form.
+                    $name = $section;
+                    $name = ( $name != 'account' ? 'transaction[' . $name . ']' : $name );
 
+                    foreach( $section_errors->messages as $field_name => $error_msg ){
+                        
+                        // part of formatting the field name to be like their name in form.
+                        $final_name = $name . '[' . $field_name . ']';
+
+                        // collect the field names and errors.
+                        $err_json[$final_name] = $error_msg[0];
+
+                    }
+
+                }
+
+                // now format the field name and error msg as json.
+                return json_encode($err_json);
+                
             }
 
         }
