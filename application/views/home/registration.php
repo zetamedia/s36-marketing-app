@@ -117,10 +117,10 @@
                                         array('class' => 'reg-text')
                                     ); 
                                 ?><br/>
-                                <span name="account[password1]" class="err-text">
+                                <span name="account[password1]" class="err-text err-span">
                                     <?= (! is_null($err) ? ($err['account']->first('password1') != '' ? $err['account']->first('password1') : '') : ''); ?>
                                 </span><br/>
-                                <span name="account[password2]" class="err-text">
+                                <span name="account[password2]" class="err-text err-span">
                                     <?= (! is_null($err) ? ($err['account']->first('password2') != '' ? $err['account']->first('password2') : '') : ''); ?>
                                 </span>
                             </td>
@@ -210,7 +210,7 @@
                                         </option>
                                     <?php endforeach; ?>
                                 </select><br/>
-                                <span name="transaction[billing][country_name]" class="err-text">
+                                <span name="transaction[billing][country_name]" class="err-text err-span">
                                     <?= ! is_null($err) ? ($err['billing']->first('country_name') != '' ? $err['billing']->first('country_name') : '') : '' ?>
                                 </span>
 						    </td>
@@ -258,10 +258,10 @@
                                         </option>
                                     <? endfor; ?>
                                 </select>
-                                <span name="transaction[credit_card][expiration_month]" class="err-text">
+                                <span name="transaction[credit_card][expiration_month]" class="err-text err-span">
                                     <?= ! is_null($err) ? ($err['credit_card']->first('expiration_month') != '' ? $err['credit_card']->first('expiration_month') : '') : '' ?>
                                 </span><br/>
-                                <span name="transaction[credit_card][expiration_year]" class="err-text">
+                                <span name="transaction[credit_card][expiration_year]" class="err-text err-span">
                                     <?= ! is_null($err) ? ($err['credit_card']->first('expiration_year') != '' ? $err['credit_card']->first('expiration_year') : '') : '' ?>
                                 </span>
                              </td>
@@ -328,7 +328,7 @@
         // problem: fields with two pairs of brackets can't be recognized in selector.
         // ex: $('input[name=account[username]] => recognized.
         // ex: $('input[name=transaction[customer][first_name]] => not recognized.
-        return;
+        //return;
 
 
         // elements with their names in span array will have their errors displayed somewhere else. not in them.
@@ -353,38 +353,49 @@
             url: '<?= URL::base(); ?>/registration/ajax_validation/',
             success: function(error_msg){
                 
+                // display errors if there are.
                 if( error_msg != '' ){
-
+                    
+                    errors = error_msg;
                     error_msg = $.parseJSON(error_msg);
 
                     // loop through error_msg to display each.
                     $.each(error_msg, function(k, v){
-
-                        // if k is not in span array, display the error in the item.
-                        if( span.indexOf(k) == -1 ){
+                        
+                        // maybe it won't hurt to do another loop here.
+                        $('input, select, .err-span').each(function(){
                             
-                            $('input[name=' + k + ']').val( v );
-                            $('input[name=' + k + ']').addClass('err-text');
+                            // this will be our way of selecting the field with error
+                            // because we're having trouble with selecting fields with names
+                            // that contain two pairs of square bracket.
+                            if( $(this).attr('name') == k ){
+                                
+                                // if k is not in span array, display the error in the item.
+                                if( span.indexOf(k) == -1 ){
+                                    
+                                    $(this).val( v );
+                                    $(this).addClass('err-text');
+                                   
+                                // if k is in span array, display the error in item's span.
+                                }else{
+                                    
+                                    $(this).text( v );
 
-                        // if k is in span array, display the error in item's span.
-                        }else{
-                            
-                            $('span[name=' + k + ']').text( v );
+                                }        
 
-                        }
+                            }
+
+                        });
 
                     });
 
                 }
 
             }
+
         });
 
 
-
-        e.preventDefault(); // always for a while.
-        
-        
         // if there are any errors in the form, don't submit it.
         if( errors != '' ){
             
