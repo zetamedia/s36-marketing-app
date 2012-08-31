@@ -28,23 +28,15 @@
 
         // create new account email.
         function create_new_account_email(){
-            
-            // get the inputs.
-            $input = Input::get('transaction');
-            $account_input = Input::get('account');
-            $customer_input = $input['customer'];
-            $billing_input = $input['billing'];
-            $credit_card_input = $input['credit_card'];
 
-            $data['firstname'] = HTML::entities( $customer_input['first_name'] );
-            $data['username'] = HTML::entities( $account_input['username'] );
-            $data['password'] = HTML::entities( $account_input['password1'] );
-            $data['customer_email'] = HTML::entities( $customer_input['email'] );
+            $data['firstname'] = HTML::entities( FormData::reg('transaction[customer][first_name]') );
+            $data['username'] = HTML::entities( FormData::reg('account[username]') );
+            $data['password'] = HTML::entities( FormData::reg('account[password1]') );
+            $data['customer_email'] = HTML::entities( FormData::reg('transaction[customer][email]') );
             $site = URL::base();
-            $site = str_replace('http://', 'https://' . $customer_input['website'] . '.', $site);
-            $site = $site . '/login';
+            $site = str_replace('http://', 'https://' . FormData::reg('transaction[customer][website]') . '.', $site);
+            $site .= '/login';
             $data['account_login_url'] = HTML::entities( $site );
-            //$data['account_login_url'] = 'https://' . HTML::entities( $customer_input['website'] ) . '.36storiesapp.com/login';
 
             $this->subject = '36Stories New Account';
             $this->body = View::make('emails.new-account', $data);

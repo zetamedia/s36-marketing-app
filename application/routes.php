@@ -33,7 +33,6 @@
 */
 
 use PostMark\PostMark;
-use FormData\FormData;
 
 
 View::name('partial.layout', 'layout');
@@ -92,10 +91,6 @@ Route::get('registration-successful', function(){
 
 Route::get('test', function(){
     
-    $test = false;
-
-    return intval( empty($test) );
-    
     /*
     $output = '';
     $pattern = '/^[\w*\d*]+(-*_*\.*)?[\w*\d*]+$/';
@@ -116,59 +111,21 @@ Route::get('test', function(){
     return $output;
     */
 
-    //$email = new S36Email();
-    //$email->create_new_account_email();
-    //$email->to('kennwel.labarda@microsourcing.ph')->send();
-    
-    /*
+        
     $str = '<form method="post">';
-    $str .= '<input type="text" name="account[username]" /><br/>';
-    $str .= '<input type="text" name="transaction[customer][first_name]" /><br/>';
-    $str .= '<input type="text" name="transaction[credit_card][number]" /><br/>';
+    $str .= '<input type="text" name="test[ching]" /><br/>';
+    $str .= '<input type="text" name="test[puff]" /><br/>';
     $str .= '<input type="submit" value="submit" />';
     $str .= '</form>';
 
     return $str;
-    */
 
 });
 
 Route::post('test', function(){
     
-    /*
-    $input = Input::get();
-
-    $rules['ching'] = 'required';
-    $validation = new Validator($input['test'], $rules);
-
-    if( $validation->fails() ) return 'error';
-
-    else return 'success';
-    */
-
-    /*
-    $acc_input = Input::get('account');
-    $trans_input = Input::get('transaction');
-
-    $acc_rules['username'] = 'required';
-    $trans_rules['customer']['first_name'] = 'required';
-    $trans_rules['credit_card']['number'] = 'required';
-
-    $acc_val = Validator::make($acc_input, $acc_rules);
-    $customer_val = Validator::make($trans_input['customer'], $trans_rules['customer']);
-    $cc_val = Validator::make($trans_input['credit_card'], $trans_rules['credit_card']);
-
-    if( $acc_val->passes() && $customer_val->passes() && $cc_val->passes() ){
-        return 'ching';
-    }else{
-        return 'error';
-    }
-    */
-
-    //print_r(Input::get());
-
-    //return FormData::regs('test[ching]');
-    
+    return print_r(FormData::get('test'));
+        
 });
 
     
