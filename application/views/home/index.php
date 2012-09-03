@@ -17,7 +17,7 @@
                     Share hundreds of great customer experiences and testimonials, plus gain instant credibility with your audience and buyers. Start building your track record faster than your competition, and empower word-of-mouth marketing for your brand every single day. 
                 </p>
               
-                <div class="take-tour-btn" onclick="window.location='tour'"></div>
+                <div class="take-tour-btn" onclick="window.location='tour#0'"></div>
             </div>
             <div class="discover-text"></div>
             <div id="banner-right">

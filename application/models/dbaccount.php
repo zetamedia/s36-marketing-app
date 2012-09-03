@@ -18,33 +18,26 @@ class DBAccount extends s36dataobject {
 
     public function create_account() {
         
-        // get the inputs.
-        $input = Input::get('transaction');
-        $account_input = Input::get('account');
-        $customer_input = $input['customer'];
-        $billing_input = $input['billing'];
-        $credit_card_input = $input['credit_card'];
-
         $encrypt = new Encryption();
-        $password_string = $account_input['password1'];
+        $password_string = FormData::reg('account[password1]');
         $password = crypt( $password_string );
-        $name = $this->escape( $customer_input['first_name'] . ' ' . $customer_input['last_name'] );
-        $email = $this->escape( $customer_input['email'] );
+        $name = $this->escape( FormData::reg('transaction[customer][first_name]') . ' ' . FormData::reg('transaction[customer][last_name]') );
+        $email = $this->escape( FormData::reg('transaction[customer][email]') );
         $encrypt_string = $encrypt->encrypt($email."|".$password_string);
-        $company = $this->escape(strtolower( $customer_input['company'] ));
-        $username = $this->escape( $account_input['username'] );
-        $fullName = $this->escape( $customer_input['first_name'] . ' ' . $customer_input['last_name'] );
-        $site = $this->escape('www.' . $customer_input['website'] . '.com');
-        $site_name = $this->escape(strtolower( $customer_input['website'] ));
-        $plan = new Plan($account_input['plan']);
+        $company = $this->escape(strtolower( FormData::reg('transaction[customer][company]') ));
+        $username = $this->escape( FormData::reg('account[username]') );
+        $fullName = $this->escape( FormData::reg('transaction[customer][first_name]') . ' ' . FormData::reg('transaction[customer][last_name]') );
+        $site = $this->escape('www.' . FormData::reg('transaction[customer][website]') . '.com');
+        $site_name = $this->escape(strtolower( FormData::reg('transaction[customer][website]') ));
+        $plan = new Plan(FormData::reg('account[plan]'));
         $plan_id = $plan->get_plan_id();
         
-        $billing_name = $billing_input['first_name'] . ' ' . $billing_input['last_name'];
-        $billing_address = $billing_input['street_address'];
-        $billing_city = $billing_input['locality'];
-        $billing_state = $billing_input['region'];
-        $billing_country = $billing_input['country_name'];
-        $billing_zip = $billing_input['postal_code'];
+        $billing_name = FormData::reg('transaction[billing][first_name]') . ' ' . FormData::reg('transaction[billing][last_name]');
+        $billing_address = FormData::reg('transaction[billing][street_address]');
+        $billing_city = FormData::reg('transaction[billing][locality]');
+        $billing_state = FormData::reg('transaction[billing][region]');
+        $billing_country = FormData::reg('transaction[billing][country_name]');
+        $billing_zip = FormData::reg('transaction[billing][postal_code]');
         $bill_to = "$billing_name, $billing_address, $billing_city, $billing_state, $billing_country, $billing_zip";
 
         

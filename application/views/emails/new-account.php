@@ -33,7 +33,7 @@
                         <tr>
                         	<td colspan="3" style="padding-right:140px;line-height:20px;color:#464646;">
                                 
-                                Hi <b><?= $firstname; ?></b>,<br/><br/>
+                                Hi <b><?= ucfirst($firstname); ?></b>,<br/><br/>
 
                                 Thank you for registering with us. Please click the link below and use the following username and password to log in to your account backend.<br/><br/>
                                 Username: <?= $username; ?><br/>

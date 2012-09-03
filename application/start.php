@@ -60,6 +60,18 @@ Laravel\Autoloader::$aliases = $aliases;
 
 Autoloader::map(array(
 	'Base_Controller' => path('app').'controllers/base.php',
+    'Braintree' => path('app') . 'libraries/braintree/lib/Braintree.php'  // added.
+));
+
+/*
+|--------------------------------------------------------------------------
+| Auto-Loader Underscored
+|--------------------------------------------------------------------------
+|
+*/
+
+Autoloader::underscored(array(
+    'Braintree' => path('app') . 'libraries/braintree/lib/Braintree'  // added.
 ));
 
 /*

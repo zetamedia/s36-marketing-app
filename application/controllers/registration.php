@@ -1,5 +1,7 @@
 <?php
     
+    use S36Braintree\S36Braintree;
+
     class Registration_Controller extends Base_Controller{
         
         // show the registration form.
@@ -14,8 +16,12 @@
 
             $data['plan'] = $plan;
             $data['country_names'] = Country::get_all_names();
-            $data['err'] = $errors;
-            $data['input'] = Input::get();
+
+            // if $errors is array, it's form validation errors.
+            $data['err'] = ( is_array($errors) ? $errors : null );
+
+            // if $errors is not array, it's a string error from braintree.
+            $data['braintree_err'] = ( is_array($errors) ? null : $errors );
             
             return View::of('layout')->nest('contents', 'home.registration', $data);
 
@@ -26,47 +32,38 @@
         // do all the process in registration.
         function action_process(){
             
-            // get the inputs.
-            $input = Input::get('transaction');
-            $account_input = Input::get('account');
-            $customer_input = $input['customer'];
-            $billing_input = $input['billing'];
-            $credit_card_input = $input['credit_card'];
-            
-
-            // run the validation and get the errors if there are. 
+            // run the form validation and get the errors if there are. 
             $errors = $this->run_validation();
 
-            // do the registration processing if no errors.
-            if( empty($errors) ){
-                
-                // save customer account in db.
-                $dbaccount = new DBAccount();
-                $dbaccount->create_account();
+            // if there are form validation errors, show the regs form with errors.
+            if( ! empty($errors) ) return $this->action_show_form(FormData::reg('account[plan]'), $errors);
 
 
-                // send email to customer.
-                $email = new S36Email();
-                $email->create_new_account_email();
-                $email->to($customer_input['email'])->send();
+            // run the braintree transaction and get the result.
+            $result = S36Braintree::transact();
 
-                
-                // redirect to success page with the customer's site name.
-                $site = URL::base();
-                $site = str_replace('http://', 'https://' . $customer_input['website'] . '.', $site);
-                $site = $site . '/login';
-                return Redirect::to('registration-successful/?login_url=' . $site);
+            // if braintree transaction didn't succeed, show the regs form with errors.
+            if( ! $result->success ) return $this->action_show_form(FormData::reg('account[plan]'), $result->message);
 
-                //$site = 'https://' . $customer_input['website'] . '.36storiesapp.com/login';
-                //return Redirect::to('registration-successful/?login_url=' . $site);
+            
+            // do the registration processing if form validation and braintree succeeds.
+            
+            // save customer account in db.
+            $dbaccount = new DBAccount();
+            $dbaccount->create_account();
 
 
-            // if any of the validations failed, show the regs form with errors.
-            }else{
-                
-                return $this->action_show_form($account_input['plan'], $errors);
-
-            }
+            // send email to customer.
+            $email = new S36Email();
+            $email->create_new_account_email();
+            $email->to(FormData::reg('transaction[customer][email]'))->send();
+            
+            
+            // redirect to success page with the customer's site name.
+            $site = URL::base();
+            $site = str_replace('http://', 'https://' . FormData::reg('transaction[customer][website]') . '.', $site);
+            $site = $site . '/login';
+            return Redirect::to('registration-successful/?login_url=' . $site);
 
         }
 
@@ -75,25 +72,24 @@
         // run the validation of registration form. 
         // return the errors if there are. return false if none.
         function run_validation(){
-            
-            // get the inputs.
-            $input = Input::get('transaction');
-            $account_input = Input::get('account');
-            $customer_input = $input['customer'];
-            $billing_input = $input['billing'];
-            $credit_card_input = $input['credit_card'];
 
             // get the validation rules.
             $account_rules = $this->get_validation_rules('account');
             $customer_rules = $this->get_validation_rules('customer');
             $billing_rules = $this->get_validation_rules('billing');
             $credit_card_rules = $this->get_validation_rules('credit_card');
-
+            
+            // get the custom validation messages.
+            $account_msg = $this->get_validation_messages('account');
+            $customer_msg = $this->get_validation_messages('customer');
+            $billing_msg = $this->get_validation_messages('billing');
+            $credit_card_msg = $this->get_validation_messages('credit_card');
+            
             // create validation objects.
-            $account_val = Validator::make($account_input, $account_rules);
-            $customer_val = Validator::make($customer_input, $customer_rules);
-            $billing_val = Validator::make($billing_input, $billing_rules);
-            $credit_card_val = Validator::make($credit_card_input, $credit_card_rules);
+            $account_val = Validator::make(FormData::reg('account'), $account_rules, $account_msg);
+            $customer_val = Validator::make(FormData::reg('transaction[customer]'), $customer_rules, $customer_msg);
+            $billing_val = Validator::make(FormData::reg('transaction[billing]'), $billing_rules, $billing_msg);
+            $credit_card_val = Validator::make(FormData::reg('transaction[credit_card]'), $credit_card_rules, $credit_card_msg);
             
             // run the validations.
             $account_val->passes();
@@ -158,36 +154,45 @@
 
 
         // set and return the custom validation messages.
-        function get_validation_messages(){
+        function get_validation_messages($key = null){
             
-            $msg['transaction[customer][first_name]_required'] = 'Please Enter Your First Name';
-            $msg['transaction[customer][last_name]_required'] = 'Please Enter Your Last Name';
-            $msg['transaction[customer][email]_required'] = 'Please Enter Your Email';
-            $msg['transaction[customer][company]_required'] = 'Please Enter Your Company';
-            $msg['username_required'] = 'Please Enter Your Username';
-            $msg['password1_required'] = 'Please Enter Your Password';
-            $msg['password1_min'] = 'Password must be at lest :min characters';
-            $msg['password1_same'] = 'Your passwords don\'t match';
-            $msg['password2_required'] = 'Please Enter Your Password Confirmation';
-            $msg['password2_min'] = 'Password Confirmation must be at lest :min characters';
-            $msg['transaction[customer][website]_required'] = 'Please Enter Your Site Address';
-            $msg['transaction[billing][first_name]_required'] = 'Please Enter Your Billing First Name';
-            $msg['transaction[billing][last_name]_required'] = 'Please Enter Your Billing Last Name';
-            $msg['transaction[billing][street_address]_required'] = 'Please Enter Your Billing Address';
-            $msg['transaction[billing][locality]_required'] = 'Please Enter Your Billing City';
-            $msg['transaction[billing][region]_required'] = 'Please Enter Your Billing State';
-            $msg['transaction[billing][country_name]_required'] = 'Please Enter Your Billing Country';
-            $msg['transaction[billing][country_name]_exists'] = 'The Selected Billing Country is invalid';
-            $msg['transaction[billing][postal_code]_required'] = 'Please Enter Your Billing Zip';
-            $msg['transaction[credit_card][number]_required'] = 'Please Enter Your Credit Card Number';
-            $msg['transaction[credit_card][number]_numeric'] = 'Credit Card Number must be numeric';
-            $msg['transaction[credit_card][expiration_month]_required'] = 'Please Enter Expiry Month';
-            $msg['transaction[credit_card][expiration_month]_in'] = 'The selected Expiry Month is invalid';
-            $msg['transaction[credit_card][expiration_year]_required'] = 'Please Enter Expiry Year';
-            $msg['transaction[credit_card][expiration_year]_in'] = 'The selected Expiry Year is invalid';
-            $msg['transaction[credit_card][cvv]_required'] = 'Please Enter Your CVV';
+            $msg['account']['username_required'] = 'Please Enter Your Username';
+            $msg['account']['username_max'] = 'The Username must be less than :max characters';
+            $msg['account']['password1_required'] = 'Please Enter Your Password';
+            $msg['account']['password1_min'] = 'Password must be at lest :min characters';
+            $msg['account']['password1_same'] = 'Your passwords don\'t match';
+            $msg['account']['password2_required'] = 'Please Enter Your Password Confirmation';
+            $msg['account']['password2_min'] = 'Password Confirmation must be at lest :min characters';
+            
+            $msg['customer']['first_name_required'] = 'Please Enter Your First Name';
+            $msg['customer']['first_name_max'] = 'The First Name must be less than :max characters';
+            $msg['customer']['last_name_required'] = 'Please Enter Your Last Name';
+            $msg['customer']['last_name_max'] = 'The Last Name must be less than :max characters';
+            $msg['customer']['email_required'] = 'Please Enter Your Email';
+            $msg['customer']['email_max'] = 'The Email must be less than :max characters';
+            $msg['customer']['company_required'] = 'Please Enter Your Company';
+            $msg['customer']['company_max'] = 'The Company must be less than :max characters';
+            $msg['customer']['website_required'] = 'Please Enter Your Site Address';
+            $msg['customer']['website_max'] = 'The Site Address must be less than :max characters';
+            
+            $msg['billing']['first_name_required'] = 'Please Enter Your Billing First Name';
+            $msg['billing']['last_name_required'] = 'Please Enter Your Billing Last Name';
+            $msg['billing']['street_address_required'] = 'Please Enter Your Billing Address';
+            $msg['billing']['locality_required'] = 'Please Enter Your Billing City';
+            $msg['billing']['region_required'] = 'Please Enter Your Billing State';
+            $msg['billing']['country_name_required'] = 'Please Enter Your Billing Country';
+            $msg['billing']['country_name_exists'] = 'The Selected Billing Country is invalid';
+            $msg['billing']['postal_code_required'] = 'Please Enter Your Billing Zip';
+            
+            $msg['credit_card']['number_required'] = 'Please Enter Your Credit Card Number';
+            $msg['credit_card']['number_numeric'] = 'Credit Card Number must be numeric';
+            $msg['credit_card']['expiration_month_required'] = 'Please Enter Expiry Month';
+            $msg['credit_card']['expiration_month_in'] = 'The selected Expiry Month is invalid';
+            $msg['credit_card']['expiration_year_required'] = 'Please Enter Expiry Year';
+            $msg['credit_card']['expiration_year_in'] = 'The selected Expiry Year is invalid';
+            $msg['credit_card']['cvv_required'] = 'Please Enter Your CVV';
 
-            return $msg;
+            return $msg[$key];
 
         }
 
