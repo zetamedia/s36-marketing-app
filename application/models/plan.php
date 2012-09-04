@@ -41,6 +41,15 @@
 
 
 
+        // get plan's price.
+        function get_price(){
+            
+            return $this->plan->price;
+
+        }
+
+
+
         // get plan's plan id.
         function get_plan_id(){
             

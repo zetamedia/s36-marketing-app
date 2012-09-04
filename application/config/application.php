@@ -139,6 +139,7 @@ return array(
 	*/
 
 	'aliases' => array(
+        'S36Braintree'  => 'S36Braintree\\S36Braintree',  // added.
 		'Auth'       	=> 'Laravel\\Auth',
 		'Authenticator' => 'Laravel\\Auth\\Drivers\\Driver',
 		'Asset'      	=> 'Laravel\\Asset',

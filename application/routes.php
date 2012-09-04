@@ -32,8 +32,6 @@
 |
 */
 
-use PostMark\PostMark;
-
 
 View::name('partial.layout', 'layout');
 
@@ -91,6 +89,12 @@ Route::get('registration-successful', function(){
 
 Route::get('test', function(){
     
+    $result = S36Braintree::transact();
+    return $result->transaction->status;
+
+    exit();
+
+
     /*
     $output = '';
     $pattern = '/^[\w*\d*]+(-*_*\.*)?[\w*\d*]+$/';
@@ -111,24 +115,9 @@ Route::get('test', function(){
     return $output;
     */
 
-        
-    $str = '<form method="post">';
-    $str .= '<input type="text" name="test[ching]" /><br/>';
-    $str .= '<input type="text" name="test[puff]" /><br/>';
-    $str .= '<input type="submit" value="submit" />';
-    $str .= '</form>';
-
-    return $str;
-
 });
 
-Route::post('test', function(){
-    
-    return print_r(FormData::get('test'));
-        
-});
 
-    
 /*
 |--------------------------------------------------------------------------
 | Application 404 & 500 Error Handlers

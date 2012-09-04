@@ -2,7 +2,6 @@
     
     use PostMark\PostMark;
 
-
     class S36Email{
         
         private $key = '11c0c3be-3d0c-47b2-99a6-02fb1c4eed71';

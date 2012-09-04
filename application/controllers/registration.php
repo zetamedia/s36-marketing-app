@@ -1,4 +1,6 @@
 <?php
+    
+    use S36Braintree\S36Braintree;
 
     class Registration_Controller extends Base_Controller{
         
@@ -14,8 +16,12 @@
 
             $data['plan'] = $plan;
             $data['country_names'] = Country::get_all_names();
-            $data['err'] = $errors;
-            $data['input'] = Input::get();
+
+            // if $errors is array, it's form validation errors.
+            $data['err'] = ( is_array($errors) ? $errors : null );
+
+            // if $errors is not array, it's a string error from braintree.
+            $data['braintree_err'] = ( is_array($errors) ? null : $errors );
             
             return View::of('layout')->nest('contents', 'home.registration', $data);
 
@@ -26,36 +32,38 @@
         // do all the process in registration.
         function action_process(){
             
-            // run the validation and get the errors if there are. 
+            // run the form validation and get the errors if there are. 
             $errors = $this->run_validation();
 
-            // do the registration processing if no errors.
-            if( empty($errors) ){
-                
-                // save customer account in db.
-                $dbaccount = new DBAccount();
-                $dbaccount->create_account();
+            // if there are form validation errors, show the regs form with errors.
+            if( ! empty($errors) ) return $this->action_show_form(FormData::reg('account[plan]'), $errors);
 
 
-                // send email to customer.
-                $email = new S36Email();
-                $email->create_new_account_email();
-                $email->to(FormData::reg('transaction[customer][email]'))->send();
+            // run the braintree transaction and get the result.
+            $result = S36Braintree::transact();
 
-                
-                // redirect to success page with the customer's site name.
-                $site = URL::base();
-                $site = str_replace('http://', 'https://' . FormData::reg('transaction[customer][website]') . '.', $site);
-                $site = $site . '/login';
-                return Redirect::to('registration-successful/?login_url=' . $site);
+            // if braintree transaction didn't succeed, show the regs form with errors.
+            if( ! $result->success ) return $this->action_show_form(FormData::reg('account[plan]'), $result->message);
+
+            
+            // do the registration processing if form validation and braintree succeeds.
+            
+            // save customer account in db.
+            $dbaccount = new DBAccount();
+            $dbaccount->create_account();
 
 
-            // if any of the validations failed, show the regs form with errors.
-            }else{
-                
-                return $this->action_show_form(FormData::reg('account[plan]'), $errors);
-
-            }
+            // send email to customer.
+            $email = new S36Email();
+            $email->create_new_account_email();
+            $email->to(FormData::reg('transaction[customer][email]'))->send();
+            
+            
+            // redirect to success page with the customer's site name.
+            $site = URL::base();
+            $site = str_replace('http://', 'https://' . FormData::reg('transaction[customer][website]') . '.', $site);
+            $site = $site . '/login';
+            return Redirect::to('registration-successful/?login_url=' . $site);
 
         }
 
@@ -78,7 +86,6 @@
             $credit_card_msg = $this->get_validation_messages('credit_card');
             
             // create validation objects.
-            //$account_val = Validator::make($account_input, $account_rules, $account_msg);
             $account_val = Validator::make(FormData::reg('account'), $account_rules, $account_msg);
             $customer_val = Validator::make(FormData::reg('transaction[customer]'), $customer_rules, $customer_msg);
             $billing_val = Validator::make(FormData::reg('transaction[billing]'), $billing_rules, $billing_msg);
