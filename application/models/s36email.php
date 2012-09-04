@@ -28,12 +28,12 @@
         // create new account email.
         function create_new_account_email(){
 
-            $data['firstname'] = HTML::entities( FormData::reg('transaction[customer][first_name]') );
-            $data['username'] = HTML::entities( FormData::reg('account[username]') );
-            $data['password'] = HTML::entities( FormData::reg('account[password1]') );
-            $data['customer_email'] = HTML::entities( FormData::reg('transaction[customer][email]') );
+            $data['firstname'] = HTML::entities( Input::get('first_name') );
+            $data['username'] = HTML::entities( Input::get('username') );
+            $data['password'] = HTML::entities( Input::get('password') );
+            $data['customer_email'] = HTML::entities( Input::get('email') );
             $site = URL::base();
-            $site = str_replace('http://', 'https://' . FormData::reg('transaction[customer][website]') . '.', $site);
+            $site = str_replace('http://', 'https://' . Input::get('site_name') . '.', $site);
             $site .= '/login';
             $data['account_login_url'] = HTML::entities( $site );
 

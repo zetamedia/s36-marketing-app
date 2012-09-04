@@ -1,7 +1,7 @@
 <?php
     
     namespace S36Braintree;
-    use FormData;
+    use Input;
     
     class S36Braintree{
         
@@ -9,7 +9,7 @@
         static function transact(){
             
             // get first the price of the selected plan.
-            $plan = new \Plan( FormData::reg('plan') );
+            $plan = new \Plan( Input::get('plan') );
             $amount = $plan->get_price();
 
 
@@ -27,26 +27,26 @@
                     'submitForSettlement' => true
                 ),
                 'customer' => array(
-                    'firstName' => FormData::reg('first_name'),
-                    'lastName' => FormData::reg('last_name'),
-                    'email' => FormData::reg('email'),
-                    'company' => FormData::reg('company'),
-                    'website' => 'www.' . FormData::reg('site_name') . '.com'
+                    'firstName' => Input::get('first_name'),
+                    'lastName' => Input::get('last_name'),
+                    'email' => Input::get('email'),
+                    'company' => Input::get('company'),
+                    'website' => 'www.' . Input::get('site_name') . '.com'
                 ),
                 'billing' => array(
-                    'firstName' => FormData::reg('billing_first_name'),
-                    'lastName' => FormData::reg('billing_last_name'),
-                    'streetAddress' => FormData::reg('billing_address'),
-                    'locality' => FormData::reg('billing_city'),
-                    'region' => FormData::reg('billing_state'),
-                    'countryName' => FormData::reg('billing_country'),
-                    'postalCode' => FormData::reg('billing_zip')
+                    'firstName' => Input::get('billing_first_name'),
+                    'lastName' => Input::get('billing_last_name'),
+                    'streetAddress' => Input::get('billing_address'),
+                    'locality' => Input::get('billing_city'),
+                    'region' => Input::get('billing_state'),
+                    'countryName' => Input::get('billing_country'),
+                    'postalCode' => Input::get('billing_zip')
                 ),
                 'creditCard' => array(
-                    'number' => FormData::reg('card_number'),
-                    'expirationMonth' => FormData::reg('expiration_month'),
-                    'expirationYear' => FormData::reg('expiration_year'),
-                    'cvv' => FormData::reg('cvv')
+                    'number' => Input::get('card_number'),
+                    'expirationMonth' => Input::get('expiration_month'),
+                    'expirationYear' => Input::get('expiration_year'),
+                    'cvv' => Input::get('cvv')
                 )
             ));
 

@@ -46,7 +46,7 @@
             $data['company'] = self::get('transaction', 'customer', 'company');
             $data['username'] = self::get('account', 'username');
             $data['password'] = self::get('account', 'password1');
-            $data['password_confirmation]'] = self::get('account', 'password2');
+            $data['password_confirmation'] = self::get('account', 'password2');
             $data['site_name'] = self::get('transaction', 'customer', 'website');
             $data['billing_first_name'] = self::get('transaction', 'billing', 'first_name');
             $data['billing_last_name'] = self::get('transaction', 'billing', 'last_name');
@@ -59,6 +59,29 @@
             $data['expiration_month'] = self::get('transaction', 'credit_card', 'expiration_month');
             $data['expiration_year'] = self::get('transaction', 'credit_card', 'expiration_year');
             $data['cvv'] = self::get('transaction', 'credit_card', 'cvv');
+            
+
+            
+            $data['plan'] = Input::get('plan');
+            $data['first_name'] = Input::get('first_name');
+            $data['last_name'] = Input::get('last_name');
+            $data['email'] = Input::get('email');
+            $data['company'] = Input::get('company');
+            $data['username'] = Input::get('username');
+            $data['password'] = Input::get('password');
+            $data['password_confirmation'] = Input::get('password_confirmation');
+            $data['site_name'] = Input::get('site_name');
+            $data['billing_first_name'] = Input::get('billing_first_name');
+            $data['billing_last_name'] = Input::get('billing_last_name');
+            $data['billing_address'] = Input::get('billing_address');
+            $data['billing_city'] = Input::get('billing_city');
+            $data['billing_state'] = Input::get('billing_state');
+            $data['billing_country'] = Input::get('billing_country');
+            $data['billing_zip'] = Input::get('billing_zip');
+            $data['card_number'] = Input::get('card_number');
+            $data['expiration_month'] = Input::get('expiration_month');
+            $data['expiration_year'] = Input::get('expiration_year');
+            $data['cvv'] = Input::get('cvv');
             
 
             return $data[$key];
