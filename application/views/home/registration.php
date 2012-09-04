@@ -325,7 +325,7 @@
     // validate form when submitted.
     $('input[type=submit]').click(function(e){
         
-        return;  // disabled for now.
+        //return;  // disabled for now.
 
         // elements with their names in span array will have their errors displayed somewhere else. not in them.
         var span = ['account[password1]', 'account[password2]', 'transaction[billing][country_name]', 'transaction[credit_card][expiration_month]', 'transaction[credit_card][expiration_year]'];

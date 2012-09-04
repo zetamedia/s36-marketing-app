@@ -89,12 +89,6 @@ Route::get('registration-successful', function(){
 
 Route::get('test', function(){
     
-    $result = S36Braintree::transact();
-    return $result->transaction->status;
-
-    exit();
-
-
     /*
     $output = '';
     $pattern = '/^[\w*\d*]+(-*_*\.*)?[\w*\d*]+$/';
