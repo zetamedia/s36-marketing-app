@@ -117,10 +117,10 @@
                                         array('class' => 'reg-text')
                                     ); 
                                 ?><br/>
-                                <span name="password" class="err-text err-span">
+                                <span name="password">
                                     <?= (! is_null($err) ? ($err->has('password') ? $err->first('password') : '') : ''); ?>
                                 </span><br/>
-                                <span name="password_confirmation" class="err-text err-span">
+                                <span name="password_confirmation">
                                     <?= (! is_null($err) ? ($err->has('password_confirmation') ? $err->first('password_confirmation') : '') : ''); ?>
                                 </span>
                             </td>
@@ -210,7 +210,7 @@
                                         </option>
                                     <?php endforeach; ?>
                                 </select><br/>
-                                <span name="billing_country" class="err-text err-span">
+                                <span name="billing_country">
                                     <?= ! is_null($err) ? ($err->has('billing_country') ? $err->first('billing_country') : '') : '' ?>
                                 </span>
 						    </td>
@@ -258,10 +258,10 @@
                                         </option>
                                     <? endfor; ?>
                                 </select>
-                                <span name="expiration_month" class="err-text err-span">
+                                <span name="expiration_month">
                                     <?= ! is_null($err) ? ($err->has('expiration_month') ? $err->first('expiration_month') : '') : '' ?>
                                 </span><br/>
-                                <span name="expiration_year" class="err-text err-span">
+                                <span name="expiration_year">
                                     <?= ! is_null($err) ? ($err->has('expiration_year') ? $err->first('expiration_year') : '') : '' ?>
                                 </span>
                                 <span class="err-text"><?= nl2br($braintree_err); ?></span>
@@ -330,6 +330,11 @@
         var errors = '';
         var data = '';
 
+
+        // reset the err-text and error spans.
+        $('span.err-text').text('');
+        $('.err-text').removeClass('err-text');
+
         
         // loop through inputs and selects and collect their names and values.
         $('input, select').each(function(){
@@ -366,6 +371,7 @@
                         }else{
                             
                             $('span[name=' + name + ']').text( msg );
+                            $('span[name=' + name + ']').addClass('err-text');
 
                         }
 
@@ -383,9 +389,9 @@
             
             e.preventDefault();
             
-            // scroll to the top of the form.
+            // scroll to the first error the form.
             $('html, body').animate({
-				scrollTop: $("#leftcontents").offset().top
+				scrollTop: $('.err-text').first().offset().top
 			}, 200);
 
         }
