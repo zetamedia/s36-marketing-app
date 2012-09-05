@@ -1,6 +1,6 @@
 <?php
     
-    use S36Braintree\S36Braintree;
+    //use S36Braintree\S36Braintree;
 
     class Registration_Controller extends Base_Controller{
         

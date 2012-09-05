@@ -25,9 +25,9 @@
                         <h4>FOR SMALL BUSINESS</h4>
                         <div class="plan-list">
                         <ul>
-                        	<li><span>One Site Profile</span></li>
-							<li><span>50 Feedback monthly</span></li>
-							<li><span>50 Contacts</span></li>
+                        	<li><span>50 Feedback monthly</span></li>
+							<li><span>10 Library Themes</span></li>
+							<li><span>With Branding Option</span></li>
                         </ul>
                         </div>
                         <div class="signup" onclick="window.location='registration/basic'"></div>
@@ -41,9 +41,9 @@
                                 <h4>MOST POPULAR</h4>
                                 <div class="enhanced-plan-list">
                                     <ul>
-                                        <li><span>One Site Profile</span></li>
                                         <li><span>Unlimited Feedback</span></li>
-                                        <li><span>Unlimited Contacts</span></li>
+                                        <li><span>Unlimited use of Library Themes</span></li>
+                                        <li><span>No Branding Option</span></li>
                                     </ul>
                                 </div>
                             </div>
@@ -56,9 +56,9 @@
                         <h4>FOR MULTIPLE SITES</h4>
                         <div class="plan-list">                        
                         <ul>
-                        	<li><span>3 Site Profiles</span></li>
-                            <li><span>Unlimited Feedback</span></li>
-		                    <li><span>Unlimited Contacts</span></li>
+                        	<li><span>Unlimited Feedback</span></li>
+                            <li><span>Unlimited use of Library Themes</span></li>
+		                    <li><span>No Branding Option</span></li>
                         </ul>
                         </div>
                         <div class="signup" onclick="window.location='registration/premium'"></div>
@@ -70,7 +70,7 @@
 					strong a{color:#333}
 					strong a:hover{color:#444}
 				</style>
-            	<p>We also offer a <strong><?=HTML::link('registration/free','free plan')?></strong>: 1 site profile, 30 published feedback and 30 contacts.</p>
+            	<p>We also offer a <strong><?=HTML::link('registration/free','free plan')?></strong>: 30 published feedback and 10 Library Themes.</p>
             </div>
         	<h1><span>36</span>Stories is trusted by businesses of all sizes</h1>
             <div class="page-block" style="padding-right:10px;">
