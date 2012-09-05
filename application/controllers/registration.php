@@ -61,8 +61,12 @@
             
             // redirect to success page with the customer's site name.
             $site = URL::base();
-            $site = str_replace('http://', 'https://' . Input::get('site_name') . '.', $site);
-            $site = $site . '/login';
+            $tld = ( strrpos($site, '.') !== false ? substr($site, strrpos($site, '.')) : '' );
+            $host = str_replace('http://', '', $site);
+            $host = str_replace($tld, '', $host);
+            $host = substr($host, strrpos($host, '.'));
+            $host = str_replace('.', '', $host);
+            $site = 'https://' . Input::get('site_name') . '.' . $host . $tld . '/login';
             return Redirect::to('registration-successful/?login_url=' . $site);
 
         }
@@ -161,40 +165,6 @@
 
             }
             
-            
-            // run the validation and get errors if there are.
-            /*$errors = $this->run_validation();
-
-            // check if there returned errors.
-            if( ! empty($errors) ){
-                
-                // var to hold the json.
-                $err_json = array();
-                
-                // loop through the field sections.
-                foreach( $errors as $section => $section_errors ){
-                    
-                    // format the field name to be like their name in form.
-                    $name = $section;
-                    $name = ( $name != 'account' ? 'transaction[' . $name . ']' : $name );
-
-                    foreach( $section_errors->messages as $field_name => $error_msg ){
-                        
-                        // part of formatting the field name to be like their name in form.
-                        $final_name = $name . '[' . $field_name . ']';
-
-                        // collect the field names and errors.
-                        $err_json[$final_name] = $error_msg[0];
-
-                    }
-
-                }
-
-                // now format the field name and error msg as json.
-                return json_encode($err_json);
-                
-            }*/
-
         }
 
     }

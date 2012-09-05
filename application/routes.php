@@ -89,6 +89,22 @@ Route::get('registration-successful', function(){
 
 Route::get('test', function(){
     
+    $site_name = 'kennwel';
+    $site = URL::base();
+    //$site = 'http://Marketing-Site-Laravel-';
+    //$site = 'http://www.mathew-marketing.gearfish.com';
+    //$site = 'http://gearfish.com';
+
+    $tld = ( strrpos($site, '.') !== false ? substr($site, strrpos($site, '.')) : '' );
+    $host = str_replace('http://', '', $site);
+    $host = str_replace($tld, '', $host);
+    $host = substr($host, strrpos($host, '.'));
+    $host = str_replace('.', '', $host);
+    $site = 'https://' . $site_name . '.' . $host . $tld . '/login';
+
+    return $site;
+
+    
     /*
     $output = '';
     $pattern = '/^[\w*\d*]+(-*_*\.*)?[\w*\d*]+$/';
