@@ -92,15 +92,15 @@ Route::get('test', function(){
     //$result = S36Braintree::create_account();
     //Helpers::show_data($result);
 
-    $company = new S36Braintree(75);
-    $company->update_subscription('enhanced');
+    $company = new S36Braintree(73);
+    //$company->update_subscription('enhanced');
     Helpers::show_data($company);
     
-    $result = $company->get_next_billing_info();
-    Helpers::show_data($result);
+    //$result = $company->get_next_billing_info();
+    //Helpers::show_data($result);
     
-    $result = $company->get_billing_history();
-    Helpers::show_data($result);
+    //$result = $company->get_billing_history();
+    //Helpers::show_data($result);
 
 
 

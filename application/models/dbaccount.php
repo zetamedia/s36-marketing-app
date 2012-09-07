@@ -41,8 +41,8 @@ class DBAccount extends s36dataobject {
         $bill_to = "$billing_name, $billing_address, $billing_city, $billing_state, $billing_country, $billing_zip";
 
         $customer_id = $bt_account_data['customer_id'];
-        $token = $bt_account_data['token'];
-        $subscription_id = $bt_account_data['subscription_id'];
+        $token = $bt_account_data['token'];  // will not be needed later.
+        $subscription_id = $bt_account_data['subscription_id'];  // will not be needed later.
 
         
         if($this->company($company)) {
