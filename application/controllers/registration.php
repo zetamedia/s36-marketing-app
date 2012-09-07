@@ -40,17 +40,17 @@
 
             
             // run the braintree transaction and get the result.
-            $result = S36Braintree::transact();
+            $result = S36Braintree::create_account();
 
             // if braintree transaction didn't succeed, show the regs form with errors.
-            if( ! $result->success ) return $this->action_show_form(Input::get('plan'), $result->message);
+            if( ! $result['success'] ) return $this->action_show_form(Input::get('plan'), $result['message']);
 
             
             // do the registration processing if form validation and braintree succeeds.
             
             // save customer account in db.
             $dbaccount = new DBAccount();
-            $dbaccount->create_account();
+            $dbaccount->create_account($result);
 
 
             // send email to customer.

@@ -16,7 +16,7 @@ class DBAccount extends s36dataobject {
         //} 
     }
 
-    public function create_account() {
+    public function create_account($bt_account_data) {
         
         $encrypt = new Encryption();
         $password_string = Input::get('password');
@@ -40,6 +40,10 @@ class DBAccount extends s36dataobject {
         $billing_zip = Input::get('billing_zip');
         $bill_to = "$billing_name, $billing_address, $billing_city, $billing_state, $billing_country, $billing_zip";
 
+        $customer_id = $bt_account_data['customer_id'];
+        $token = $bt_account_data['token'];
+        $subscription_id = $bt_account_data['subscription_id'];
+
         
         if($this->company($company)) {
             
@@ -48,7 +52,7 @@ class DBAccount extends s36dataobject {
         } else {
             
             $this->dbh->beginTransaction();
-            $this->dbh->query('INSERT INTO Company (`name`, `planId`, `billTo`) VALUES("'.$company.'", ' . $plan_id . ', "'.$bill_to.'")');
+            $this->dbh->query('INSERT INTO Company (`name`, `planId`, `billTo`, `bt_customer_id`, `bt_payment_token`, `bt_subscription_id`) VALUES("'.$company.'", ' . $plan_id . ', "'.$bill_to.'", "' . $customer_id . '", "' . $token . '", "' . $subscription_id . '")');
             $this->dbh->query('SET @company_id = LAST_INSERT_ID()');
             $this->dbh->query('INSERT INTO Metric (`companyId`, `totalRequest`, `totalResponse`) VALUES(@company_id, 0, 0)'); 
             $this->dbh->query('INSERT INTO Site (`companyId`, `domain`, `name`, `defaultFormId`) VALUES(@company_id, "'.$site.'", "'.$site_name.'", 1)');   
