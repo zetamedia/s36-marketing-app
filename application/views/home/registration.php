@@ -32,7 +32,7 @@
                     ?>
                     <br /><br />                        
                 </div>
-            	<?= Form::open('registration/' . $plan, 'POST'); ?>
+            	<?= Form::open('registration/' . $plan, 'POST', array('autocomplete' => 'off')); ?>
                 <?= Form::hidden('plan', $plan); ?>
                 <div class="leftcontentblock">
                 	<h2><span>1.</span> Create your <span>36</span>Stories Account</h2>
@@ -236,6 +236,7 @@
                                         array('class' => 'reg-text ' . ( ! is_null($err) ? ($err->has('card_number') ? 'err-text' : '') : '') )
                                     ); 
                                 ?>
+                                <span class="err-text"><?= nl2br($braintree_err); ?></span>
                             </td>
                             <td valign="middle">
 								<strong class="secure-ico">Secure</strong>
@@ -264,7 +265,6 @@
                                 <span name="expiration_year">
                                     <?= ! is_null($err) ? ($err->has('expiration_year') ? $err->first('expiration_year') : '') : '' ?>
                                 </span>
-                                <span class="err-text"><?= nl2br($braintree_err); ?></span>
                              </td>
                              <td><?=HTML::image('img/cards.jpg','Credit Cards')?></td>
                         </tr>
