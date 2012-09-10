@@ -33,8 +33,12 @@
             $data['password'] = HTML::entities( Input::get('password') );
             $data['customer_email'] = HTML::entities( Input::get('email') );
             $site = URL::base();
-            $site = str_replace('http://', 'https://' . Input::get('site_name') . '.', $site);
-            $site .= '/login';
+            $tld = ( strrpos($site, '.') !== false ? substr($site, strrpos($site, '.')) : '' );
+            $host = str_replace('http://', '', $site);
+            $host = str_replace($tld, '', $host);
+            $host = substr($host, strrpos($host, '.'));
+            $host = str_replace('.', '', $host);
+            $site = 'https://' . Input::get('site_name') . '.' . $host . $tld . '/login';
             $data['account_login_url'] = HTML::entities( $site );
 
             $this->subject = '36Stories New Account';
