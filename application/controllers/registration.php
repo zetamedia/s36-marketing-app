@@ -8,14 +8,14 @@
         function action_show_form($plan = null, $errors = null){
             
             // get the valid plans.
-            $valid_plans = array_map('strtolower', Plan::get_all_names());
+            $valid_plans = array_map('strtolower', DBPlan::get_all_names());
 
             // redirect to plan selection if the selected plan is not valid.
             if( ! in_array($plan, $valid_plans) ) return Redirect::to('pricing');
             
 
             $data['plan'] = $plan;
-            $data['country_names'] = Country::get_all_names();
+            $data['country_names'] = DBCountry::get_all_names();
 
             // if $errors is object, it's an error from form validation.
             $data['err'] = ( is_object($errors) ? $errors : null );

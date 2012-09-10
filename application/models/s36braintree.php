@@ -99,7 +99,7 @@
             
             self::set_keys();
             
-            $plan = new Plan(Input::get('plan'));
+            $plan = new DBPlan(Input::get('plan'));
             $plan_id = strtolower($plan->get_name());
             $result_arr = array();
 

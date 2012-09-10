@@ -29,7 +29,7 @@ class DBAccount extends s36dataobject {
         $fullName = $this->escape( Input::get('first_name') . ' ' . Input::get('last_name') );
         $site = $this->escape('www.' . Input::get('site_name') . '.com');
         $site_name = $this->escape(strtolower( Input::get('site_name') ));
-        $plan = new Plan(Input::get('plan'));
+        $plan = new DBPlan(Input::get('plan'));
         $plan_id = $plan->get_plan_id();
         
         $billing_name = Input::get('billing_first_name') . ' ' . Input::get('billing_last_name');
