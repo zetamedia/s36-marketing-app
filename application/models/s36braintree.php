@@ -1,6 +1,5 @@
 <?php
     
-    use Helpers\Helpers;
     class S36Braintree{
         
         private $customer_id;
@@ -25,22 +24,16 @@
 
 
         // create new braintree object using company id.
-        function __construct($company_id){
+        function __construct($customer_id){
             
             self::set_keys();
 
-            // get the customer id from db.
-            $this->customer_id = DB::table('Company')->where('companyId', '=', $company_id)->only('bt_customer_id');
+            // get all the data of company from braintree server.
+            $customer = \Braintree_Customer::find($customer_id);
             
-            // say something if company is not found.
-            if( $this->customer_id === false ) throw new Exception('Company not found');
 
-            
-            // if company is found, get all the shit of company from braintree server.
-            $customer = \Braintree_Customer::find($this->customer_id);
-
-
-            // store payment method token.
+            // store customer_id and payment method token.
+            $this->customer_id = $customer_id;
             $this->token = $customer->creditCards[0]->token;
 
 
@@ -159,9 +152,6 @@
                 'planId' => $plan_id
             ));
 
-            // store result from subscription creation.
-            $result_arr['subscription_id'] = $result->subscription->id;  // will not be needed later.
-
             
             // return all the shit from account and subscription creation.
             return $result_arr;
@@ -174,11 +164,8 @@
         function update_subscription($plan_id){
             
             self::set_keys();
+            $result_arr = array();
             
-
-            // cancel current subscription.
-            $result = \Braintree_Subscription::cancel($this->subscription_id);
-
 
             // create new subscription.
             $result = \Braintree_Subscription::create(array(
@@ -187,10 +174,27 @@
             ));
 
 
+            // if new subscription creation didn't succeed, don't continue below.
+            // return status and error msg.
+            if( ! $result->success ){
+
+                $result_arr['success'] = $result->success;
+                $result_arr['message'] = $result->message;
+
+                return $result_arr;
+                
+            }
+
+
+            // cancel the previous subscription.
+            \Braintree_Subscription::cancel($this->subscription_id);
+
             // update subscription_id.
             $this->subscription_id = $result->subscription->id;
 
-            DB::table('Company')->where('companyId', '=', $this->company_id)->update(array('bt_subscription_id' => $this->subscription_id));
+            $result_arr['success'] = $result->success;
+
+            return $result_arr;
 
         }
 
@@ -200,14 +204,9 @@
         function get_next_billing_info(){
             
             self::set_keys();
-            $result_arr = array();
 
-            $result = \Braintree_Subscription::find($this->subscription_id);
-            $result_arr['amount'] = $result->nextBillAmount;
-            $result_arr['date'] = $result->nextBillingDate;
-
-            return $result_arr;
-
+            return $this->next_billing_info;
+            
         }
 
 
@@ -216,28 +215,41 @@
         function get_billing_history(){
             
             self::set_keys();
-            $result_arr = array();
-            $i = 0;
+
+            return $this->transactions;
             
-            $result = \Braintree_Customer::find($this->customer_id);
+        }
 
-            foreach( $result->creditCards[0]->subscriptions as $subs ){
-                
-                // don't store anything if there are transactions yet.
-                if( count($subs->transactions) ){
 
-                    $result_arr[$i]['plan_id'] = $subs->planId;
 
-                    foreach( $subs->transactions as $trans ){
-                        
-                        $result_arr[$i]['amount'] = $trans->amount;
-                        $result_arr[$i++]['date'] = $trans->createdAt;
+        // update credit card info.
+        function update_credit_card($number, $exp_month, $exp_year, $zip){
+            
+            self::set_keys();
+            $result_arr = array();
 
-                    }
 
-                }
+            $result = \Braintree_CreditCard::update(
+                $this->token,
+                array(
+                    'number' => $number,
+                    'expirationMonth' => $exp_month,
+                    'expirationYear' => $exp_year,
+                    'billingAddress' => array(
+                        'postalCode' => $zip,
+                        'options' => array(
+                            'updateExisting' => true
+                        )
+                    )
+                    
+                )
+            );
 
-            }
+
+            // return the status of the update. also the error msg is there is.
+            if( ! $result->success ) $result_arr['message'] = $result->message;
+
+            $result_arr['success'] = $result->success;
 
             return $result_arr;
 

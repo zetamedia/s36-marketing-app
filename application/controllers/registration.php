@@ -50,7 +50,7 @@
             
             // save customer account in db.
             $dbaccount = new DBAccount();
-            $dbaccount->create_account($result);
+            $dbaccount->create_account($result['customer_id']);
 
 
             // send email to customer.

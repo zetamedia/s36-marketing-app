@@ -92,8 +92,10 @@ Route::get('test', function(){
     //$result = S36Braintree::create_account();
     //Helpers::show_data($result);
 
-    $company = new S36Braintree(73);
-    //$company->update_subscription('enhanced');
+    $company = new S36Braintree(9564306);
+    //$result = $company->update_subscription('enhanced');
+    //$result = $company->update_credit_card('4005519200000004', '02', '2014', '456');
+    //Helpers::show_data($result);
     Helpers::show_data($company);
     
     //$result = $company->get_next_billing_info();
