@@ -16,28 +16,28 @@ class DBAccount extends s36dataobject {
         //} 
     }
 
-    public function create_account() {
+    public function create_account($customer_id) {
         
         $encrypt = new Encryption();
-        $password_string = FormData::reg('account[password1]');
+        $password_string = Input::get('password');
         $password = crypt( $password_string );
-        $name = $this->escape( FormData::reg('transaction[customer][first_name]') . ' ' . FormData::reg('transaction[customer][last_name]') );
-        $email = $this->escape( FormData::reg('transaction[customer][email]') );
+        $name = $this->escape( Input::get('first_name') . ' ' . Input::get('last_name') );
+        $email = $this->escape( Input::get('email') );
         $encrypt_string = $encrypt->encrypt($email."|".$password_string);
-        $company = $this->escape(strtolower( FormData::reg('transaction[customer][company]') ));
-        $username = $this->escape( FormData::reg('account[username]') );
-        $fullName = $this->escape( FormData::reg('transaction[customer][first_name]') . ' ' . FormData::reg('transaction[customer][last_name]') );
-        $site = $this->escape('www.' . FormData::reg('transaction[customer][website]') . '.com');
-        $site_name = $this->escape(strtolower( FormData::reg('transaction[customer][website]') ));
-        $plan = new Plan(FormData::reg('account[plan]'));
+        $company = $this->escape(strtolower( Input::get('company') ));
+        $username = $this->escape( Input::get('username') );
+        $fullName = $this->escape( Input::get('first_name') . ' ' . Input::get('last_name') );
+        $site = $this->escape('www.' . Input::get('site_name') . '.com');
+        $site_name = $this->escape(strtolower( Input::get('site_name') ));
+        $plan = new DBPlan(Input::get('plan'));
         $plan_id = $plan->get_plan_id();
         
-        $billing_name = FormData::reg('transaction[billing][first_name]') . ' ' . FormData::reg('transaction[billing][last_name]');
-        $billing_address = FormData::reg('transaction[billing][street_address]');
-        $billing_city = FormData::reg('transaction[billing][locality]');
-        $billing_state = FormData::reg('transaction[billing][region]');
-        $billing_country = FormData::reg('transaction[billing][country_name]');
-        $billing_zip = FormData::reg('transaction[billing][postal_code]');
+        $billing_name = Input::get('billing_first_name') . ' ' . Input::get('billing_last_name');
+        $billing_address = Input::get('billing_address');
+        $billing_city = Input::get('billing_city');
+        $billing_state = Input::get('billing_state');
+        $billing_country = Input::get('billing_country');
+        $billing_zip = Input::get('billing_zip');
         $bill_to = "$billing_name, $billing_address, $billing_city, $billing_state, $billing_country, $billing_zip";
 
         
@@ -48,7 +48,7 @@ class DBAccount extends s36dataobject {
         } else {
             
             $this->dbh->beginTransaction();
-            $this->dbh->query('INSERT INTO Company (`name`, `planId`, `billTo`) VALUES("'.$company.'", ' . $plan_id . ', "'.$bill_to.'")');
+            $this->dbh->query('INSERT INTO Company (`name`, `planId`, `billTo`, `bt_customer_id`) VALUES("'.$company.'", ' . $plan_id . ', "'.$bill_to.'", "' . $customer_id . '")');
             $this->dbh->query('SET @company_id = LAST_INSERT_ID()');
             $this->dbh->query('INSERT INTO Metric (`companyId`, `totalRequest`, `totalResponse`) VALUES(@company_id, 0, 0)'); 
             $this->dbh->query('INSERT INTO Site (`companyId`, `domain`, `name`, `defaultFormId`) VALUES(@company_id, "'.$site.'", "'.$site_name.'", 1)');   

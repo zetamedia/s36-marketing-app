@@ -32,8 +32,8 @@
                     ?>
                     <br /><br />                        
                 </div>
-            	<?= Form::open('registration/' . $plan, 'POST'); ?>
-                <?= Form::hidden('account[plan]', $plan); ?>
+            	<?= Form::open('registration/' . $plan, 'POST', array('autocomplete' => 'off')); ?>
+                <?= Form::hidden('plan', $plan); ?>
                 <div class="leftcontentblock">
                 	<h2><span>1.</span> Create your <span>36</span>Stories Account</h2>
                     <table>
@@ -41,9 +41,9 @@
                         	<td>
                                 <?=
                                     Form::text(
-                                        'transaction[customer][first_name]',
-                                        ! is_null($err) ? ($err['customer']->first('first_name') != '' ? $err['customer']->first('first_name') : FormData::reg('transaction[customer][first_name]')) : FormData::reg('transaction[customer][first_name]'),
-                                        array('class' => 'reg-text ' . ( ! is_null($err) ? ($err['customer']->first('first_name') != '' ? 'err-text' : '') : '') )
+                                        'first_name',
+                                        ! is_null($err) ? ($err->has('first_name') ? $err->first('first_name') : Input::get('first_name')) : Input::get('first_name'),
+                                        array('class' => 'reg-text ' . ( ! is_null($err) ? ($err->has('first_name') ? 'err-text' : '') : '') )
                                     ); 
                                 ?>
                             </td>
@@ -52,9 +52,9 @@
                         	<td>
                                 <?=
                                     Form::text(
-                                        'transaction[customer][last_name]',
-                                        ! is_null($err) ? ($err['customer']->first('last_name') != '' ? $err['customer']->first('last_name') : FormData::reg('transaction[customer][last_name]')) : FormData::reg('transaction[customer][last_name]'),
-                                        array('class' => 'reg-text ' . ( ! is_null($err) ? ($err['customer']->first('last_name') != '' ? 'err-text' : '') : '') )
+                                        'last_name',
+                                        ! is_null($err) ? ($err->has('last_name') ? $err->first('last_name') : Input::get('last_name')) : Input::get('last_name'),
+                                        array('class' => 'reg-text ' . ( ! is_null($err) ? ($err->has('last_name') ? 'err-text' : '') : '') )
                                     ); 
                                 ?>
                             </td>
@@ -63,9 +63,9 @@
                         	<td>
 								<?=
                                     Form::text(
-                                        'transaction[customer][email]',
-                                        ! is_null($err) ? ($err['customer']->first('email') != '' ? $err['customer']->first('email') : FormData::reg('transaction[customer][email]')) : FormData::reg('transaction[customer][email]'),
-                                        array('class' => 'reg-text ' . ( ! is_null($err) ? ($err['customer']->first('email') != '' ? 'err-text' : '') : '') )
+                                        'email',
+                                        ! is_null($err) ? ($err->has('email') ? $err->first('email') : Input::get('email')) : Input::get('email'),
+                                        array('class' => 'reg-text ' . ( ! is_null($err) ? ($err->has('email') ? 'err-text' : '') : '') )
                                     ); 
                                 ?>
                             </td>
@@ -74,9 +74,9 @@
                         	<td>
                                 <?=
                                     Form::text(
-                                        'transaction[customer][company]',
-                                        ! is_null($err) ? ($err['customer']->first('company') != '' ? $err['customer']->first('company') : FormData::reg('transaction[customer][company]')) : FormData::reg('transaction[customer][company]'),
-                                        array('class' => 'reg-text ' . ( ! is_null($err) ? ($err['customer']->first('company') != '' ? 'err-text' : '') : '') )
+                                        'company',
+                                        ! is_null($err) ? ($err->has('company') ? $err->first('company') : Input::get('company')) : Input::get('company'),
+                                        array('class' => 'reg-text ' . ( ! is_null($err) ? ($err->has('company') ? 'err-text' : '') : '') )
                                     ); 
                                 ?>
                             </td>
@@ -90,9 +90,9 @@
                         	<td>
                                 <?=
                                     Form::text(
-                                        'account[username]',
-                                        ! is_null($err) ? ($err['account']->first('username') != '' ? $err['account']->first('username') : FormData::reg('account[username]')) : FormData::reg('account[username]'),
-                                        array('class' => 'reg-text ' . ( ! is_null($err) ? ($err['account']->first('username') != '' ? 'err-text' : '') : '') )
+                                        'username',
+                                        ! is_null($err) ? ($err->has('username') ? $err->first('username') : Input::get('username')) : Input::get('username'),
+                                        array('class' => 'reg-text ' . ( ! is_null($err) ? ($err->has('username') ? 'err-text' : '') : '') )
                                     ); 
                                 ?>
                                 <br /><small>This is what you'll use to sign in.</small>
@@ -102,26 +102,26 @@
                         	<td>
                                 <?=
                                     Form::password(
-                                        'account[password1]',
+                                        'password',
                                         array('class' => 'reg-text')
                                     ); 
-                                ?>
-								<br /><small>6 characters or longer with at least one number is safest.</small>
+                                ?><br />
+                                <span name="password">
+                                    <?= (! is_null($err) ? ($err->has('password') ? $err->first('password') : '') : ''); ?>
+                                </span>
+                                <div><small>6 characters or longer with at least one number is safest.</small></div>
                             </td>
                         </tr>
                         <tr><td class="label" valign="middle">Confirm Password : </td>
                         	<td>
                                 <?=
                                     Form::password(
-                                        'account[password2]',
+                                        'password_confirmation',
                                         array('class' => 'reg-text')
                                     ); 
                                 ?><br/>
-                                <span name="account[password1]" class="err-text err-span">
-                                    <?= (! is_null($err) ? ($err['account']->first('password1') != '' ? $err['account']->first('password1') : '') : ''); ?>
-                                </span><br/>
-                                <span name="account[password2]" class="err-text err-span">
-                                    <?= (! is_null($err) ? ($err['account']->first('password2') != '' ? $err['account']->first('password2') : '') : ''); ?>
+                                <span name="password_confirmation">
+                                    <?= (! is_null($err) ? ($err->has('password_confirmation') ? $err->first('password_confirmation') : '') : ''); ?>
                                 </span>
                             </td>
                         </tr>
@@ -134,9 +134,9 @@
                         <span style="font-size:13px;">https://</span>
                         <?=
                             Form::text(
-                                'transaction[customer][website]',
-                                ! is_null($err) ? ($err['customer']->first('website') != '' ? $err['customer']->first('website') : FormData::reg('transaction[customer][website]')) : FormData::reg('transaction[customer][website]'),
-                                array('class' => 'reg-text ' . ( ! is_null($err) ? ($err['customer']->first('website') != '' ? 'err-text' : '') : '') )
+                                'site_name',
+                                ! is_null($err) ? ($err->has('site_name') ? $err->first('site_name') : Input::get('site_name')) : Input::get('site_name'),
+                                array('class' => 'reg-text ' . ( ! is_null($err) ? ($err->has('site_name') ? 'err-text' : '') : '') )
                             ); 
                         ?>
                         .36Storiesapp.com
@@ -149,9 +149,9 @@
                         	<td>
                                 <?=
                                     Form::text(
-                                        'transaction[billing][first_name]',
-                                        ! is_null($err) ? ($err['billing']->first('first_name') != '' ? $err['billing']->first('first_name') : FormData::reg('transaction[billing][first_name]')) : FormData::reg('transaction[billing][first_name]'),
-                                        array('class' => 'reg-text ' . ( ! is_null($err) ? ($err['billing']->first('first_name') != '' ? 'err-text' : '') : '') )
+                                        'billing_first_name',
+                                        ! is_null($err) ? ($err->has('billing_first_name') ? $err->first('billing_first_name') : Input::get('billing_first_name')) : Input::get('billing_first_name'),
+                                        array('class' => 'reg-text ' . ( ! is_null($err) ? ($err->has('billing_first_name') ? 'err-text' : '') : '') )
                                     ); 
                                 ?>
                             </td>
@@ -160,9 +160,9 @@
                         	<td>
                                 <?=
                                     Form::text(
-                                        'transaction[billing][last_name]',
-                                        ! is_null($err) ? ($err['billing']->first('last_name') != '' ? $err['billing']->first('last_name') : FormData::reg('transaction[billing][last_name]')) : FormData::reg('transaction[billing][last_name]'),
-                                        array('class' => 'reg-text ' . ( ! is_null($err) ? ($err['billing']->first('last_name') != '' ? 'err-text' : '') : '') )
+                                        'billing_last_name',
+                                        ! is_null($err) ? ($err->has('billing_last_name') ? $err->first('billing_last_name') : Input::get('billing_last_name')) : Input::get('billing_last_name'),
+                                        array('class' => 'reg-text ' . ( ! is_null($err) ? ($err->has('billing_last_name') ? 'err-text' : '') : '') )
                                     ); 
                                 ?>
                             </td>
@@ -171,9 +171,9 @@
                         	<td>
                                 <?=
                                     Form::text(
-                                        'transaction[billing][street_address]',
-                                        ! is_null($err) ? ($err['billing']->first('street_address') != '' ? $err['billing']->first('street_address') : FormData::reg('transaction[billing][street_address]')) : FormData::reg('transaction[billing][street_address]'),
-                                        array('class' => 'reg-text ' . ( ! is_null($err) ? ($err['billing']->first('street_address') != '' ? 'err-text' : '') : '') )
+                                        'billing_address',
+                                        ! is_null($err) ? ($err->has('billing_address') ? $err->first('billing_address') : Input::get('billing_address')) : Input::get('billing_address'),
+                                        array('class' => 'reg-text ' . ( ! is_null($err) ? ($err->has('billing_address') ? 'err-text' : '') : '') )
                                     ); 
                                 ?>
                             </td>
@@ -182,9 +182,9 @@
                         	<td>
                                 <?=
                                     Form::text(
-                                        'transaction[billing][locality]',
-                                        ! is_null($err) ? ($err['billing']->first('locality') != '' ? $err['billing']->first('locality') : FormData::reg('transaction[billing][locality]')) : FormData::reg('transaction[billing][locality]'),
-                                        array('class' => 'reg-text ' . ( ! is_null($err) ? ($err['billing']->first('locality') != '' ? 'err-text' : '') : '') )
+                                        'billing_city',
+                                        ! is_null($err) ? ($err->has('billing_city') != '' ? $err->first('billing_city') : Input::get('billing_city')) : Input::get('billing_city'),
+                                        array('class' => 'reg-text ' . ( ! is_null($err) ? ($err->has('billing_city') ? 'err-text' : '') : '') )
                                     ); 
                                 ?>
                             </td>
@@ -193,25 +193,25 @@
                         	<td>
                                 <?=
                                     Form::text(
-                                        'transaction[billing][region]',
-                                        ! is_null($err) ? ($err['billing']->first('region') != '' ? $err['billing']->first('region') : FormData::reg('transaction[billing][region]')) : FormData::reg('transaction[billing][region]'),
-                                        array('class' => 'reg-text ' . ( ! is_null($err) ? ($err['billing']->first('region') != '' ? 'err-text' : '') : '') )
+                                        'billing_state',
+                                        ! is_null($err) ? ($err->has('billing_state') ? $err->first('billing_state') : Input::get('billing_state')) : Input::get('billing_state'),
+                                        array('class' => 'reg-text ' . ( ! is_null($err) ? ($err->has('billing_state') ? 'err-text' : '') : '') )
                                     ); 
                                 ?>
                             </td>
                         </tr>
                         <tr><td class="label">Billing Country : </td>
                         	<td>
-                                <select name="transaction[billing][country_name]" class="reg-select medium">
+                                <select name="billing_country" class="reg-select medium">
                                     <option value=""></option>
                                     <?php foreach( $country_names as $name ): ?>
-                                        <option value="<?php echo $name; ?>" <?= ($name == FormData::reg('transaction[billing][country_name]') ? 'selected' : ']'); ?> >
+                                        <option value="<?php echo $name; ?>" <?= ($name == Input::get('billing_country') ? 'selected' : ''); ?> >
                                             <?php echo $name; ?>
                                         </option>
                                     <?php endforeach; ?>
                                 </select><br/>
-                                <span name="transaction[billing][country_name]" class="err-text err-span">
-                                    <?= ! is_null($err) ? ($err['billing']->first('country_name') != '' ? $err['billing']->first('country_name') : '') : '' ?>
+                                <span name="billing_country">
+                                    <?= ! is_null($err) ? ($err->has('billing_country') ? $err->first('billing_country') : '') : '' ?>
                                 </span>
 						    </td>
                         </tr>
@@ -219,9 +219,9 @@
                         	<td>
                                 <?=
                                     Form::text(
-                                        'transaction[billing][postal_code]',
-                                        ! is_null($err) ? ($err['billing']->first('postal_code') != '' ? $err['billing']->first('postal_code') : FormData::reg('transaction[billing][postal_code]')) : FormData::reg('transaction[billing][postal_code]'),
-                                        array('class' => 'reg-text ' . ( ! is_null($err) ? ($err['billing']->first('postal_code') != '' ? 'err-text' : '') : '') )
+                                        'billing_zip',
+                                        ! is_null($err) ? ($err->has('billing_zip') ? $err->first('billing_zip') : Input::get('billing_zip')) : Input::get('billing_zip'),
+                                        array('class' => 'reg-text ' . ( ! is_null($err) ? ($err->has('billing_zip') ? 'err-text' : '') : '') )
                                     ); 
                                 ?>
                                 <small>(or Postal Code If not in the USA)</small>
@@ -231,11 +231,12 @@
                         	<td>
                                 <?=
                                     Form::text(
-                                        'transaction[credit_card][number]',
-                                        ! is_null($err) ? ($err['credit_card']->first('number') != '' ? $err['credit_card']->first('number') : FormData::reg('transaction[credit_card][number]')) : FormData::reg('transaction[credit_card][number]'),
-                                        array('class' => 'reg-text ' . ( ! is_null($err) ? ($err['credit_card']->first('number') != '' ? 'err-text' : '') : '') )
+                                        'card_number',
+                                        ! is_null($err) ? ($err->has('card_number') ? $err->first('card_number') : Input::get('card_number')) : Input::get('card_number'),
+                                        array('class' => 'reg-text ' . ( ! is_null($err) ? ($err->has('card_number') ? 'err-text' : '') : '') )
                                     ); 
                                 ?>
+                                <span class="err-text"><?= nl2br($braintree_err); ?></span>
                             </td>
                             <td valign="middle">
 								<strong class="secure-ico">Secure</strong>
@@ -244,27 +245,28 @@
                         <tr>
                             <td class="label">Expiry Date : </td>
                             <td>
-                                <select name="transaction[credit_card][expiration_month]" class="reg-select medium">
+                                <select name="expiration_month" class="reg-select medium">
+                                    <option value="">Month</option>
                                     <? for( $a = 1; $a <= 12; $a++ ): ?>
-                                        <option value="<?= substr('0' .$a, -2); ?>" <?= ($a == FormData::reg('transaction[credit_card][expiration_month]') ? 'selected' : ']'); ?> >
+                                        <option value="<?= substr('0' .$a, -2); ?>" <?= ($a == Input::get('expiration_month') ? 'selected' : ''); ?> >
                                             <?= date('F', mktime(0, 0, 0, $a)); ?>
                                         </option>
                                     <? endfor; ?>
                                 </select>
-                                <select name="transaction[credit_card][expiration_year]" class="reg-select small">
+                                <select name="expiration_year" class="reg-select small">
+                                    <option value="">Year</option>
                                     <? for( $a = date('Y'); $a <= date('Y') + 5; $a++ ): ?>
-                                        <option value="<?= $a; ?>" <?= ($a == FormData::reg('transaction[credit_card][expiration_year]') ? 'selected' : ']'); ?> >
+                                        <option value="<?= $a; ?>" <?= ($a == Input::get('expiration_year') ? 'selected' : ''); ?> >
                                             <?= $a; ?>
                                         </option>
                                     <? endfor; ?>
                                 </select>
-                                <span name="transaction[credit_card][expiration_month]" class="err-text err-span">
-                                    <?= ! is_null($err) ? ($err['credit_card']->first('expiration_month') != '' ? $err['credit_card']->first('expiration_month') : '') : '' ?>
+                                <span name="expiration_month">
+                                    <?= ! is_null($err) ? ($err->has('expiration_month') ? $err->first('expiration_month') : '') : '' ?>
                                 </span><br/>
-                                <span name="transaction[credit_card][expiration_year]" class="err-text err-span">
-                                    <?= ! is_null($err) ? ($err['credit_card']->first('expiration_year') != '' ? $err['credit_card']->first('expiration_year') : '') : '' ?>
+                                <span name="expiration_year">
+                                    <?= ! is_null($err) ? ($err->has('expiration_year') ? $err->first('expiration_year') : '') : '' ?>
                                 </span>
-                                <span class="err-text"><?= nl2br($braintree_err); ?></span>
                              </td>
                              <td><?=HTML::image('img/cards.jpg','Credit Cards')?></td>
                         </tr>
@@ -272,9 +274,9 @@
                         	<td>
                                 <?=
                                     Form::text(
-                                        'transaction[credit_card][cvv]',
-                                        ! is_null($err) ? ($err['credit_card']->first('cvv') != '' ? $err['credit_card']->first('cvv') : FormData::reg('transaction[credit_card][cvv]')) : FormData::reg('transaction[credit_card][cvv]'),
-                                        array('class' => 'reg-text ' . ( ! is_null($err) ? ($err['credit_card']->first('cvv') != '' ? 'err-text' : '') : '') )
+                                        'cvv',
+                                        ! is_null($err) ? ($err->has('cvv') ? $err->first('cvv') : Input::get('cvv')) : Input::get('cvv'),
+                                        array('class' => 'reg-text ' . ( ! is_null($err) ? ($err->has('cvv') ? 'err-text' : '') : '') )
                                     ); 
                                 ?>
                             </td>
@@ -316,28 +318,33 @@
 <!-- end of content -->
 <script type="text/javascript">
 
-    // remove the red text in input.
-    $('input').keydown(function(){
-        $(this).removeClass('err-text');
+    // remove the red text in input if the user's intention
+    // is to replace the next and not to submit it.
+    $('input').keydown(function(e){
+        if( e.keyCode != 13 ){
+            $(this).removeClass('err-text');
+        }
     });
 
 
     // validate form when submitted.
     $('input[type=submit]').click(function(e){
-        
-        //return;  // disabled for now.
 
         // elements with their names in span array will have their errors displayed somewhere else. not in them.
-        var span = ['account[password1]', 'account[password2]', 'transaction[billing][country_name]', 'transaction[credit_card][expiration_month]', 'transaction[credit_card][expiration_year]'];
+        var span = ['password', 'password_confirmation', 'billing_country', 'expiration_month', 'expiration_year'];
         var errors = '';
         var data = '';
+
+
+        // reset the err-text and error spans.
+        $('span.err-text').text('');
+        $('.err-text').val('');
+        $('.err-text').removeClass('err-text');
 
         
         // loop through inputs and selects and collect their names and values.
         $('input, select').each(function(){
-            
             data += '&' + $(this).attr('name') + '=' + $(this).val();
-
         });
 
         
@@ -354,37 +361,26 @@
                     
                     errors = error_msg;
                     error_msg = $.parseJSON(error_msg);
-
+                    
                     // loop through error_msg to display each.
-                    $.each(error_msg, function(k, v){
+                    $.each(error_msg, function(name, msg){
                         
-                        // maybe it won't hurt to do another loop here.
-                        $('input, select, .err-span').each(function(){
+                        // if name is not in span array, display the error in the item.
+                        if( span.indexOf(name) == -1 ){
                             
-                            // this will be our way of selecting the field with error
-                            // because we're having trouble with selecting fields with names
-                            // that contain two pairs of square bracket.
-                            if( $(this).attr('name') == k ){
-                                
-                                // if k is not in span array, display the error in the item.
-                                if( span.indexOf(k) == -1 ){
-                                    
-                                    $(this).val( v );
-                                    $(this).addClass('err-text');
-                                   
-                                // if k is in span array, display the error in item's span.
-                                }else{
-                                    
-                                    $(this).text( v );
+                            $('input[name=' + name + ']').val( msg );
+                            $('input[name=' + name + ']').addClass('err-text');
+                           
+                        // if name is in span array, display the error in item's span.
+                        }else{
+                            
+                            $('span[name=' + name + ']').text( msg );
+                            $('span[name=' + name + ']').addClass('err-text');
 
-                                }        
-
-                            }
-
-                        });
+                        }
 
                     });
-
+                    
                 }
 
             }
@@ -397,9 +393,9 @@
             
             e.preventDefault();
             
-            // scroll to the top of the form.
+            // scroll to the first error the form.
             $('html, body').animate({
-				scrollTop: $("#leftcontents").offset().top
+				scrollTop: $('.err-text').first().offset().top
 			}, 200);
 
         }

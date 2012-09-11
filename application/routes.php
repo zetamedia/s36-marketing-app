@@ -86,8 +86,44 @@ Route::get('registration-successful', function(){
 
 });
 
-
+use Helpers\Helpers;
 Route::get('test', function(){
+    
+    //$result = S36Braintree::create_account();
+    //Helpers::show_data($result);
+
+    $company = new S36Braintree(9564306);
+    //$result = $company->update_subscription('enhanced');
+    //$result = $company->update_credit_card('4005519200000004', '02', '2014', '456');
+    //Helpers::show_data($result);
+    Helpers::show_data($company);
+    
+    //$result = $company->get_next_billing_info();
+    //Helpers::show_data($result);
+    
+    //$result = $company->get_billing_history();
+    //Helpers::show_data($result);
+
+
+
+
+    /*
+    $site_name = 'kennwel';
+    $site = URL::base();
+    //$site = 'http://Marketing-Site-Laravel-';
+    //$site = 'http://www.mathew-marketing.gearfish.com';
+    //$site = 'http://gearfish.com';
+
+    $tld = ( strrpos($site, '.') !== false ? substr($site, strrpos($site, '.')) : '' );
+    $host = str_replace('http://', '', $site);
+    $host = str_replace($tld, '', $host);
+    $host = substr($host, strrpos($host, '.'));
+    $host = str_replace('.', '', $host);
+    $site = 'https://' . $site_name . '.' . $host . $tld . '/login';
+
+    return $site;
+    */
+
     
     /*
     $output = '';
