@@ -31,7 +31,7 @@
                     }
                     ?>
                     <br /><br />                        
-                </div>
+                </div> 
             	<?= Form::open('registration/' . $plan, 'POST', array('autocomplete' => 'off')); ?>
                 <?= Form::hidden('plan', $plan); ?>
                 <div class="leftcontentblock">
