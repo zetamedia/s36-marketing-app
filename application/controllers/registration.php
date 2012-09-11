@@ -1,7 +1,5 @@
 <?php
     
-    //use S36Braintree\S36Braintree;
-
     class Registration_Controller extends Base_Controller{
         
         // show the registration form.
