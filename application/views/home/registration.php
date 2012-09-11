@@ -105,8 +105,11 @@
                                         'password',
                                         array('class' => 'reg-text')
                                     ); 
-                                ?>
-								<br /><small>6 characters or longer with at least one number is safest.</small>
+                                ?><br />
+                                <span name="password">
+                                    <?= (! is_null($err) ? ($err->has('password') ? $err->first('password') : '') : ''); ?>
+                                </span>
+                                <div><small>6 characters or longer with at least one number is safest.</small></div>
                             </td>
                         </tr>
                         <tr><td class="label" valign="middle">Confirm Password : </td>
@@ -117,9 +120,6 @@
                                         array('class' => 'reg-text')
                                     ); 
                                 ?><br/>
-                                <span name="password">
-                                    <?= (! is_null($err) ? ($err->has('password') ? $err->first('password') : '') : ''); ?>
-                                </span><br/>
                                 <span name="password_confirmation">
                                     <?= (! is_null($err) ? ($err->has('password_confirmation') ? $err->first('password_confirmation') : '') : ''); ?>
                                 </span>
@@ -246,6 +246,7 @@
                             <td class="label">Expiry Date : </td>
                             <td>
                                 <select name="expiration_month" class="reg-select medium">
+                                    <option value="">Month</option>
                                     <? for( $a = 1; $a <= 12; $a++ ): ?>
                                         <option value="<?= substr('0' .$a, -2); ?>" <?= ($a == Input::get('expiration_month') ? 'selected' : ''); ?> >
                                             <?= date('F', mktime(0, 0, 0, $a)); ?>
@@ -253,6 +254,7 @@
                                     <? endfor; ?>
                                 </select>
                                 <select name="expiration_year" class="reg-select small">
+                                    <option value="">Year</option>
                                     <? for( $a = date('Y'); $a <= date('Y') + 5; $a++ ): ?>
                                         <option value="<?= $a; ?>" <?= ($a == Input::get('expiration_year') ? 'selected' : ''); ?> >
                                             <?= $a; ?>
@@ -316,9 +318,12 @@
 <!-- end of content -->
 <script type="text/javascript">
 
-    // remove the red text in input.
-    $('input').keydown(function(){
-        $(this).removeClass('err-text');
+    // remove the red text in input if the user's intention
+    // is to replace the next and not to submit it.
+    $('input').keydown(function(e){
+        if( e.keyCode != 13 ){
+            $(this).removeClass('err-text');
+        }
     });
 
 
@@ -333,14 +338,13 @@
 
         // reset the err-text and error spans.
         $('span.err-text').text('');
+        $('.err-text').val('');
         $('.err-text').removeClass('err-text');
 
         
         // loop through inputs and selects and collect their names and values.
         $('input, select').each(function(){
-            
             data += '&' + $(this).attr('name') + '=' + $(this).val();
-
         });
 
         
