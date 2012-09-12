@@ -8,11 +8,15 @@
             // get the valid plans.
             $valid_plans = array_map('strtolower', DBPlan::get_all_names());
 
+            // add "secret" to valid plans.
+            $valid_plans[] = 'secret';
+
             // redirect to plan selection if the selected plan is not valid.
             if( ! in_array($plan, $valid_plans) ) return Redirect::to('pricing');
             
 
-            $data['plan'] = $plan;
+            // if plan is secret, treat it as basic.
+            $data['plan'] = ($plan == 'secret' ? 'basic' : $plan);
             $data['country_names'] = DBCountry::get_all_names();
 
             // if $errors is object, it's an error from form validation.
@@ -34,14 +38,22 @@
             $validation = Validator::make(Input::get(), $this->get_validation_rules(), $this->get_validation_messages());
             
             // if there are form validation errors, show the regs form with errors.
-            if( $validation->fails() ) return $this->action_show_form(Input::get('plan'), $validation->errors);
+            if( $validation->fails() ) return $this->action_show_form(URI::segment(2), $validation->errors);
 
             
-            // run the braintree transaction and get the result.
-            $result = S36Braintree::create_account();
+            // if creating secret account, need not to do braintree stuffs.
+            if( URI::segment(2) != 'secret' ){
+                
+                // create braintree account and get the result.
+                $result = S36Braintree::create_account();
 
-            // if braintree transaction didn't succeed, show the regs form with errors.
-            if( ! $result['success'] ) return $this->action_show_form(Input::get('plan'), $result['message']);
+                // if braintree account creation didn't succeed, show the regs form with errors.
+                if( ! $result['success'] ) return $this->action_show_form(URI::segment(2), $result['message']);
+
+            }
+
+            // if creating secret account, set customer_id to blank.
+            $result['customer_id'] = (URI::segment(2) != 'secret' ? $result['customer_id'] : '');
 
             
             // do the registration processing if form validation and braintree succeeds.
@@ -74,6 +86,19 @@
         // set and return the validation rules.
         function get_validation_rules(){
             
+            // let's define a custom validation for expiration month.
+            // this is actually a validation for expiration date in a sense.
+            Validator::register('future', function($attr, $val, $param){
+                
+                // if expiration year is not valid, skip on this validation rule
+                // so the validation of expiration year will execute first.
+                if( ! in_array(Input::get('expiration_year'), range(date('Y'), date('Y') + 5) ) ) return true;
+
+                // expiration month or year must be in future.
+                return ($val > date('m') || Input::get('expiration_year') > date('Y'));
+
+            });
+
             $rules['plan'] = 'required|exists:Plan,name';
             $rules['first_name'] = 'required|max:24';
             $rules['last_name'] = 'required|max:24';
@@ -83,20 +108,22 @@
             $rules['password'] = 'required|min:6|same:password_confirmation';
             $rules['password_confirmation'] = 'required|min:6';
             $rules['site_name'] = 'required|max:100|match:/^[\w*\d*]+(-*_*\.*)?[\w*\d*]+$/';
-            $rules['billing_first_name'] = 'required';
-            $rules['billing_last_name'] = 'required';
-            $rules['billing_address'] = 'required';
-            $rules['billing_city'] = 'required';
-            $rules['billing_state'] = 'required';
-            $rules['billing_country'] = 'required|exists:Country,name';
-            $rules['billing_zip'] = 'required';
-            $rules['card_number'] = 'required|numeric';
-            $rules['expiration_month'] = 'required|in:01,02,03,04,05,06,07,08,09,10,11,12';
-            $rules['expiration_year'] = 'required|in:' . implode(',', range(date('Y'), date('Y') + 5) );
-            $rules['cvv'] = 'required';
+            
+            if( URI::segment(2) != 'secret' ){
+                $rules['billing_first_name'] = 'required';
+                $rules['billing_last_name'] = 'required';
+                $rules['billing_address'] = 'required';
+                $rules['billing_city'] = 'required';
+                $rules['billing_state'] = 'required';
+                $rules['billing_country'] = 'required|exists:Country,name';
+                $rules['billing_zip'] = 'required';
+                $rules['card_number'] = 'required|numeric';
+                $rules['expiration_month'] = 'required|in:01,02,03,04,05,06,07,08,09,10,11,12|future';
+                $rules['expiration_year'] = 'required|in:' . implode(',', range(date('Y'), date('Y') + 5) );
+                $rules['cvv'] = 'required';
+            }
 
             return $rules;
-            
 
         }
 
@@ -104,7 +131,7 @@
 
         // set and return the custom validation messages.
         function get_validation_messages(){
-                        
+            
             $msg['first_name_required'] = 'Please Enter Your First Name';
             $msg['first_name_max'] = 'The First Name must be less than :max characters';
             $msg['last_name_required'] = 'Please Enter Your Last Name';
@@ -137,6 +164,7 @@
             $msg['expiration_year_required'] = 'Please Enter Expiry Year';
             $msg['expiration_year_in'] = 'The selected Expiry Year is invalid';
             $msg['cvv_required'] = 'Please Enter Your CVV';
+            $msg['future'] = 'Expiry Date must be a future date';  // custom error msg for expiration date.
 
             return $msg;
             

@@ -31,8 +31,8 @@
                     }
                     ?>
                     <br /><br />                        
-                </div>
-            	<?= Form::open('registration/' . $plan, 'POST', array('autocomplete' => 'off')); ?>
+                </div> 
+            	<?= Form::open(URL::current(), 'POST', array('autocomplete' => 'off')); ?>
                 <?= Form::hidden('plan', $plan); ?>
                 <div class="leftcontentblock">
                 	<h2><span>1.</span> Create your <span>36</span>Stories Account</h2>
@@ -106,7 +106,7 @@
                                         array('class' => 'reg-text')
                                     ); 
                                 ?><br />
-                                <span name="password">
+                                <span name="password" class="<?= (! is_null($err) ? ($err->has('password') ? 'err-text' : '') : ''); ?>">
                                     <?= (! is_null($err) ? ($err->has('password') ? $err->first('password') : '') : ''); ?>
                                 </span>
                                 <div><small>6 characters or longer with at least one number is safest.</small></div>
@@ -120,7 +120,7 @@
                                         array('class' => 'reg-text')
                                     ); 
                                 ?><br/>
-                                <span name="password_confirmation">
+                                <span name="password_confirmation" class="<?= (! is_null($err) ? ($err->has('password_confirmation') ? 'err-text' : '') : ''); ?>">
                                     <?= (! is_null($err) ? ($err->has('password_confirmation') ? $err->first('password_confirmation') : '') : ''); ?>
                                 </span>
                             </td>
@@ -129,7 +129,7 @@
                 </div>
                 <div class="leftcontentblock">
                 	<h2><span>3.</span> Create your <span>36</span>Stories site address</h2>
-                    <p>Every 36Stories account has its own web address. For example, if you want <br />your account to be at https://acme.36storiesapp.com you'd enter acme <br /> in the field below. Letters and Numbers only.</p>
+                    <p>Every 36Stories account has its own web address. For example, if you want <br />your 36Stories account to be at https://acme.36storiesapp.com you'd enter acme <br /> in the field below. Letters and Numbers only.</p>
                     <p>
                         <span style="font-size:13px;">https://</span>
                         <?=
@@ -142,7 +142,9 @@
                         .36Storiesapp.com
                     </p>
                 </div>
+
                 <div class="leftcontentblock">
+                <? if( URI::segment(2) != 'secret' ): ?>
                 	<h2><span>4.</span> Enter your Billing Information</h2>
                     <table>
                     	<tr><td class="label">First Name : </td>
@@ -210,7 +212,7 @@
                                         </option>
                                     <?php endforeach; ?>
                                 </select><br/>
-                                <span name="billing_country">
+                                <span name="billing_country" class="<?= ! is_null($err) ? ($err->has('billing_country') ? 'err-text' : '') : '' ?>">
                                     <?= ! is_null($err) ? ($err->has('billing_country') ? $err->first('billing_country') : '') : '' ?>
                                 </span>
 						    </td>
@@ -261,10 +263,10 @@
                                         </option>
                                     <? endfor; ?>
                                 </select>
-                                <span name="expiration_month">
+                                <span name="expiration_month" class="<?= ! is_null($err) ? ($err->has('expiration_month') ? 'err-text' : '') : '' ?>">
                                     <?= ! is_null($err) ? ($err->has('expiration_month') ? $err->first('expiration_month') : '') : '' ?>
                                 </span><br/>
-                                <span name="expiration_year">
+                                <span name="expiration_year" class="<?= ! is_null($err) ? ($err->has('expiration_year') ? 'err-text' : '') : '' ?>">
                                     <?= ! is_null($err) ? ($err->has('expiration_year') ? $err->first('expiration_year') : '') : '' ?>
                                 </span>
                              </td>
@@ -287,7 +289,8 @@
                         <br />
                         We will email you a receipt each time your card is charged.
                     </p>
-                    <p>By clicking Create Account you agree to the <?=HTML::link('/tac', 'Terms and Conditions', array('class' => 'navy'))?>, <?=HTML::link('/privacy', 'Privacy', array('class' => 'navy') )?>, and <a class="navy" href="#">Refund policies</a></p>
+                <? endif; ?>
+                    <div>By clicking Create Account you agree to the <?=HTML::link('/tac', 'Terms and Conditions', array('class' => 'navy'))?>, <?=HTML::link('/privacy', 'Privacy', array('class' => 'navy') )?>, and <a class="navy" href="#">Refund policies</a></div>
                 </div>
                 <input type="submit" name="submit" value="" class="create-account-btn" />
                 <?=Form::close()?>
@@ -295,7 +298,7 @@
             <div id="rightcontents">
             	<div class="gray-box">
                 	<h1>Thank you for choosing 36Stories!</h1>
-                    <h3>Your're in good hands <br /> when you use  36Stories.</h3>
+                    <h3>You're in good hands <br /> when you use  36Stories.</h3>
                     <h3>Secure and reliable</h3>
                     <p>Our services are being accessed daily by over 100,000 users and growing</p>
                     <h3>Over 100,000 users</h3>
@@ -318,12 +321,18 @@
 <!-- end of content -->
 <script type="text/javascript">
 
-    // remove the red text in input if the user's intention
-    // is to replace the next and not to submit it.
-    $('input').keydown(function(e){
-        if( e.keyCode != 13 ){
+    // clear the error on input focus.
+    $('input, select').focus(function(){
+        
+        if( $(this).is('.err-text') ){
+            $(this).val('');
             $(this).removeClass('err-text');
         }
+
+        if( $(this).is('input[type=password]') || $(this).is('select') ){
+            $('span[name=' + $(this).attr('name') + ']').text('');
+        }
+
     });
 
 
@@ -392,6 +401,9 @@
         if( errors != '' ){
             
             e.preventDefault();
+
+            // clear the passwords.
+            $('input[type=password]').val('');
             
             // scroll to the first error the form.
             $('html, body').animate({
