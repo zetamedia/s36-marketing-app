@@ -8,7 +8,7 @@
         private $transactions = array();
         private $next_billing_info;
         private $subscription_id;
-        
+
 
 
         // set the braintree's config keys.

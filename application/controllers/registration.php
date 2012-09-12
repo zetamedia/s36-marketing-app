@@ -74,15 +74,26 @@
         // set and return the validation rules.
         function get_validation_rules(){
             
+            // let's define a custom validation for expiration month.
+            // this is actually a validation for expiration date in a sense.
+            Validator::register('future', function($attr, $val, $param){
+                
+                // expiration year is not valid, skip on this validation rule.
+                if( ! in_array(Input::get('expiration_year'), range(date('Y'), date('Y') + 5) ) ) return true;
+
+                return $val > date('m');
+
+            });
+
             $rules['plan'] = 'required|exists:Plan,name';
             $rules['first_name'] = 'required|max:24';
             $rules['last_name'] = 'required|max:24';
             $rules['email'] = 'required|email|max:45';
             $rules['company'] = 'required|max:45|unique:Company,name';
-            $rules['username'] = 'required|max:45';
+            $rules['username'] = 'required|max:45|unique:User,username';
             $rules['password'] = 'required|min:6|same:password_confirmation';
             $rules['password_confirmation'] = 'required|min:6';
-            $rules['site_name'] = 'required|max:100|match:/^[\w*\d*]+(-*_*\.*)?[\w*\d*]+$/';
+            $rules['site_name'] = 'required|max:100|match:/^[\w*\d*]+(-*_*\.*)?[\w*\d*]+$/|unique:Site,name';
             $rules['billing_first_name'] = 'required';
             $rules['billing_last_name'] = 'required';
             $rules['billing_address'] = 'required';
@@ -91,12 +102,11 @@
             $rules['billing_country'] = 'required|exists:Country,name';
             $rules['billing_zip'] = 'required';
             $rules['card_number'] = 'required|numeric';
-            $rules['expiration_month'] = 'required|in:01,02,03,04,05,06,07,08,09,10,11,12';
+            $rules['expiration_month'] = 'required|in:01,02,03,04,05,06,07,08,09,10,11,12|future';
             $rules['expiration_year'] = 'required|in:' . implode(',', range(date('Y'), date('Y') + 5) );
             $rules['cvv'] = 'required';
 
             return $rules;
-            
 
         }
 
@@ -104,7 +114,7 @@
 
         // set and return the custom validation messages.
         function get_validation_messages(){
-                        
+            
             $msg['first_name_required'] = 'Please Enter Your First Name';
             $msg['first_name_max'] = 'The First Name must be less than :max characters';
             $msg['last_name_required'] = 'Please Enter Your Last Name';
@@ -137,6 +147,7 @@
             $msg['expiration_year_required'] = 'Please Enter Expiry Year';
             $msg['expiration_year_in'] = 'The selected Expiry Year is invalid';
             $msg['cvv_required'] = 'Please Enter Your CVV';
+            $msg['future'] = 'Expiry Date must be a future date';  // custom error msg for expiration date.
 
             return $msg;
             

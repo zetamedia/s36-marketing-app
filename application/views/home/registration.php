@@ -392,6 +392,9 @@
         if( errors != '' ){
             
             e.preventDefault();
+
+            // clear the passwords.
+            $('input[type=password]').val('');
             
             // scroll to the first error the form.
             $('html, body').animate({
