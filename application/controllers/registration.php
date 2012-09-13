@@ -8,10 +8,14 @@
             // get the valid plans.
             $valid_plans = array_map('strtolower', DBPlan::get_all_names());
 
+            // add "secret" to valid plans.
+            //$valid_plans[] = 'secret';
+
             // redirect to plan selection if the selected plan is not valid.
             if( ! in_array($plan, $valid_plans) ) return Redirect::to('pricing');
             
 
+            // if plan is secret, treat it as basic.
             $data['plan'] = $plan;
             $data['country_names'] = DBCountry::get_all_names();
 

@@ -318,10 +318,10 @@
 <!-- end of content -->
 <script type="text/javascript">
 
-    // remove the red text in input if the user's intention
-    // is to replace the next and not to submit it.
-    $('input').keydown(function(e){
-        if( e.keyCode != 13 ){
+    // clear the error in input on focus.
+    $('input').focus(function(){
+        if( $(this).is('.err-text') ){
+            $(this).val('');
             $(this).removeClass('err-text');
         }
     });
