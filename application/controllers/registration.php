@@ -78,10 +78,12 @@
             // this is actually a validation for expiration date in a sense.
             Validator::register('future', function($attr, $val, $param){
                 
-                // expiration year is not valid, skip on this validation rule.
+                // if expiration year is not valid, skip on this validation rule
+                // so the validation of expiration year will execute first.
                 if( ! in_array(Input::get('expiration_year'), range(date('Y'), date('Y') + 5) ) ) return true;
 
-                return $val > date('m');
+                // expiration month or year must be in future.
+                return ($val > date('m') || Input::get('expiration_year') > date('Y'));
 
             });
 
