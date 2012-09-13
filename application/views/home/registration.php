@@ -129,9 +129,9 @@
                 </div>
                 <div class="leftcontentblock">
                 	<h2><span>3.</span> Create your <span>36</span>Stories site address</h2>
-                    <p>Every EngageBox site has its own web address. For example, if you want <br />your Basecamp site to be at http://acme.36stories.com you'd enter acme <br /> in the field below. Letters and Numbers only.</p>
+                    <p>Every 36Stories account has its own web address. For example, if you want <br />your 36Stories account to be at https://acme.36storiesapp.com you'd enter acme <br /> in the field below. Letters and Numbers only.</p>
                     <p>
-                        <span style="font-size:13px;">http://</span>
+                        <span style="font-size:13px;">https://</span>
                         <?=
                             Form::text(
                                 'site_name',
@@ -295,7 +295,7 @@
             <div id="rightcontents">
             	<div class="gray-box">
                 	<h1>Thank you for choosing 36Stories!</h1>
-                    <h3>Your're in good hands <br /> when you use  36Stories.</h3>
+                    <h3>You're in good hands <br /> when you use  36Stories.</h3>
                     <h3>Secure and reliable</h3>
                     <p>Our services are being accessed daily by over 100,000 users and growing</p>
                     <h3>Over 100,000 users</h3>
