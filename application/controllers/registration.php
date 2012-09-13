@@ -104,10 +104,10 @@
             $rules['last_name'] = 'required|max:24';
             $rules['email'] = 'required|email|max:45';
             $rules['company'] = 'required|max:45|unique:Company,name';
-            $rules['username'] = 'required|max:45|unique:User,username';
+            $rules['username'] = 'required|max:45';
             $rules['password'] = 'required|min:6|same:password_confirmation';
             $rules['password_confirmation'] = 'required|min:6';
-            $rules['site_name'] = 'required|max:100|match:/^[\w*\d*]+(-*_*\.*)?[\w*\d*]+$/|unique:Site,name';
+            $rules['site_name'] = 'required|max:100|match:/^[\w*\d*]+(-*_*\.*)?[\w*\d*]+$/';
             
             if( URI::segment(2) != 'secret' ){
                 $rules['billing_first_name'] = 'required';
