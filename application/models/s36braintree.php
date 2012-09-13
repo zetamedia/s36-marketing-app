@@ -8,6 +8,7 @@
         private $transactions = array();
         private $next_billing_info;
         private $subscription_id;
+        private $credit_card_info;
 
 
 
@@ -30,7 +31,7 @@
 
             // get all the data of company from braintree server.
             $customer = \Braintree_Customer::find($customer_id);
-
+            
 
             // store customer_id and payment method token.
             $this->customer_id = $customer_id;
@@ -89,6 +90,14 @@
             // if customer updated his credit card, transactions that he made with previous 
             // credit card is kept recorded.
             $this->next_billing_info['card_type'] = $customer->creditCards[0]->cardType;
+
+
+            // store the default credit card's info.
+            $this->credit_card_info['card_type'] = $customer->creditCards[0]->cardType;
+            $this->credit_card_info['masked_number'] = $customer->creditCards[0]->maskedNumber;
+            $this->credit_card_info['expiration_month'] = $customer->creditCards[0]->expirationMonth;
+            $this->credit_card_info['expiration_year'] = $customer->creditCards[0]->expirationYear;
+            $this->credit_card_info['expired'] = $customer->creditCards[0]->expired;
 
         }
 
@@ -203,8 +212,6 @@
         // get next billing info of the subscription.
         function get_next_billing_info(){
             
-            self::set_keys();
-
             return $this->next_billing_info;
             
         }
@@ -214,8 +221,6 @@
         // get billing history.
         function get_billing_history(){
             
-            self::set_keys();
-
             return $this->transactions;
             
         }
@@ -253,6 +258,15 @@
             $result_arr['success'] = $result->success;
 
             return $result_arr;
+
+        }
+
+
+
+        // get current credit card info.
+        function get_credit_card_info(){
+            
+            return $this->credit_card_info;
 
         }
 
