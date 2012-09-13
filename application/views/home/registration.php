@@ -139,7 +139,7 @@
                                 array('class' => 'reg-text ' . ( ! is_null($err) ? ($err->has('site_name') ? 'err-text' : '') : '') )
                             ); 
                         ?>
-                        .36Stories.com
+                        .36storiesapp.com
                     </p>
                 </div>
 
