@@ -16,7 +16,7 @@
             
 
             // if plan is secret, treat it as basic.
-            $data['plan'] = $plan;
+            $data['plan'] = ($plan == 'secret' ? 'basic' : $plan);
             $data['country_names'] = DBCountry::get_all_names();
 
             // if $errors is object, it's an error from form validation.
@@ -38,14 +38,22 @@
             $validation = Validator::make(Input::get(), $this->get_validation_rules(), $this->get_validation_messages());
             
             // if there are form validation errors, show the regs form with errors.
-            if( $validation->fails() ) return $this->action_show_form(Input::get('plan'), $validation->errors);
+            if( $validation->fails() ) return $this->action_show_form(URI::segment(2), $validation->errors);
 
             
-            // run the braintree transaction and get the result.
-            $result = S36Braintree::create_account();
+            // if creating secret account, need not to do braintree stuffs.
+            if( URI::segment(2) != 'secret' ){
+                
+                // create braintree account and get the result.
+                $result = S36Braintree::create_account();
 
-            // if braintree transaction didn't succeed, show the regs form with errors.
-            if( ! $result['success'] ) return $this->action_show_form(Input::get('plan'), $result['message']);
+                // if braintree account creation didn't succeed, show the regs form with errors.
+                if( ! $result['success'] ) return $this->action_show_form(URI::segment(2), $result['message']);
+
+            }
+
+            // if creating secret account, set customer_id to blank.
+            $result['customer_id'] = (URI::segment(2) != 'secret' ? $result['customer_id'] : '');
 
             
             // do the registration processing if form validation and braintree succeeds.
@@ -100,17 +108,20 @@
             $rules['password'] = 'required|min:6|same:password_confirmation';
             $rules['password_confirmation'] = 'required|min:6';
             $rules['site_name'] = 'required|max:100|match:/^[\w*\d*]+(-*_*\.*)?[\w*\d*]+$/|unique:Site,name';
-            $rules['billing_first_name'] = 'required';
-            $rules['billing_last_name'] = 'required';
-            $rules['billing_address'] = 'required';
-            $rules['billing_city'] = 'required';
-            $rules['billing_state'] = 'required';
-            $rules['billing_country'] = 'required|exists:Country,name';
-            $rules['billing_zip'] = 'required';
-            $rules['card_number'] = 'required|numeric';
-            $rules['expiration_month'] = 'required|in:01,02,03,04,05,06,07,08,09,10,11,12|future';
-            $rules['expiration_year'] = 'required|in:' . implode(',', range(date('Y'), date('Y') + 5) );
-            $rules['cvv'] = 'required';
+            
+            if( URI::segment(2) != 'secret' ){
+                $rules['billing_first_name'] = 'required';
+                $rules['billing_last_name'] = 'required';
+                $rules['billing_address'] = 'required';
+                $rules['billing_city'] = 'required';
+                $rules['billing_state'] = 'required';
+                $rules['billing_country'] = 'required|exists:Country,name';
+                $rules['billing_zip'] = 'required';
+                $rules['card_number'] = 'required|numeric';
+                $rules['expiration_month'] = 'required|in:01,02,03,04,05,06,07,08,09,10,11,12|future';
+                $rules['expiration_year'] = 'required|in:' . implode(',', range(date('Y'), date('Y') + 5) );
+                $rules['cvv'] = 'required';
+            }
 
             return $rules;
 
