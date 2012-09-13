@@ -109,7 +109,7 @@
             $rules['password_confirmation'] = 'required|min:6';
             $rules['site_name'] = 'required|max:100|match:/^[\w*\d*]+(-*_*\.*)?[\w*\d*]+$/';
             
-            if( URI::segment(2) != 'secret' ){
+            if( URI::segment(2) != 'secret' && URI::segment(3) != 'secret' ){
                 $rules['billing_first_name'] = 'required';
                 $rules['billing_last_name'] = 'required';
                 $rules['billing_address'] = 'required';

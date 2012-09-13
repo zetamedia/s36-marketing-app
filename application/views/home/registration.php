@@ -31,7 +31,7 @@
                     }
                     ?>
                     <br /><br />                        
-                </div> 
+                </div>
             	<?= Form::open(URL::current(), 'POST', array('autocomplete' => 'off')); ?>
                 <?= Form::hidden('plan', $plan); ?>
                 <div class="leftcontentblock">
@@ -338,7 +338,7 @@
 
     // validate form when submitted.
     $('input[type=submit]').click(function(e){
-return;
+
         // elements with their names in span array will have their errors displayed somewhere else. not in them.
         var span = ['password', 'password_confirmation', 'billing_country', 'expiration_month', 'expiration_year'];
         var errors = '';
@@ -362,7 +362,7 @@ return;
             async: false,
             type: 'post',
             data: data,
-            url: '<?= URL::base(); ?>/registration/ajax_validation/',
+            url: '<?= URL::base(); ?>/registration/ajax_validation/<?= (URI::segment(2) == 'secret' ? 'secret' : ''); ?>',
             success: function(error_msg){
                 
                 // display errors if there are.
@@ -387,7 +387,6 @@ return;
                             $('span[name=' + name + ']').addClass('err-text');
 
                         }
-                        alert(name);
 
                     });
                     
