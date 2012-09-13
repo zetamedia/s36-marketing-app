@@ -30,7 +30,8 @@
 
             // get all the data of company from braintree server.
             $customer = \Braintree_Customer::find($customer_id);
-            
+            \Helpers\Helpers::show_data($customer);
+            //return;
 
             // store customer_id and payment method token.
             $this->customer_id = $customer_id;
@@ -223,7 +224,7 @@
 
 
         // update credit card info.
-        function update_credit_card($number, $exp_month, $exp_year, $zip){
+        function update_credit_card($number, $cvv, $exp_month, $exp_year, $zip){
             
             self::set_keys();
             $result_arr = array();
@@ -233,6 +234,7 @@
                 $this->token,
                 array(
                     'number' => $number,
+                    'cvv' => $cvv,
                     'expirationMonth' => $exp_month,
                     'expirationYear' => $exp_year,
                     'billingAddress' => array(
