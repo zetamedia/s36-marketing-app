@@ -30,8 +30,7 @@
 
             // get all the data of company from braintree server.
             $customer = \Braintree_Customer::find($customer_id);
-            \Helpers\Helpers::show_data($customer);
-            //return;
+
 
             // store customer_id and payment method token.
             $this->customer_id = $customer_id;
