@@ -107,7 +107,7 @@
             $rules['username'] = 'required|max:45';
             $rules['password'] = 'required|min:6|same:password_confirmation';
             $rules['password_confirmation'] = 'required|min:6';
-            $rules['site_name'] = 'required|max:100|match:/^\w+[\w\-\_]*$/|unique:Company,name';
+            $rules['site_name'] = 'required|max:100|match:/^\w+[\w\-\_]*$/|unique:Company,name'; 
             
             if( URI::segment(2) != 'secret' && URI::segment(3) != 'secret' ){
                 $rules['billing_first_name'] = 'required';

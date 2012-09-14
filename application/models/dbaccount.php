@@ -38,7 +38,7 @@ class DBAccount extends s36dataobject {
         $billing_state = Input::get('billing_state');
         $billing_country = Input::get('billing_country');
         $billing_zip = Input::get('billing_zip');
-        $bill_to = "$company, $billing_name, $billing_address, $billing_city, $billing_state, $billing_country, $billing_zip";
+        $bill_to = "$company, $billing_name, $billing_address, $billing_city, $billing_state, $billing_country, $billing_zip"; 
 
         
         if($this->company($company)) {
