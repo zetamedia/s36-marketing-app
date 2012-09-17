@@ -110,7 +110,7 @@
             
             $plan = new DBPlan(Input::get('plan'));
             $plan_id = strtolower($plan->get_name());
-            $result_arr = array();
+            $result_arr = array('success' => true, 'message' => array());
 
             
             // create braintree customer account.
@@ -142,7 +142,7 @@
             if( ! $result->success ){
                 
                 $result_arr['success'] = $result->success;
-                $result_arr['message'] = $result->message;
+                $result_arr['message'] = explode("\n", $result->message);
 
                 return $result_arr;
 
@@ -173,7 +173,7 @@
         function update_subscription($plan_id){
             
             self::set_keys();
-            $result_arr = array();
+            $result_arr = array('success' => true, 'message' => array());
             
 
             // create new subscription.
@@ -188,7 +188,7 @@
             if( ! $result->success ){
 
                 $result_arr['success'] = $result->success;
-                $result_arr['message'] = $result->message;
+                $result_arr['message'] = explode("\n", $result->message);
 
                 return $result_arr;
                 
@@ -201,7 +201,6 @@
             // update subscription_id.
             $this->subscription_id = $result->subscription->id;
 
-            $result_arr['success'] = $result->success;
 
             return $result_arr;
 
@@ -231,7 +230,7 @@
         function update_credit_card($number, $cvv, $exp_month, $exp_year, $zip){
             
             self::set_keys();
-            $result_arr = array();
+            $result_arr = array('success' => true, 'message' => array());
 
 
             $result = \Braintree_CreditCard::update(
@@ -253,9 +252,11 @@
 
 
             // return the status of the update. also the error msg is there is.
-            if( ! $result->success ) $result_arr['message'] = $result->message;
+            if( ! $result->success ){
+                $result_arr['success'] = $result->success;
+                $result_arr['message'] = explode("\n", $result->message);
+            }
 
-            $result_arr['success'] = $result->success;
 
             return $result_arr;
 

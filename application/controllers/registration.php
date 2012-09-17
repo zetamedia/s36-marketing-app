@@ -22,7 +22,7 @@
             // if $errors is object, it's an error from form validation.
             $data['err'] = ( is_object($errors) ? $errors : null );
 
-            // if $errors is not object, it's a string error from braintree.
+            // if $errors is not object, it's an array error from braintree.
             $data['braintree_err'] = ( is_object($errors) ? null : $errors );
             
             return View::of('layout')->nest('contents', 'home.registration', $data);

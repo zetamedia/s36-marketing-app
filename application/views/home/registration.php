@@ -238,7 +238,7 @@
                                         array('class' => 'reg-text ' . ( ! is_null($err) ? ($err->has('card_number') ? 'err-text' : '') : '') )
                                     ); 
                                 ?>
-                                <span class="err-text"><?= nl2br($braintree_err); ?></span>
+                                <span class="err-text"><?= implode('<br/>', (array)$braintree_err); ?></span>
                             </td>
                             <td valign="middle">
 								<strong class="secure-ico">Secure</strong>
