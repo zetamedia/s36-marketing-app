@@ -22,20 +22,10 @@
             <div id="banner-right">
             	<div class="media-box-bg">
                 	<div class="media-box">
-                    	<!--
-                    	<div class="banner-ribbon"></div>
-                       -->
                     	<div id="media" class="slider">
-                        	<!--
-                            <div id="slider">
-                            	<img src="images/sample-media.jpg" />
-                                <img src="images/sample-media.jpg" />
-                                <img src="images/sample-media.jpg" />
-                                <img src="images/sample-media.jpg" />
-                            </div>
-                            -->
                             <div id="video">
-                            	<?=HTML::image('img/video-coming-soon.jpg')?>
+                            	<?//=HTML::image('img/video-coming-soon.jpg')?>
+                            	<?= HTML::image('img/inbox.jpg'); ?>
                             </div>
                             
                         </div>

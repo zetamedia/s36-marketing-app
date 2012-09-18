@@ -25,7 +25,7 @@
                 <li><a href="#">The Team</a></li>
                 <!--<li><a href="#">Investors</a></li>
                 <li><a href="#">Jobs</a></li>-->
-                <li><a href="#">Contact Us</a></li>
+                <li><a href="<?//= URL::to('contact'); ?>">Contact Us</a></li>
             </ul>
         </div>
         <div class="link-block">

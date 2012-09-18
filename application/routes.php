@@ -69,6 +69,10 @@ Route::get('login', function(){
     return View::of('layout')->nest('contents', 'home.login');
 });
 
+Route::get('contact', function(){
+    return View::of('layout')->nest('contents', 'home.contact');
+});
+
 
 Route::post('registration/ajax_validation/(:any?)', 'registration@ajax_validation');
 
