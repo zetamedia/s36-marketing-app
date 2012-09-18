@@ -36,7 +36,7 @@
                             </div>
                             -->
                             <div id="video">
-                            	<!--<?=HTML::image('img/video-coming-soon.jpg')?>-->
+                            	<?=HTML::image('img/video-coming-soon.jpg')?>
                             </div>
                             
                         </div>
