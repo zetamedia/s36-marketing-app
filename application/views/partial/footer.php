@@ -3,13 +3,13 @@
 <div id="bluestripwrapper">
 	<div id="bluestripcontent">
     	<div class="strip-box">
-        	<div class="bubble-icon">Great feedback, made really simple.</div>
+        	<div class="bubble-icon">It's great feedback, made even better.</div>
         </div>
         <div class="strip-box dark">
         	<div class="chat-icon left-adjust">Get powerful, authentic<br /> endorsements. Everyday.</div>
         </div>
         <div class="strip-box light">
-        	<div class="dollar-icon">Boost buyer confidence and profits.</div>
+        	<div class="dollar-icon">Instantly boost buyer confidence and profits.</div>
         </div>
     </div>
 </div>
@@ -31,7 +31,7 @@
         <div class="link-block">
         	<h2>SUPPORT</h2>
             <ul>
-            	<li><a href="#">Help Center</a></li>
+            	<li><a href="http://36stories.freshdesk.com" target="_blank">Help Center</a></li>
                 <!--<li><a href="#">Community</a></li>-->
                 <!--<li><a href="#">Quick Start Guide</a></li>-->
             </ul>
@@ -88,8 +88,8 @@
         <div class="contact-info">
         	<h2>CONTACT US</h2>
         	<ul>
-            	<li class="telephone">1-8000-12345678</li>
-                <li class="mobile">1-8000-12345678</li>
+            	<!--<li class="telephone">1-8000-12345678</li>
+                <li class="mobile">1-8000-12345678</li>-->
                 <li class="email"><strong>Drop us an email</strong></li>
             </ul>
             <div class="bottom-logo"><?=HTML::image('img/36-storieslogo.png')?></div>
