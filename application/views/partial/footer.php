@@ -43,8 +43,8 @@
             	<li><a href="http://Twitter.com/36Stories" target="_blank">Twitter</a></li>
             </ul>
         </div>
+        <!--
         <div class="link-block">
-        	<!--
             <h2>PARTNERS</h2>
             <ul>
             	<li><a href="#">Developer API</a></li>
@@ -53,8 +53,8 @@
                 <li><a href="#">Partner</a></li>
                 <li><a href="#">Others</a></li>
             </ul>
-            -->
         </div>
+        -->
         <div class="link-block">
         	<!--
             <h2>SERVICES</h2>
