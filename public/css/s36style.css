@@ -73,10 +73,10 @@ a.navy{ color: #274D71; }
 	#titlebarcontent h1{font-size:35px;font-family:Georgia, "Times New Roman", Times, serif;font-weight:normal;color:#32404b;padding-top:40px;}	
 	#titlebarcontent p{color:#2b3336;font-size:14px;padding-top:5px;}
 	#banner-left{width:465px;float:left;height:290px;padding-top:30px;}
-	#banner-left p{line-height:20px;font-size:14px;margin-left:3px;}
+	#banner-left p{line-height:30px;font-size:14px;margin-left:3px;}
 	#banner-left h1{font-family:Georgia, "Times New Roman", Times, serif;color:#32404b;font-size:35px;font-weight:normal;}
 	#banner-left h1 em{color:#295f88;}
-	#banner-left h1.larger-text{ font-size:34px; }
+	#banner-left h1.larger-text{ font-size:34px; line-height: 45px; }
 	#banner-left ul{list-style:none;margin-top:20px;}
 	#banner-left ul li{background:url(../img/list-arrow.png) left center no-repeat;padding:0px 0px 7px 30px;color:#2c3237;}
 	#banner-left .take-tour-btn{width:198px;height:50px;background:url(../img/take-tour-btn.png) top no-repeat;margin-top:10px;	}
