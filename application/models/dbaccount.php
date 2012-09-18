@@ -38,7 +38,7 @@ class DBAccount extends s36dataobject {
         $billing_state = Input::get('billing_state');
         $billing_country = Input::get('billing_country');
         $billing_zip = Input::get('billing_zip');
-        $bill_to = "$billing_name, $billing_address, $billing_city, $billing_state, $billing_country, $billing_zip";
+        $bill_to = "$company, $billing_name, $billing_address, $billing_city, $billing_state, $billing_country, $billing_zip"; 
 
         
         if($this->company($company)) {
@@ -48,7 +48,7 @@ class DBAccount extends s36dataobject {
         } else {
             
             $this->dbh->beginTransaction();
-            $this->dbh->query('INSERT INTO Company (`name`, `planId`, `billTo`, `bt_customer_id`) VALUES("'.$company.'", ' . $plan_id . ', "'.$bill_to.'", "' . $customer_id . '")');
+            $this->dbh->query('INSERT INTO Company (`name`, `planId`, `billTo`, `bt_customer_id`) VALUES("'.$site_name.'", ' . $plan_id . ', "'.$bill_to.'", "' . $customer_id . '")');
             $this->dbh->query('SET @company_id = LAST_INSERT_ID()');
             $this->dbh->query('INSERT INTO Metric (`companyId`, `totalRequest`, `totalResponse`) VALUES(@company_id, 0, 0)'); 
             $this->dbh->query('INSERT INTO Site (`companyId`, `domain`, `name`, `defaultFormId`) VALUES(@company_id, "'.$site.'", "'.$site_name.'", 1)');   

@@ -4,8 +4,7 @@
 	<div id="mainsubbannerwrapper">
     	<div id="mainbannercontent">
         	<div id="banner-left">
-            	<br /><br />
-            	<h1 class="larger-text">Showcase powerful, authentic, <br />endorsements for your business</h1>
+            	<h1 class="larger-text">Grow powerful, authentic endorsements. Faster.</h1>
                 <!--
                 <ul>
                 	<li>Build your reputation and track record faster than your competition</li>
@@ -14,29 +13,19 @@
                 -->
                 <br />
                 <p> 
-                    Share hundreds of great customer experiences and testimonials, plus gain instant credibility with your audience and buyers. Start building your track record faster than your competition, and empower word-of-mouth marketing for your brand every single day. 
+                    Share thousands of great customer experiences, gain instant credibility and fast track your business’s track record.
                 </p>
               
                 <div class="take-tour-btn" onclick="window.location='tour#0'"></div>
             </div>
-            <div class="discover-text"></div>
+            <!--<div class="discover-text"></div>-->
             <div id="banner-right">
             	<div class="media-box-bg">
                 	<div class="media-box">
-                    	<!--
-                    	<div class="banner-ribbon"></div>
-                       -->
                     	<div id="media" class="slider">
-                        	<!--
-                            <div id="slider">
-                            	<img src="images/sample-media.jpg" />
-                                <img src="images/sample-media.jpg" />
-                                <img src="images/sample-media.jpg" />
-                                <img src="images/sample-media.jpg" />
-                            </div>
-                            -->
                             <div id="video">
-                            	<?=HTML::image('img/video-coming-soon.jpg')?>
+                            	<?//=HTML::image('img/video-coming-soon.jpg')?>
+                            	<?= HTML::image('img/inbox.jpg'); ?>
                             </div>
                             
                         </div>

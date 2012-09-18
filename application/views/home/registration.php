@@ -31,7 +31,7 @@
                     }
                     ?>
                     <br /><br />                        
-                </div> 
+                </div>
             	<?= Form::open(URL::current(), 'POST', array('autocomplete' => 'off')); ?>
                 <?= Form::hidden('plan', $plan); ?>
                 <div class="leftcontentblock">
@@ -238,7 +238,7 @@
                                         array('class' => 'reg-text ' . ( ! is_null($err) ? ($err->has('card_number') ? 'err-text' : '') : '') )
                                     ); 
                                 ?>
-                                <span class="err-text"><?= nl2br($braintree_err); ?></span>
+                                <span class="err-text"><?= implode('<br/>', (array)$braintree_err); ?></span>
                             </td>
                             <td valign="middle">
 								<strong class="secure-ico">Secure</strong>
@@ -362,7 +362,7 @@
             async: false,
             type: 'post',
             data: data,
-            url: '<?= URL::base(); ?>/registration/ajax_validation/',
+            url: '<?= URL::base(); ?>/registration/ajax_validation/<?= (URI::segment(2) == 'secret' ? 'secret' : ''); ?>',
             success: function(error_msg){
                 
                 // display errors if there are.

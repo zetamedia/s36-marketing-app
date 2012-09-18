@@ -22,7 +22,7 @@
             // if $errors is object, it's an error from form validation.
             $data['err'] = ( is_object($errors) ? $errors : null );
 
-            // if $errors is not object, it's a string error from braintree.
+            // if $errors is not object, it's an array error from braintree.
             $data['braintree_err'] = ( is_object($errors) ? null : $errors );
             
             return View::of('layout')->nest('contents', 'home.registration', $data);
@@ -107,9 +107,9 @@
             $rules['username'] = 'required|max:45';
             $rules['password'] = 'required|min:6|same:password_confirmation';
             $rules['password_confirmation'] = 'required|min:6';
-            $rules['site_name'] = 'required|max:100|match:/^[\w*\d*]+(-*_*\.*)?[\w*\d*]+$/';
+            $rules['site_name'] = 'required|max:100|match:/^\w+[\w\-\_]*$/|unique:Company,name'; 
             
-            if( URI::segment(2) != 'secret' ){
+            if( URI::segment(2) != 'secret' && URI::segment(3) != 'secret' ){
                 $rules['billing_first_name'] = 'required';
                 $rules['billing_last_name'] = 'required';
                 $rules['billing_address'] = 'required';

@@ -69,6 +69,10 @@ Route::get('login', function(){
     return View::of('layout')->nest('contents', 'home.login');
 });
 
+Route::get('contact', function(){
+    return View::of('layout')->nest('contents', 'home.contact');
+});
+
 
 Route::post('registration/ajax_validation/(:any?)', 'registration@ajax_validation');
 
@@ -85,9 +89,26 @@ Route::get('registration-successful', function(){
     return View::of('layout')->nest('contents', 'home.registration-successful', array('site' => $site));
 
 });
-
+/*
 use Helpers\Helpers;
 Route::get('test', function(){
+    
+    $site_name = 'derps';
+    $site = URL::base();
+    $site = 'http://kennwel-marketing.gearfish.com';
+    $site = 'http://beta.36stories.com';
+    $site = 'http://www.beta.36stories.com';
+    $site = 'http://36storiesapp.com';
+    $site = 'http://www.36storiesapp.com';
+
+    $tld = ( strrpos($site, '.') !== false ? substr($site, strrpos($site, '.')) : '' );
+    $host = str_replace('http://', '', $site);
+    $host = str_replace($tld, '', $host);
+    $host = substr($host, strrpos($host, '.'));
+    $host = str_replace('.', '', $host);
+    $site = 'https://' . $site_name . '.' . $host . $tld . '/login';
+    
+    //echo $site;
     
     //$result = S36Braintree::create_account();
     //Helpers::show_data($result);
@@ -98,53 +119,18 @@ Route::get('test', function(){
     //Helpers::show_data($result);
     //Helpers::show_data($company);
     
+    //Helpers::show_data($company->exists());
+    //Helpers::show_data($company->get_existence_error());
+    //Helpers::show_data($company->get_existence_result());
+    
     //$result = $company->get_next_billing_info();
     //Helpers::show_data($result);
     
     //$result = $company->get_billing_history();
     //Helpers::show_data($result);
 
-
-    /*
-    $site_name = 'kennwel';
-    $site = URL::base();
-    //$site = 'http://Marketing-Site-Laravel-';
-    //$site = 'http://www.mathew-marketing.gearfish.com';
-    //$site = 'http://gearfish.com';
-
-    $tld = ( strrpos($site, '.') !== false ? substr($site, strrpos($site, '.')) : '' );
-    $host = str_replace('http://', '', $site);
-    $host = str_replace($tld, '', $host);
-    $host = substr($host, strrpos($host, '.'));
-    $host = str_replace('.', '', $host);
-    $site = 'https://' . $site_name . '.' . $host . $tld . '/login';
-
-    return $site;
-    */
-
-    
-    /*
-    $output = '';
-    $pattern = '/^[\w*\d*]+(-*_*\.*)?[\w*\d*]+$/';
-    
-    $str[] = 'abc.abc';
-    $str[] = 'abc-abc';
-    $str[] = 'abc_abc';
-    $str[] = 'abc-abc.abc';
-    $str[] = 'abc-abc_abc';
-    $str[] = 'abc_abc.abc';
-    $str[] = 'abc.abc-abc';
-
-
-    foreach( $str as $k => $v ){
-        if( preg_match($pattern, $v) ) $output .= $k . ' => ' . $v . '<br/>';
-    }
-
-    return $output;
-    */
-
 });
-
+*/
 
 /*
 |--------------------------------------------------------------------------

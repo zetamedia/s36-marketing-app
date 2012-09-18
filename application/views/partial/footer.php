@@ -3,13 +3,13 @@
 <div id="bluestripwrapper">
 	<div id="bluestripcontent">
     	<div class="strip-box">
-        	<div class="bubble-icon">Great feedback, made really simple.</div>
+        	<div class="bubble-icon">It's great feedback, made even better.</div>
         </div>
         <div class="strip-box dark">
         	<div class="chat-icon left-adjust">Get powerful, authentic<br /> endorsements. Everyday.</div>
         </div>
         <div class="strip-box light">
-        	<div class="dollar-icon">Boost buyer confidence and profits.</div>
+        	<div class="dollar-icon">Instantly boost buyer confidence and profits.</div>
         </div>
     </div>
 </div>
@@ -23,21 +23,28 @@
             <ul>
             	<li><a href="#">Blog</a></li>
                 <li><a href="#">The Team</a></li>
-                <li><a href="#">Investors</a></li>
-                <li><a href="#">Jobs</a></li>
-                <li><a href="#">Contact Us</a></li>
+                <!--<li><a href="#">Investors</a></li>
+                <li><a href="#">Jobs</a></li>-->
+                <li><a href="<?//= URL::to('contact'); ?>">Contact Us</a></li>
             </ul>
         </div>
         <div class="link-block">
         	<h2>SUPPORT</h2>
             <ul>
-            	<li><a href="#">Help Center</a></li>
-                <li><a href="#">Community</a></li>
-                <li><a href="#">Quick Start Guide</a></li>
+            	<li><a href="http://36stories.freshdesk.com" target="_blank">Help Center</a></li>
+                <!--<li><a href="#">Community</a></li>-->
+                <!--<li><a href="#">Quick Start Guide</a></li>-->
             </ul>
         </div>
         <div class="link-block">
-        	<!--
+        	<h2>COMMUNITY</h2>
+            <ul>
+            	<li><a href="http://facebook.com/36Stories" target="_blank">Facebook</a></li>
+            	<li><a href="http://Twitter.com/36Stories" target="_blank">Twitter</a></li>
+            </ul>
+        </div>
+        <!--
+        <div class="link-block">
             <h2>PARTNERS</h2>
             <ul>
             	<li><a href="#">Developer API</a></li>
@@ -46,8 +53,8 @@
                 <li><a href="#">Partner</a></li>
                 <li><a href="#">Others</a></li>
             </ul>
-            -->
         </div>
+        -->
         <div class="link-block">
         	<!--
             <h2>SERVICES</h2>
@@ -81,8 +88,8 @@
         <div class="contact-info">
         	<h2>CONTACT US</h2>
         	<ul>
-            	<li class="telephone">1-8000-12345678</li>
-                <li class="mobile">1-8000-12345678</li>
+            	<!--<li class="telephone">1-8000-12345678</li>
+                <li class="mobile">1-8000-12345678</li>-->
                 <li class="email"><strong>Drop us an email</strong></li>
             </ul>
             <div class="bottom-logo"><?=HTML::image('img/36-storieslogo.png')?></div>
@@ -94,13 +101,13 @@
 <div id="footerwrapper">
     <div id="footercontents">
     	<div class="copyright">
-    		<span>© 2011 36Stories. All Rights Reserved.</span>  <?=HTML::link('/tac', 'Terms')?>  | <?=HTML::link('/privacy', 'Privacy')?>
+    		<span>© 2011 36Stories Inc. All Rights Reserved.</span>  <?=HTML::link('/tac', 'Terms')?>  | <?=HTML::link('/privacy', 'Privacy')?>
         </div>
         <div class="socialicons">
         	<div class="text">Stay in touch</div>
             <ul>
-                <li><?=HTML::image('img/ico-fb.png')?></li>
-                <li><?=HTML::image('img/ico-twitter.png')?></li>
+                <li><a href="http://facebook.com/36Stories" title="Facebook Page" target="_blank"><?=HTML::image('img/ico-fb.png')?></a></li>
+                <li><a href="http://Twitter.com/36Stories" title="Twitter Page" target="_blank"><?=HTML::image('img/ico-twitter.png')?></a></li>
                 <!--this is a comment
                 <li><a href="#"><?=HTML::image('img/ico-tumblr.png')?></a></li>
                 <li><a href="#"><?=HTML::image('img/ico-youtube.png')?></a></li>
