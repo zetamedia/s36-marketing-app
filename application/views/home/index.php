@@ -4,8 +4,7 @@
 	<div id="mainsubbannerwrapper">
     	<div id="mainbannercontent">
         	<div id="banner-left">
-            	<br /><br />
-            	<h1 class="larger-text">Grow powerful, authetic endorsements. Fast.</h1>
+            	<h1 class="larger-text">Grow powerful, authentic endorsements. Fast.</h1>
                 <!--
                 <ul>
                 	<li>Build your reputation and track record faster than your competition</li>
