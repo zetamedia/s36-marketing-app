@@ -19,7 +19,7 @@
               
                 <div class="take-tour-btn" onclick="window.location='tour#0'"></div>
             </div>
-            <div class="discover-text"></div>
+            <!--<div class="discover-text"></div>-->
             <div id="banner-right">
             	<div class="media-box-bg">
                 	<div class="media-box">
@@ -36,7 +36,7 @@
                             </div>
                             -->
                             <div id="video">
-                            	<?=HTML::image('img/video-coming-soon.jpg')?>
+                            	<!--<?=HTML::image('img/video-coming-soon.jpg')?>-->
                             </div>
                             
                         </div>

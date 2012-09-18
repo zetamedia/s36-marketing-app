@@ -84,6 +84,8 @@
             <div class="page-block" style="padding-left:10px;">
             	<h4>Do I have to sign a long term contract?</h4>
                 <p>No. 36Stories is a pay-as-you-go service. There are no long term contracts or commitments on your part. You simply pay month-to-month. If you cancel, you'll be billed for the current month, but you won't be billed again.</p>
+                <h4>How secure is my payment info?</h4>
+                <p>All payments are securely processed by industry leader Braintree. Your card information never even touches our servers.</p>
                 <h4>What types of payment do you accept?</h4>
                 <p>Currently we accept Visa, Mastercard, and American Express. We do not accept PayPal. At this time we only accept payments online so we will not be able to accept a P.O., invoice you, or take an order over the phone</p>
             </div>

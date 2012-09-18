@@ -23,8 +23,8 @@
             <ul>
             	<li><a href="#">Blog</a></li>
                 <li><a href="#">The Team</a></li>
-                <li><a href="#">Investors</a></li>
-                <li><a href="#">Jobs</a></li>
+                <!--<li><a href="#">Investors</a></li>
+                <li><a href="#">Jobs</a></li>-->
                 <li><a href="#">Contact Us</a></li>
             </ul>
         </div>
@@ -32,8 +32,15 @@
         	<h2>SUPPORT</h2>
             <ul>
             	<li><a href="#">Help Center</a></li>
-                <li><a href="#">Community</a></li>
-                <li><a href="#">Quick Start Guide</a></li>
+                <!--<li><a href="#">Community</a></li>-->
+                <!--<li><a href="#">Quick Start Guide</a></li>-->
+            </ul>
+        </div>
+        <div class="link-block">
+        	<h2>COMMUNITY</h2>
+            <ul>
+            	<li><a href="http://facebook.com/36Stories" target="_blank">Facebook</a></li>
+            	<li><a href="http://Twitter.com/36Stories" target="_blank">Twitter</a></li>
             </ul>
         </div>
         <div class="link-block">
@@ -94,13 +101,13 @@
 <div id="footerwrapper">
     <div id="footercontents">
     	<div class="copyright">
-    		<span>© 2011 36Stories. All Rights Reserved.</span>  <?=HTML::link('/tac', 'Terms')?>  | <?=HTML::link('/privacy', 'Privacy')?>
+    		<span>© 2011 36Stories Inc. All Rights Reserved.</span>  <?=HTML::link('/tac', 'Terms')?>  | <?=HTML::link('/privacy', 'Privacy')?>
         </div>
         <div class="socialicons">
         	<div class="text">Stay in touch</div>
             <ul>
-                <li><?=HTML::image('img/ico-fb.png')?></li>
-                <li><?=HTML::image('img/ico-twitter.png')?></li>
+                <li><a href="http://facebook.com/36Stories" title="Facebook Page" target="_blank"><?=HTML::image('img/ico-fb.png')?></a></li>
+                <li><a href="http://Twitter.com/36Stories" title="Twitter Page" target="_blank"><?=HTML::image('img/ico-twitter.png')?></a></li>
                 <!--this is a comment
                 <li><a href="#"><?=HTML::image('img/ico-tumblr.png')?></a></li>
                 <li><a href="#"><?=HTML::image('img/ico-youtube.png')?></a></li>

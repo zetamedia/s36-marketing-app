@@ -36,8 +36,8 @@
                 	<?=HTML::link('/login', 'LOGIN')?>
                 </div>-->
                 <div id="social-icon-block">
-                	<a href="#" title="Facebook Page"><?=HTML::image('img/head-fb-icon.png')?></a>
-                    <a href="#" title="Twitter Page"><?=HTML::image('img/head-tw-icon.png')?></a>
+                    <a href="http://facebook.com/36Stories" title="Facebook Page" target="_blank"><?=HTML::image('img/head-fb-icon.png')?></a>
+                    <a href="http://Twitter.com/36Stories" title="Twitter Page" target="_blank"><?=HTML::image('img/head-tw-icon.png')?></a>
                 </div>
             </div>
         </div>
