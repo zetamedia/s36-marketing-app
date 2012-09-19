@@ -108,7 +108,7 @@ Route::get('test', function(){
     $host = str_replace('.', '', $host);
     $site = 'https://' . $site_name . '.' . $host . $tld . '/login';
     
-    echo $site;
+    //echo $site;
     
     //$result = S36Braintree::create_account();
     //Helpers::show_data($result);
@@ -118,6 +118,10 @@ Route::get('test', function(){
     //$result = $company->update_credit_card('4005519200000004', '123', '02', '2014', '456');
     //Helpers::show_data($result);
     //Helpers::show_data($company);
+    
+    //Helpers::show_data($company->exists());
+    //Helpers::show_data($company->get_existence_error());
+    //Helpers::show_data($company->get_existence_result());
     
     //$result = $company->get_next_billing_info();
     //Helpers::show_data($result);

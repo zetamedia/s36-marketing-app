@@ -9,6 +9,8 @@
         private $next_billing_info;
         private $subscription_id;
         private $credit_card_info;
+        private $exists = true;
+        private $existence_err = '';
 
 
 
@@ -28,10 +30,23 @@
         function __construct($customer_id){
             
             self::set_keys();
+            $result_arr = array('success' => true, 'message' => array());
 
-            // get all the data of company from braintree server.
-            $customer = \Braintree_Customer::find($customer_id);
-            
+
+            // get data of company from braintree server.
+            try{
+                
+                $customer = \Braintree_Customer::find($customer_id);
+
+            // if company is not found, stop execution and store existence status and error.
+            }catch(Exception $e){
+                
+                $this->exists = false;
+                $this->existence_err = 'Customer with id ' . $customer_id . ' not found';
+                return;
+
+            }
+
 
             // store customer_id and payment method token.
             $this->customer_id = $customer_id;
@@ -98,6 +113,38 @@
             $this->credit_card_info['expiration_month'] = $customer->creditCards[0]->expirationMonth;
             $this->credit_card_info['expiration_year'] = $customer->creditCards[0]->expirationYear;
             $this->credit_card_info['expired'] = $customer->creditCards[0]->expired;
+
+        }
+
+
+
+        // return existence status of company.
+        function exists(){
+            
+            return $this->exists;
+
+        }
+
+
+
+        // return existence error of the company.
+        function get_existence_error(){
+            
+            return $this->existence_err;
+
+        }
+
+
+
+        // return existence result of the company.
+        // this is to be used as returned result array in other functions
+        // so this will follow the format of other result array.
+        function get_existence_result(){
+            
+            $err['success'] = $this->exists;
+            $err['message'] = array($this->existence_err);
+
+            return $err;
 
         }
 
@@ -172,6 +219,10 @@
         // update subscription.
         function update_subscription($plan_id){
             
+            // say something if company doesn't exist.
+            if( ! $this->exists() ) return $this->get_existence_result();
+
+            
             self::set_keys();
             $result_arr = array('success' => true, 'message' => array());
             
@@ -211,6 +262,10 @@
         // get next billing info of the subscription.
         function get_next_billing_info(){
             
+            // say something if company doesn't exist.
+            if( ! $this->exists() ) return $this->get_existence_result();
+
+
             return $this->next_billing_info;
             
         }
@@ -220,6 +275,10 @@
         // get billing history.
         function get_billing_history(){
             
+            // say something if company doesn't exist.
+            if( ! $this->exists() ) return $this->get_existence_result();
+
+
             return $this->transactions;
             
         }
@@ -229,6 +288,10 @@
         // update credit card info.
         function update_credit_card($number, $cvv, $exp_month, $exp_year, $zip){
             
+            // say something if company doesn't exist.
+            if( ! $this->exists() ) return $this->get_existence_result();
+
+
             self::set_keys();
             $result_arr = array('success' => true, 'message' => array());
 
@@ -267,6 +330,10 @@
         // get current credit card info.
         function get_credit_card_info(){
             
+            // say something if company doesn't exist.
+            if( ! $this->exists() ) return $this->get_existence_result();
+
+
             return $this->credit_card_info;
 
         }
