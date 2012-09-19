@@ -72,7 +72,7 @@ a.navy{ color: #274D71; }
 #titlebarcontent{width:880px;height:135px;margin:0 auto;text-align:center;}
 	#titlebarcontent h1{font-size:35px;font-family:Georgia, "Times New Roman", Times, serif;font-weight:normal;color:#32404b;padding-top:40px;}	
 	#titlebarcontent p{color:#2b3336;font-size:14px;padding-top:5px;}
-	#banner-left{width:465px;float:left;height:290px;padding-top:30px; width: 388px; margin-right: 40px; } /***/
+	#banner-left{width:465px;float:left;height:290px;padding-top:30px; width: 390px; } /***/
 	#banner-left p{line-height:30px;font-size:14px;margin-left:3px;}
 	#banner-left h1{font-family:Georgia, "Times New Roman", Times, serif;color:#32404b;font-size:35px;font-weight:normal;}
 	#banner-left h1 em{color:#295f88;}
@@ -83,7 +83,7 @@ a.navy{ color: #274D71; }
 	#banner-left .take-tour-btn:hover{background-position:bottom;cursor:pointer;}
 	#banner-left p{ font-size:17px;text-align:justify; }
 	#banner-right{width:415px;float:left;height:320px; height: 360px; } /***/
-	#banner-right .media-box-bg{width:455px;height:260px;background:url(../img/mediaboxbg.png) no-repeat;position:absolute;top:33px;}
+	#banner-right .media-box-bg{ width: 523px;height:260px;background:url(../img/mediaboxbg.png) no-repeat;position:absolute;top:33px; }
 	#banner-right .media-box-bg .media-box{width:393px;height:260px;background:#FFF;margin:0 auto;border:1px solid #a9aaaa;-webkit-border-radius:2px;-moz-border-radius:2px;border-radius:2px; width: 460px; height: 300px; } /***/
 	#banner-right .media-box-bg .media-box .banner-ribbon{width:96px;height:58px;background:url(../img/banner-ribbon-updated.png);position:absolute;right:0;top:0;z-index:1000;}
 	#banner-right .media-box-bg .media-box .slider{width:363px;height:226px;margin:0 auto;top:17px; width: 428px; } /***/
