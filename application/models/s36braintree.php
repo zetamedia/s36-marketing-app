@@ -46,7 +46,7 @@
                 return;
 
             }
-
+            
 
             // store customer_id and payment method token.
             $this->customer_id = $customer_id;
@@ -72,11 +72,11 @@
                     foreach( $subs->transactions as $trans ){
                         
                         // store the transactions data of the subscription.
-                        $this->subscriptions[$a]['transactions'][$b]['transaction_id'] =  $trans->id;
-                        $this->subscriptions[$a]['transactions'][$b]['card_type'] =  $trans->creditCard['cardType'];
-                        $this->subscriptions[$a]['transactions'][$b]['plan_id'] =  $trans->planId;
-                        $this->subscriptions[$a]['transactions'][$b]['amount'] =  $trans->amount;
-                        $this->subscriptions[$a]['transactions'][$b]['date'] =  $trans->createdAt;
+                        $this->subscriptions[$a]['transactions'][$b]['transaction_id'] = $trans->id;
+                        $this->subscriptions[$a]['transactions'][$b]['card_type'] = $trans->creditCard['cardType'];
+                        $this->subscriptions[$a]['transactions'][$b]['plan_id'] = $trans->planId;
+                        $this->subscriptions[$a]['transactions'][$b]['amount'] = $trans->amount;
+                        $this->subscriptions[$a]['transactions'][$b]['date'] = $trans->createdAt;
                         
                         // store the transactions in its own variable.
                         $this->transactions[] = $this->subscriptions[$a]['transactions'][$b];

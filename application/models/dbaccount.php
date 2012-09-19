@@ -26,7 +26,9 @@ class DBAccount extends s36dataobject {
         $encrypt_string = $encrypt->encrypt($email."|".$password_string);
         $company = $this->escape(strtolower( Input::get('company') ));
         $username = $this->escape( Input::get('username') );
-        $fullName = $this->escape( Input::get('first_name') . ' ' . Input::get('last_name') );
+        //$fullName = $this->escape( Input::get('first_name') . ' ' . Input::get('last_name') );
+        $firstname = $this->escape( Input::get('first_name') );
+        $lastname = $this->escape( Input::get('last_name') );
         $site = $this->escape('www.' . Input::get('site_name') . '.com');
         $site_name = $this->escape(strtolower( Input::get('site_name') ));
         $plan = new DBPlan(Input::get('plan'));
@@ -53,8 +55,8 @@ class DBAccount extends s36dataobject {
             $this->dbh->query('INSERT INTO Metric (`companyId`, `totalRequest`, `totalResponse`) VALUES(@company_id, 0, 0)'); 
             $this->dbh->query('INSERT INTO Site (`companyId`, `domain`, `name`, `defaultFormId`) VALUES(@company_id, "'.$site.'", "'.$site_name.'", 1)');   
             $this->dbh->query('SET @site_id = LAST_INSERT_ID()');
-            $this->dbh->query('INSERT INTO User (`companyId`, `username`, `account_owner`,`confirmed`, `password`, `encryptString`, `email`, `fullName`, `title`, `imId`)  
-                               VALUES (@company_id, "'.$username.'", 1, 1, "'.$password.'", "'.$encrypt_string.'", "'.$email.'", "'.$fullName.'", "CEO", 1)');
+            $this->dbh->query('INSERT INTO User (`companyId`, `username`, `firstname`, `lastname`, `account_owner`,`confirmed`, `password`, `encryptString`, `email`, `title`, `imId`)  
+                               VALUES (@company_id, "'.$username.'", "' . $firstname . '", "' . $lastname . '", 1, 1, "'.$password.'", "'.$encrypt_string.'", "'.$email.'", "CEO", 1)');
             $this->dbh->query('SET @user_id = LAST_INSERT_ID()');
             $this->dbh->query('INSERT INTO AuthAssignment (`itemname`, `userid`) VALUES ("Admin", @user_id)');
             $this->dbh->query('INSERT INTO Category (`companyId`, `intName`, `name`, `changeable`) 
