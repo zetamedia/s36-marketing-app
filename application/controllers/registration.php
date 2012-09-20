@@ -100,8 +100,8 @@
             });
 
             $rules['plan'] = 'required|exists:Plan,name';
-            $rules['first_name'] = 'required|max:24';
-            $rules['last_name'] = 'required|max:24';
+            $rules['first_name'] = 'required|max:80';
+            $rules['last_name'] = 'required|max:80';
             $rules['email'] = 'required|email|max:45';
             $rules['company'] = 'required|max:45|unique:Company,name';
             $rules['username'] = 'required|max:45|match:/^\w+[\_]*$/';
