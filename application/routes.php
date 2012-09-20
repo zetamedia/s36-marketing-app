@@ -109,7 +109,7 @@ Route::get('test', function(){
     $host = ($host == '36stories' ? '36storiesapp' : $host);
     $site = 'https://' . $site_name . '.' . $host . $tld . '/login';
     
-    echo $site;
+    //echo $site;
     
     //$result = S36Braintree::create_account();
     //Helpers::show_data($result);
