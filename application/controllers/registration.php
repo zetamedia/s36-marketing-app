@@ -104,7 +104,7 @@
             $rules['last_name'] = 'required|max:24';
             $rules['email'] = 'required|email|max:45';
             $rules['company'] = 'required|max:45|unique:Company,name';
-            $rules['username'] = 'required|max:45';
+            $rules['username'] = 'required|max:45|match:/^\w+[\_]*$/';
             $rules['password'] = 'required|min:6|same:password_confirmation';
             $rules['password_confirmation'] = 'required|min:6';
             $rules['site_name'] = 'required|max:100|match:/^\w+[\w\-\_]*$/|unique:Company,name'; 
