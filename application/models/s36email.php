@@ -38,6 +38,7 @@
             $host = str_replace($tld, '', $host);
             $host = substr($host, strrpos($host, '.'));
             $host = str_replace('.', '', $host);
+            $host = ($host == '36stories' ? '36storiesapp' : $host);
             $site = 'https://' . Input::get('site_name') . '.' . $host . $tld . '/login';
             $data['account_login_url'] = HTML::entities( $site );
 

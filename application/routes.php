@@ -64,11 +64,11 @@ Route::get('tac', function(){
 Route::get('privacy', function(){
     return View::of('layout')->nest('contents', 'home.privacy');
 });
-
+/*
 Route::get('login', function(){
     return View::of('layout')->nest('contents', 'home.login');
 });
-
+*/
 Route::get('contact', function(){
     return View::of('layout')->nest('contents', 'home.contact');
 });
