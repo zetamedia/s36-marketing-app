@@ -158,7 +158,7 @@
             $plan = new DBPlan(Input::get('plan'));
             $plan_id = strtolower($plan->get_name());
             $result_arr = array('success' => true, 'message' => array());
-
+            
             
             // create braintree customer account.
             $result = \Braintree_Customer::create(array(
