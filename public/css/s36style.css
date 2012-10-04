@@ -37,7 +37,7 @@ body{
 		color:#FFF;
 		text-shadow:#851e7b 0px -1px;	
 }		
-a{text-decoration:none;color:#b0b0b0;border:none;}
+a{text-decoration:none;color:#b0b0b0;border:none; color: #32404B; }
 a img{border:none;}
 a.navy{ color: #274D71; }
 /* end of reset */
@@ -51,7 +51,7 @@ a.navy{ color: #274D71; }
 	#top-nav{width:720px;position:absolute;right:0px;text-align:right;top:18px;}
 	
 	#top-nav #nav-block{width:550px;float:left;padding-right:25px;}
-			 #nav-block ul{list-style:none;margin:0px;padding:0px;font-size:11px;}
+			 #nav-block ul{list-style:none;margin:0px;padding:0px;font-size:15px;}
 			 #nav-block ul li{display:inline;background:url(../img/top-nav-pipe.png) no-repeat right center;padding:0px 14px 0px 10px;margin:0px;}
 		  	 #nav-block ul li:last-child{background:none;}
 			 #nav-block ul li a.selected{color:#787e83;font-weight:bold;}
@@ -73,13 +73,13 @@ a.navy{ color: #274D71; }
 	#titlebarcontent h1{font-size:35px;font-family:Georgia, "Times New Roman", Times, serif;font-weight:normal;color:#32404b;padding-top:40px;}	
 	#titlebarcontent p{color:#2b3336;font-size:14px;padding-top:5px;}
 	#banner-left{width:465px;float:left;height:290px;padding-top:30px; width: 390px; } /***/
-	#banner-left p{line-height:30px;font-size:14px;margin-left:3px;}
+	#banner-left p{line-height:27px;font-size:14px;margin-left:3px;}
 	#banner-left h1{font-family:Georgia, "Times New Roman", Times, serif;color:#32404b;font-size:35px;font-weight:normal;}
 	#banner-left h1 em{color:#295f88;}
-	#banner-left h1.larger-text{ font-size: 38px; line-height: 60px; letter-spacing: -2px; } /***/
+	#banner-left h1.larger-text{ font-size: 35px; line-height: 50px; letter-spacing: -2px; } /***/
 	#banner-left ul{list-style:none;margin-top:20px;}
 	#banner-left ul li{background:url(../img/list-arrow.png) left center no-repeat;padding:0px 0px 7px 30px;color:#2c3237;}
-	#banner-left .take-tour-btn{width:198px;height:50px;background:url(../img/take-tour-btn.png) top no-repeat;margin-top:10px;	}
+	#banner-left .take-tour-btn{width:198px;height:57px;background:url(../img/take-tour-btn.png) top no-repeat;margin-top:10px;	}
 	#banner-left .take-tour-btn:hover{background-position:bottom;cursor:pointer;}
 	#banner-left p{ font-size:17px;text-align:justify; }
 	#banner-right{width:415px;float:left;height:320px; height: 360px; } /***/
@@ -91,7 +91,7 @@ a.navy{ color: #274D71; }
 #mainbodywrapper{width:100%;height:auto;}
 #mainbodycontent{width:880px;height:auto;margin:0 auto;}
 
-	#homepagebox{margin:30px 0px;height:420px;width:878px;background:#c4c5c6 url(../img/homepageboxbg.png) repeat-x top;border:1px solid #c9cacc;-webkit-border-radius:4px;-moz-border-radius:4px border-radius:4px;}
+	#homepagebox{margin:30px 0px; /*height:420px;*/ width:878px;background:#c4c5c6 url(../img/homepageboxbg.png) repeat-x top;border:1px solid #c9cacc;-webkit-border-radius:4px;-moz-border-radius:4px border-radius:4px;}
 	#homepagebox .tri-box{width:292px;height:300px;float:left;background:url(../img/tribox-bg.png) no-repeat right top;}
 	#homepagebox .tri-box .box-contents{width:246px;margin:0 auto;margin-top:5px;}
 	#homepagebox .tri-box .box-contents .box-title{font-size:18px;color:#2c3844;height:60px;}
@@ -104,9 +104,9 @@ a.navy{ color: #274D71; }
 	#homepagebox .first-box{border-left:none;}
 	#homepagebox .last-box{background:none;}
 	
-	#homepagebox .box-split{width:879px;height:3px;background:url(../img/box-top-border.png) top no-repeat;margin-top:10px;}
-	#homepagebox .show-more-bar{background:url(../img/show-more-bar-bg.png) repeat-y top;display:block;height:21px;color:#4c6b87;text-align:center;font-weight:bold;padding-top:6px;text-shadow:#EEE 0px 1px;}
-	#homepagebox .customer-list{display:block;background:url(../img/customer-block-bg.jpg) no-repeat center top;height:60px;}
+	#homepagebox .box-split{width:879px;height:3px;background:url(../img/box-top-border.png) top no-repeat;margin-top:10px; }
+	#homepagebox .show-more-bar{background:url(../img/show-more-bar-bg.png) repeat-y top;display:block;height:21px;color:#4c6b87;text-align:center;font-weight:bold;padding-top:6px;text-shadow:#EEE 0px 1px; display: none; }
+	#homepagebox .customer-list{display:block;background:url(../img/customer-block-bg.jpg) no-repeat center top;height:60px; display: none; }
 	#homepagebox .customer-list .customer{width:144px;float:left;margin-left:1px;margin-top:20px;}
 
 #bluestripwrapper{width:100%;height:88px;background:#244e75;color:#FFF;}	
