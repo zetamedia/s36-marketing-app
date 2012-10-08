@@ -4,7 +4,7 @@
 	<div id="mainsubbannerwrapper">
     	<div id="mainbannercontent">
         	<div id="banner-left">
-            	<h1 class="larger-text">Grow powerful, authentic endorsements. Faster.</h1>
+            	<h1 class="larger-text">Supercharge Your Customer Feedback into Powerful, Authentic Endorsements.</h1>
                 <!--
                 <ul>
                 	<li>Build your reputation and track record faster than your competition</li>
