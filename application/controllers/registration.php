@@ -103,9 +103,9 @@
             $rules['plan'] = 'required|exists:Plan,name';
             $rules['first_name'] = 'required|max:80';
             $rules['last_name'] = 'required|max:80';
-            $rules['email'] = 'required|email|max:45';
+            $rules['email'] = 'required|email|max:45|unique:User,email';
             $rules['company'] = 'required|max:45|unique:Company,name';
-            $rules['username'] = 'required|max:45|match:/^\w+[\_]*$/';
+            $rules['username'] = 'required|max:45|match:/^\w+[\_]*$/|unique:User,username';
             $rules['password'] = 'required|min:6|same:password_confirmation';
             $rules['password_confirmation'] = 'required|min:6';
             $rules['site_name'] = 'required|max:100|match:/^\w+[\w\-\_]*$/|unique:Company,name'; 
