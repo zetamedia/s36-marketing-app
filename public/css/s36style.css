@@ -37,7 +37,7 @@ body{
 		color:#FFF;
 		text-shadow:#851e7b 0px -1px;	
 }		
-a{text-decoration:none;color:#b0b0b0;border:none;}
+a{text-decoration:none;color:#b0b0b0;border:none; color: #32404B; }
 a img{border:none;}
 a.navy{ color: #274D71; }
 /* end of reset */
