@@ -58,10 +58,10 @@ a.navy{ color: #274D71; }
 			 #nav-block ul li a:hover{color:#787e83;}
 			 #nav-block ul li a.selected:hover{color:#404549;}
 	
-	#top-nav #login-block{width:70px;float:left;height:15px;text-align:center;font-size:9px;background:url(../img/login-button.png) top center no-repeat;padding-top:2px;}
+	#top-nav #login-block{width:70px;float:left;height:15px;text-align:center;font-size:9px;background:url(../img/login-button.png) top center no-repeat;padding-top:2px; margin-top: 1px; }
 	#top-nav #login-block:hover{background-position:bottom;}
 			 #login-block a{text-shadow:#333 0px -1px;color:#FFF;padding:3px 20px;}
-	#top-nav #social-icon-block{width:75px;float:left;text-align:right;} 
+	#top-nav #social-icon-block{width:75px;float:left;text-align:right; width: 60px; } 
 	
 #mainbannerwrapper{width:100%;height:320px;background:url(../img/banner-bg.png) repeat-x bottom; background-color: #fff;  height: 360px; } /***/
 #mainsubbannerwrapper{widht:1068px;height:320px;background:url(../img/sub-banner-bg.jpg) no-repeat top center;margin:0 auto; height: 360px; } /***/
@@ -307,7 +307,7 @@ select.medium{width:209px;}
 select.small{width:100px;}
 select option{padding:7px 10px;}
 
-.inputs{padding-left:30px;}
+.inputs{padding-left: 40px;}
 
 input.err-text,
 span.err-text{ color: #b44; }

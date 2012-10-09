@@ -64,14 +64,21 @@ Route::get('tac', function(){
 Route::get('privacy', function(){
     return View::of('layout')->nest('contents', 'home.privacy');
 });
-/*
-Route::get('login', function(){
-    return View::of('layout')->nest('contents', 'home.login');
-});
-*/
+
 Route::get('contact', function(){
     return View::of('layout')->nest('contents', 'home.contact');
 });
+
+
+Route::get('login', function(){
+    return View::of('layout')->nest('contents', 'home.login');
+});
+
+
+Route::post('validate_login', 'login@validate');
+
+
+Route::post('get_app_login_url', 'login@get_app_login_url');
 
 
 Route::post('registration/ajax_validation/(:any?)', 'registration@ajax_validation');
@@ -93,10 +100,13 @@ Route::get('registration-successful', function(){
 use Helpers\Helpers;
 Route::get('test', function(){
     
-    $test = Redis::db();
-    //$test->set('test', 'ching');
-    echo $test->get('test');
-    
+    $val = 'ssfsdftest';
+    $company = DB::table('User')
+        ->where('username', '=', $val)
+        ->or_where('email', '=', $val)
+        ->get('username');
+        
+    var_dump( empty($company) );
     
     
     //$site_name = 'derps';
