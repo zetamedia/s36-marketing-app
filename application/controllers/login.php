@@ -2,7 +2,7 @@
     
     class Login_Controller extends Base_Controller{
         
-        // validate user login and return error. 
+        // validate user login and return error.
         function action_validate(){
             
             // set rules.
