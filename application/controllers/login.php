@@ -5,7 +5,7 @@
         // validate user login and return error.
         function action_validate(){
             
-            // set rules.
+            // set validation rules and messages.
             Validator::register('valid_username', function($attr, $val, $param){
                 
                 // inputted username should exist in username or email field.
