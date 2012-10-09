@@ -32,9 +32,9 @@
 						<li><?=HTML::link('/company', 'Company')?></li>
                     </ul>
                 </div>
-                <!--<div id="login-block">
+                <div id="login-block">
                 	<?=HTML::link('/login', 'LOGIN')?>
-                </div>-->
+                </div>
                 <div id="social-icon-block">
                     <a href="http://facebook.com/36Stories" title="Facebook Page" target="_blank"><?=HTML::image('img/head-fb-icon.png')?></a>
                     <a href="http://Twitter.com/36Stories" title="Twitter Page" target="_blank"><?=HTML::image('img/head-tw-icon.png')?></a>
