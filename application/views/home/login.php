@@ -18,18 +18,58 @@
 	<div id="mainbodycontent">
 		<div id="login">
         	<div id="login-box">
-            <form action="login.php">
+            <p id="error_msg" style="color: #7093b2; text-align: center;"></p>
+            <form action="" method="post">
             	<table width="100%" align="center">
-                	<tr><td>Username : </td><td class="inputs"><input type="text" class="login-text" value="danoliver" /></td></tr>
-                    <tr><td>Password : </td><td class="inputs"><input type="password" class="login-text" value="password" /></td></tr>
+                	<tr><td>Username/email : </td><td class="inputs"><input type="text" name="username" id="username" class="login-text" value="danoliver" /></td></tr>
+                    <tr><td>Password : </td><td class="inputs"><input type="password" name="password" id="password" class="login-text" value="password" /></td></tr>
                     <tr><td></td><td class="inputs"><input type="submit" value="Sign in" class="login-btn" /><a href="#">Forgot your password?</a></td></tr>
                     <tr><td></td><td class="inputs"	><input type="checkbox" checked /> Remember me?</td></tr>
                 </table>
             </form>
             </div>
             <br />
-            <p align="center"><strong>Not yet registered?</strong> <?=HTML::link('/registration','Sign Up')?> here!</p>
+            <p align="center"><strong>Not yet registered?</strong> <?=HTML::link('pricing','Sign Up')?> here!</p>
         </div>
     </div>
 </div>
 <!-- end of content -->
+<script type="text/javascript">
+    $('input[type=submit]').click(function(e){
+        
+        var error_msg = '';
+        
+        // validate user login.
+        $.ajax({
+            async: false,
+            type: 'post',
+            data: 'username=' + $('#username').val() + '&password=' + $('#password').val(),
+            url: '<?php echo URL::base(); ?>/validate_login',
+            success: function(result){
+                error_msg = result;
+            }
+        });
+        
+        
+        // show the validation error if there is.
+        if( error_msg != '' ){
+            $('#error_msg').html(error_msg);
+            e.preventDefault();
+        }
+        
+        
+        // if no error is found, submit the user to app login.
+        if( error_msg == '' ){
+            $.ajax({
+                async: false,
+                type: 'post',
+                data: 'username=' + $('#username').val(),
+                url: '<?php echo URL::base(); ?>/get_app_login_url',
+                success: function(result){
+                    $('form').attr('action', result);
+                }
+            });
+        }
+        
+    });
+</script>
