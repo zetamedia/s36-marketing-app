@@ -307,7 +307,7 @@ select.medium{width:209px;}
 select.small{width:100px;}
 select option{padding:7px 10px;}
 
-.inputs{padding-left:30px;}
+.inputs{padding-left: 40px;}
 
 input.err-text,
 span.err-text{ color: #b44; }

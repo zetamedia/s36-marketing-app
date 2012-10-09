@@ -22,9 +22,9 @@
             <form action="" method="post">
             	<table width="100%" align="center">
                 	<tr><td>Username/email : </td><td class="inputs"><input type="text" name="username" id="username" class="login-text" value="danoliver" /></td></tr>
-                    <tr><td>Password : </td><td class="inputs"><input type="password" name="password" id="password" class="login-text" value="password" /></td></tr>
-                    <tr><td></td><td class="inputs"><input type="submit" value="Sign in" class="login-btn" /><a href="#">Forgot your password?</a></td></tr>
-                    <tr><td></td><td class="inputs"	><input type="checkbox" checked /> Remember me?</td></tr>
+                    <tr><td>Password : </td><td class="inputs"><input type="password" name="password" id="password" class="login-text" value="password" /><br/><a href="#">Forgot your password?</a></td></tr>
+                    <tr><td colspan="2"><input type="submit" value="login" class="login-btn" /></td></tr>
+                    <!--<tr><td></td><td class="inputs"	><input type="checkbox" checked /> Remember me?</td></tr>-->
                 </table>
             </form>
             </div>
