@@ -433,7 +433,6 @@ function onAfter(curr, next, opts, fwd) {
           <a href="<?php echo URL::to('registration/free'); ?>"><div class="free-account-button"></div></a>
           <br class="clear" />
         </div>
-        
         <!-- content 5 -->
         <div class="container-box">
           <div class="main-title">
