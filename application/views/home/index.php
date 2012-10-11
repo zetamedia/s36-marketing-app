@@ -27,7 +27,6 @@
                             	<?//=HTML::image('img/video-coming-soon.jpg')?>
                             	<?= HTML::image('img/inbox.jpg'); ?>
                             </div>
-                            
                         </div>
                     </div>
                 </div>

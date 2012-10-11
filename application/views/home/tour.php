@@ -232,15 +232,8 @@ function onAfter(curr, next, opts, fwd) {
             </div>
             <br class="clear" />
           </div>
+          <a href="<?php echo URL::to('registration/free'); ?>"><div class="free-account-button"></div></a>
           <br class="clear" />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
         </div>
         <!-- slide 2 -->
         <div class="container-box">
@@ -294,6 +287,7 @@ function onAfter(curr, next, opts, fwd) {
             </div>
             <br class="clear" />
           </div>
+          <a href="<?php echo URL::to('registration/free'); ?>"><div class="free-account-button"></div></a>
           <br class="clear" />
         </div>
         <!-- slide 3 -->
@@ -356,6 +350,7 @@ function onAfter(curr, next, opts, fwd) {
             </div>
             <br class="clear" />
           </div>
+          <a href="<?php echo URL::to('registration/free'); ?>"><div class="free-account-button"></div></a>
           <br class="clear" />
         </div>
         <!-- slide 4 -->
@@ -435,17 +430,8 @@ function onAfter(curr, next, opts, fwd) {
             </div>
             <br class="clear" />
           </div>
+          <a href="<?php echo URL::to('registration/free'); ?>"><div class="free-account-button"></div></a>
           <br class="clear" />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          
         </div>
         
         <!-- content 5 -->
@@ -519,6 +505,7 @@ function onAfter(curr, next, opts, fwd) {
             </div>
             <br class="clear" />
           </div>
+          <a href="<?php echo URL::to('registration/free'); ?>"><div class="free-account-button"></div></a>
           <br class="clear" />
         </div>
       </div>

@@ -311,3 +311,6 @@ select option{padding:7px 10px;}
 
 input.err-text,
 span.err-text{ color: #b44; }
+
+.free-account-button{ background: url(../img/free-account-button.png) top center no-repeat; width: 255px; height: 57px; margin: 0 auto; }
+.free-account-button:hover{ background-position: bottom center; cursor: pointer; }
