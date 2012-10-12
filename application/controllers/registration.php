@@ -2,6 +2,11 @@
     
     class Registration_Controller extends Base_Controller{
         
+        // these are the plans that don't do the billing processes (braintree and shit).
+        private $no_billing_plans = array('secret', 'free');
+        
+        
+        
         // show the registration form.
         function action_show_form($plan = null, $errors = null){
             
@@ -41,8 +46,9 @@
             if( $validation->fails() ) return $this->action_show_form(URI::segment(2), $validation->errors);
 
             
-            // if creating secret account, need not to do braintree stuffs.
-            if( URI::segment(2) != 'secret' ){
+            // if selected plan is a no billing plan, need not to do braintree stuffs.
+            //if( URI::segment(2) != 'secret' ){
+            if( ! in_array(URI::segment(2), $this->no_billing_plans) ){
                 
                 // create braintree account and get the result.
                 $result = S36Braintree::create_account();
@@ -52,8 +58,9 @@
 
             }
 
-            // if creating secret account, set customer_id to blank.
-            $result['customer_id'] = (URI::segment(2) != 'secret' ? $result['customer_id'] : '');
+            // if selected plan is a no billing plan, set customer_id to blank.
+            //$result['customer_id'] = (URI::segment(2) != 'secret' ? $result['customer_id'] : '');
+            $result['customer_id'] = ( in_array(URI::segment(2), $this->no_billing_plans) ? '' : $result['customer_id'] );
 
             
             // do the registration processing if form validation and braintree succeeds.
@@ -110,7 +117,10 @@
             $rules['password_confirmation'] = 'required|min:6';
             $rules['site_name'] = 'required|max:100|match:/^\w+[\w\-\_]*$/|unique:Company,name'; 
             
-            if( URI::segment(2) != 'secret' && URI::segment(3) != 'secret' ){
+            // validate the billing data only if the selected plan is not a no billing plan.
+            // URI::segment(3) comes from ajax validation code in view.
+            //if( URI::segment(2) != 'secret' && URI::segment(3) != 'secret' ){
+            if( ! in_array(URI::segment(2), $this->no_billing_plans) && ! in_array(URI::segment(3), $this->no_billing_plans) ){
                 $rules['billing_first_name'] = 'required';
                 $rules['billing_last_name'] = 'required';
                 $rules['billing_address'] = 'required';
