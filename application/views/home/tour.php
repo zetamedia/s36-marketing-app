@@ -88,7 +88,7 @@ function onAfter(curr, next, opts, fwd) {
               <li id="1">
                 <div class="the-arrow-right"></div>
                 <ul class="bar-ico-bubble">
-                  <h3>Powerful Feedback Control</h3>
+                  <h3>Easy Feedback Control</h3>
                   <li>Publish, feature or file away feedback with a click of a button</li>
                   <!--
                   <li>Feature endorsements that truly matter.</li>
@@ -159,7 +159,7 @@ function onAfter(curr, next, opts, fwd) {
               <br class="clear" />
             </div>
             <div class="main-title-text">
-              <h1>Powerful Feedback Control</h1>
+              <h1>Easy Feedback Control</h1>
               <!-- <p>Publish and share positive customer experiences at a click. Fast forward negative feedback to your customer support representative.</p> --> 
               <br class="clear" />
             </div>
@@ -167,7 +167,7 @@ function onAfter(curr, next, opts, fwd) {
           </div>
           <div class="sub-info">
             <div class="subinfo-text">
-              <h2>Publish powerful endorsements to your website with a single click</h2>
+              <h2>Publish powerful endorsements with a single click</h2>
               <p>Instantly publish a positive feedback into a testimonial that displays throughout your site with a single click.</p>
               <p>Our simple, intuitive admin panel is an absolute breeze to use – it allows you or an assigned team member to easily work through feedback to publish endorsements or to file away feedback. </p>
               <p>No complicated menus, no convoluted processes, no HTML codes or images to worry about either.</p>
