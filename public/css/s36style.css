@@ -109,7 +109,7 @@ a.navy{ color: #274D71; }
 	#homepagebox .customer-list{display:block;background:url(../img/customer-block-bg.jpg) no-repeat center top;height:60px; display: none; }
 	#homepagebox .customer-list .customer{width:144px;float:left;margin-left:1px;margin-top:20px;}
 
-#bluestripwrapper{width:100%;height:88px;background:#244e75;color:#FFF;}	
+#bluestripwrapper{width:100%;height:88px;background:#244e75;color:#FFF; width: 880px; margin: 0 auto; }
 #bluestripcontent{width:880px;height:88px;margin:0 auto;}
 	
 	#bluestripcontent .strip-box{width:285px;float:left;height:88px;}
@@ -152,7 +152,7 @@ a.navy{ color: #274D71; }
 #footercontents .socialicons ul li{display:inline;margin:0px 2px;}
 #footercontents .socialicons ul li.social-fb{background:url(../img/ico-fb.png) no-repeat top center;}
 
-div.blue-dash{height:1px;width:100%;background:url(../img/blue-dash.png) repeat-x;}
+div.blue-dash{height:1px;width:100%;background:url(../img/blue-dash.png) repeat-x; width: 880px; margin: 0 auto; }
 div.splitter{height:3px;width:100%;background:#ebedef url(../img/inner-splitbg.jpg) no-repeat center;}
 div.shadow{height:17px;width:100%;background:#ebedef url(../img/shadow.png) no-repeat center;}
 div.shadow .inner-shadow .white-arrow-down{background:url(../img/white-arrow-down.png) top no-repeat;width:26px;height:13px;margin:0 auto;}
