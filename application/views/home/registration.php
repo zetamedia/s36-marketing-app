@@ -145,7 +145,7 @@
 
                 <div class="leftcontentblock">
                 <? // we don't need billing info in secret and free account. ?>
-                <?php if( ! in_array(URI::segment(2), array('secret', 'free')) ): ?>
+                <?php if( ! in_array(URI::segment(2), $no_billing_plans) ): ?>
                 	<h2><span>4.</span> Enter your Billing Information</h2>
                     <table>
                     	<tr><td class="label">First Name : </td>
@@ -404,7 +404,7 @@
             async: false,
             type: 'post',
             data: data,
-            url: '<?= URL::base(); ?>/registration/ajax_validation/<?= ( in_array(URI::segment(2), array('secret', 'free')) ? URI::segment(2) : '' ); ?>',
+            url: '<?= URL::base(); ?>/registration/ajax_validation/<?= ( in_array(URI::segment(2), $no_billing_plans) ? URI::segment(2) : '' ); ?>',
             success: function(error_msg){
                 
                 // display errors if there are.

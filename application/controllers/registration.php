@@ -27,6 +27,7 @@
             $data['plan'] = ($plan == 'secret' ? 'basic' : $plan);
             $data['country_names'] = DBCountry::get_all_names();
             $data['us_states'] = $this->us_states;
+            $data['no_billing_plans'] = $this->no_billing_plans;
 
             // if $errors is object, it's an error from form validation.
             $data['err'] = ( is_object($errors) ? $errors : null );
