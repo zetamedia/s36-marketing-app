@@ -25,9 +25,9 @@
                         <h4>FOR SMALL BUSINESS</h4>
                         <div class="plan-list">
                         <ul>
-                        	<li><span>50 Feedback monthly</span></li>
-							<li><span>10 Library Themes</span></li>
+                        	<li><span>50 Published Feedback monthly</span></li>
 							<li><span>With Branding Option</span></li>
+							<li><span>Unlimited feedback</span></li>
                         </ul>
                         </div>
                         <div class="signup" onclick="window.location='registration/basic'"></div>
@@ -41,9 +41,9 @@
                                 <h4>MOST POPULAR</h4>
                                 <div class="enhanced-plan-list">
                                     <ul>
-                                        <li><span>Unlimited Feedback</span></li>
-                                        <li><span>Unlimited use of Library Themes</span></li>
+                                        <li><span>Unlimited Published Feedback</span></li>
                                         <li><span>No Branding Option</span></li>
+                                        <li><span>Full Library Options</span></li>
                                     </ul>
                                 </div>
                             </div>
