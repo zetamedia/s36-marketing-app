@@ -193,19 +193,32 @@
                             </td>
                         </tr>
                         <tr><td class="label">Billing State : </td>
-                        	<td>
-                                <?=
-                                    Form::text(
-                                        'billing_state',
-                                        ! is_null($err) ? ($err->has('billing_state') ? $err->first('billing_state') : Input::get('billing_state')) : Input::get('billing_state'),
-                                        array('class' => 'reg-text ' . ( ! is_null($err) ? ($err->has('billing_state') ? 'err-text' : '') : '') )
-                                    ); 
-                                ?>
+                        	<td id="billing_state_container">
+                                <?php if( Input::get('billing_country') == 'United States of America' ): ?>
+                                    <select name="billing_state" class="reg-select">
+                                        <?php foreach( $us_states as $ini => $name ): ?>
+                                            <option value="<?php echo e($ini); ?>" <?php echo ( $ini == Input::get('billing_state') ? 'selected' : '' ); ?> >
+                                                <?php echo e($name); ?>
+                                            </option>
+                                        <?php endforeach; ?>
+                                    </select><br/>
+                                    <span name="billing_state" class="<?= ! is_null($err) ? ($err->has('billing_state') ? 'err-text' : '') : '' ?>">
+                                        <?= ! is_null($err) ? ($err->has('billing_state') ? $err->first('billing_state') : '') : '' ?>
+                                    </span>
+                                <?php else: ?>
+                                    <?=
+                                        Form::text(
+                                            'billing_state',
+                                            ! is_null($err) ? ($err->has('billing_state') ? $err->first('billing_state') : Input::get('billing_state')) : Input::get('billing_state'),
+                                            array('class' => 'reg-text ' . ( ! is_null($err) ? ($err->has('billing_state') ? 'err-text' : '') : '') )
+                                        ); 
+                                    ?>
+                                <?php endif; ?>
                             </td>
                         </tr>
                         <tr><td class="label">Billing Country : </td>
                         	<td>
-                                <select name="billing_country" class="reg-select medium">
+                                <select name="billing_country" class="reg-select medium" id="billing_country">
                                     <option value=""></option>
                                     <?php foreach( $country_names as $name ): ?>
                                         <option value="<?php echo $name; ?>" <?= ($name == Input::get('billing_country') ? 'selected' : ''); ?> >
@@ -224,7 +237,7 @@
                                     Form::text(
                                         'billing_zip',
                                         ! is_null($err) ? ($err->has('billing_zip') ? $err->first('billing_zip') : Input::get('billing_zip')) : Input::get('billing_zip'),
-                                        array('class' => 'reg-text ' . ( ! is_null($err) ? ($err->has('billing_zip') ? 'err-text' : '') : '') )
+                                        array('maxlength' => '9', 'class' => 'reg-text ' . ( ! is_null($err) ? ($err->has('billing_zip') ? 'err-text' : '') : '') )
                                     ); 
                                 ?>
                                 <small>(or Postal Code If not in the USA)</small>
@@ -323,25 +336,53 @@
 <script type="text/javascript">
 
     // clear the error on input focus.
-    $('input, select').focus(function(){
+    function clear_error(){
         
         if( $(this).is('.err-text') ){
             $(this).val('');
             $(this).removeClass('err-text');
         }
-
+        
         if( $(this).is('input[type=password]') || $(this).is('select') ){
             $('span[name=' + $(this).attr('name') + ']').text('');
         }
-
+        
+    }
+    
+    $('input, select').bind('focus keydown', clear_error);
+    
+    
+    // change the billing state to combobox if the selected 
+    // billing country is US. change to textbox otherwise.
+    $('#billing_country').change(function(){
+        
+        if( $(this).val() == 'United States of America' ){
+            
+            var us_states = <?php echo json_encode($us_states); ?>;
+            var billing_state_options = '';
+            
+            $.each(us_states, function(ini, name){
+                billing_state_options += '<option value="' + ini + '">' + name + '</option>';
+            });
+            
+            $('#billing_state_container').html('<select name="billing_state" class="reg-select">' + billing_state_options + '</select>');
+            $('#billing_state_container').append('<span name="billing_state" class="err-text"></span>');
+            $('#billing_state_container select').bind('focus', clear_error);
+            
+        }else{
+            
+            $('#billing_state_container').html('<input type="text" name="billing_state" class="reg-text" />');
+            
+        }
+        
     });
 
 
     // validate form when submitted.
     $('input[type=submit]').click(function(e){
-
+        
         // elements with their names in span array will have their errors displayed somewhere else. not in them.
-        var span = ['password', 'password_confirmation', 'billing_country', 'expiration_month', 'expiration_year'];
+        var span = ['password', 'password_confirmation', 'billing_state', 'billing_country', 'expiration_month', 'expiration_year'];
         var errors = '';
         var data = '';
 
@@ -363,7 +404,6 @@
             async: false,
             type: 'post',
             data: data,
-            //url: '<?= URL::base(); ?>/registration/ajax_validation/<?= (URI::segment(2) == 'secret' ? 'secret' : ''); ?>',
             url: '<?= URL::base(); ?>/registration/ajax_validation/<?= ( in_array(URI::segment(2), array('secret', 'free')) ? URI::segment(2) : '' ); ?>',
             success: function(error_msg){
                 
@@ -376,20 +416,18 @@
                     // loop through error_msg to display each.
                     $.each(error_msg, function(name, msg){
                         
-                        // if name is not in span array, display the error in the item.
-                        if( span.indexOf(name) == -1 ){
-                            
-                            $('input[name=' + name + ']').val( msg );
-                            $('input[name=' + name + ']').addClass('err-text');
-                           
                         // if name is in span array, display the error in item's span.
-                        }else{
+                        if( span.indexOf(name) != -1 ){
                             
                             $('span[name=' + name + ']').text( msg );
                             $('span[name=' + name + ']').addClass('err-text');
-
+                            
                         }
-
+                        
+                        // display the error in the item. will only work if element exists.
+                        $('input[name=' + name + ']').val( msg );
+                        $('input[name=' + name + ']').addClass('err-text');
+                        
                     });
                     
                 }
@@ -411,7 +449,7 @@
             $('html, body').animate({
 				scrollTop: $('.err-text').first().offset().top
 			}, 200);
-
+            
         }
 
     });
