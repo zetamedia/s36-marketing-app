@@ -168,7 +168,7 @@ function onAfter(curr, next, opts, fwd) {
           <div class="sub-info">
             <div class="subinfo-text">
               <h2>Publish powerful endorsements with a single click</h2>
-              <p>Instantly publish a positive feedback into a testimonial that displays throughout your site with a single click.</p>
+              <p>Instantly publish a positive feedback into an endorsement that displays on your page, and throughout your site with a single click.</p>
               <p>Our simple, intuitive admin panel is an absolute breeze to use – it allows you or an assigned team member to easily work through feedback to publish endorsements or to file away feedback. </p>
               <p>No complicated menus, no convoluted processes, no HTML codes or images to worry about either.</p>
               <p>Review your feedback and just click Publish. </p>
@@ -185,8 +185,8 @@ function onAfter(curr, next, opts, fwd) {
             </div>
             <div class="subinfo-text">
               <h2>Feature endorsements that truly matter</h2>
-              <p>Got a recommendation from that big time CEO or a Magazine? Feature them in a prominent position on your website or arrange them in a specific order if you want.</p>
-              <p>You can feature specific endorsements or quotes in a single-feedback unit, or show a whole page. It's all possible with our wide array of themes.</p>
+              <p>Got a recommendation from that big time CEO or a Magazine? Highlight them in a prominent position on your 36Stories page by clicking the 'Star' icon.</p>
+              <!--<p>You can feature specific endorsements or quotes in a single-feedback unit, or show a whole page. It's all possible with our wide array of themes.</p>-->
               <br class="clear" />
             </div>
             <br class="clear" />
