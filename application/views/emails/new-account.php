@@ -70,7 +70,7 @@
     <tr>
         <td style="font-size:10px;padding:0px 30px;line-height:16px;">
             This message was intended for <?= $customer_email; ?>.  <br />
-            36Stories, Inc. P.O. Box 10005, Palo Alto, CA 94303
+            36Stories Inc 340 Lemon Ave #6168 Walnut CA, 91789 United States
        </td>
     </tr>
     <!-- end footer -->    
