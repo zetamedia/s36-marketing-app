@@ -278,12 +278,12 @@ br.clear,div.clear{clear:both;width:100%;height:0px;}
 #pricing-page-contents #pricing-plans #the-plans .plan-box .enhanced .enhanced-plan-text .enhanced-plan-list ul li span{margin:0;padding:0;padding-left:25px;background:url(../img/ico-check-blue.png) left center no-repeat;}
 
 #pricing-page-contents #pricing-plans #the-plans .plan-box.free{ height: 235px; width: 310px; margin-top: 30px; background: url(../img/pricing-box-graybg.jpg) repeat-x bottom; border-left:1px solid #c9cacc; border-top:1px solid #c9cacc; -webkit-border-top-left-radius:6px; -moz-border-top-left-radius:6px; border-top-left-radius:6px; }
-#pricing-page-contents #pricing-plans #the-plans .plan-box.premium{ margin-left: -18px; }
-#pricing-page-contents #pricing-plans #the-plans .plan-box.basic{ height: 265px; background: url(../img/pricing-box-graybg.jpg) repeat-x bottom; border-right:1px solid #c9cacc; border-top:1px solid #c9cacc; -webkit-border-top-right-radius:6px; -moz-border-top-right-radius:6px; border-top-right-radius:6px; }
+#pricing-page-contents #pricing-plans #the-plans .plan-box.premium{ margin-left: -32px; }
+#pricing-page-contents #pricing-plans #the-plans .plan-box.basic{ height: 265px; background: url(../img/pricing-box-yellowbg.jpg) repeat-x bottom; border-right:1px solid #c9cacc; border-top:1px solid #c9cacc; -webkit-border-top-right-radius:6px; -moz-border-top-right-radius:6px; border-top-right-radius:6px; }
 
 
 
-#pricing-page-contents .pricing-plans-shadow{height:30px;width:878px;background:url(../img/pricing-plans-shadow.jpg) no-repeat top;font-size:11px;color:#3b3e41;text-align:center;padding-top:7px;}
+#pricing-page-contents .pricing-plans-shadow{height:30px;width:864px;background:url(../img/pricing-plans-shadow.jpg) no-repeat top;font-size:11px;color:#3b3e41;text-align:center;padding-top:7px;}
 #pricing-page-contents .pricing-plans-shadow strong{color:#274a6b;}
 /*registration page*/
 #registration{width:880px;margin:30px 0px;}

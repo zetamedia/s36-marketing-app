@@ -53,7 +53,7 @@
             </div>
             <div class="tri-box">
             	<div class="box-contents">
-                	<div class="box-title one-line">Get Viral On The Social Web</div>
+                	<div class="box-title one-line">Profile Rich Features</div>
                     <div class="box-thumb"><?=HTML::image('img/home-image-2.png')?></div>
                     <div class="box-info"><br />Get your business featured and talked about on your customer's social profiles every day.<br /><br /></div>
                     <div class="box-link"><?=HTML::link('tour#2','learn more')?></div>
