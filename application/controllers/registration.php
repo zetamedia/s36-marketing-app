@@ -138,7 +138,7 @@
             $rules['username'] = 'required|max:45|match:/^\w+[\_]*$/|unique:User,username';
             $rules['password'] = 'required|min:6|same:password_confirmation';
             $rules['password_confirmation'] = 'required|min:6';
-            $rules['site_name'] = 'required|max:100|match:/^\w+[\w\-\_]*$/|unique:Company,name'; 
+            $rules['site_name'] = 'required|max:50|match:/^\w+[\w\-\_]*$/|unique:Company,name'; 
             
             // validate the billing data only if the selected plan is not a no billing plan.
             // URI::segment(3) comes from ajax validation code in view.
@@ -165,40 +165,40 @@
         // set and return the custom validation messages.
         function get_validation_messages(){
             
-            $msg['first_name_required'] = 'Please enter your first name';
-            $msg['first_name_max'] = 'The First Name must be less than :max characters';
-            $msg['last_name_required'] = 'Please Enter Your Last Name';
-            $msg['last_name_max'] = 'The Last Name must be less than :max characters';
-            $msg['email_required'] = 'Please Enter Your Email';
-            $msg['email_max'] = 'The Email must be less than :max characters';
-            $msg['company_required'] = 'Please Enter Your Company';
-            $msg['company_max'] = 'The Company must be less than :max characters';
-            $msg['username_required'] = 'Please Enter Your Username';
-            $msg['username_max'] = 'The Username must be less than :max characters';
-            $msg['password_required'] = 'Please Enter Your Password';
-            $msg['password_confirmation_min'] = 'Password must be at lest :min characters';
-            $msg['password_same'] = 'Your passwords don\'t match';
-            $msg['password_confirmation_required'] = 'Please Enter Your Password Confirmation';
-            $msg['password_confirmation_min'] = 'Password Confirmation must be at lest :min characters';
-            $msg['site_name_required'] = 'Please Enter Your Site Address';
-            $msg['site_name_max'] = 'The Site Address must be less than :max characters';
-            $msg['billing_first_name_required'] = 'Please Enter Your Billing First Name';
-            $msg['billing_last_name_required'] = 'Please Enter Your Billing Last Name';
-            $msg['billing_address_required'] = 'Please Enter Your Billing Address';
-            $msg['billing_city_required'] = 'Please Enter Your Billing City';
-            $msg['billing_state_required'] = 'Please Enter Your Billing State';
-            $msg['billing_country_required'] = 'Please Enter Your Billing Country';
-            $msg['billing_country_exists'] = 'The Selected Billing Country is invalid';
-            $msg['billing_zip_required'] = 'Please Enter Your Billing Zip';
-            $msg['card_number_required'] = 'Please Enter Your Credit Card Number';
-            $msg['card_number_numeric'] = 'Credit Card Number must be numeric';
-            $msg['expiration_month_required'] = 'Please Enter Expiry Month';
-            $msg['expiration_month_in'] = 'The selected Expiry Month is invalid';
-            $msg['expiration_year_required'] = 'Please Enter Expiry Year';
-            $msg['expiration_year_in'] = 'The selected Expiry Year is invalid';
-            $msg['cvv_required'] = 'Please Enter Your CVV';
-            $msg['future'] = 'Expiry Date must be a future date';  // custom error msg for expiration date.
-            $msg['valid_us_state'] = 'The selected Billing State is invalid';  // custom error msg for valid us state.
+            $msg['first_name_required'] = 'Please enter your first name.';
+            $msg['first_name_max'] = 'The first name must be less than :max characters.';
+            $msg['last_name_required'] = 'Please enter your last name.';
+            $msg['last_name_max'] = 'The last name must be less than :max characters.';
+            $msg['email_required'] = 'Please enter your email.';
+            $msg['email_max'] = 'The email must be less than :max characters.';
+            $msg['company_required'] = 'Please enter your company.';
+            $msg['company_max'] = 'The Company must be less than :max characters.';
+            $msg['username_required'] = 'Please enter your username.';
+            $msg['username_max'] = 'The username must be less than :max characters.';
+            $msg['password_required'] = 'Please enter your password.';
+            $msg['password_confirmation_min'] = 'Password must be at lest :min characters.';
+            $msg['password_same'] = 'Your passwords don\'t match.';
+            $msg['password_confirmation_required'] = 'Please enter your password confirmation.';
+            $msg['password_confirmation_min'] = 'Password confirmation must be at lest :min characters.';
+            $msg['site_name_required'] = 'Please enter your site address.';
+            $msg['site_name_max'] = 'The site address must be less than :max characters.';
+            $msg['billing_first_name_required'] = 'Please enter your billing first name.';
+            $msg['billing_last_name_required'] = 'Please enter your billing last name.';
+            $msg['billing_address_required'] = 'Please enter your billing address.';
+            $msg['billing_city_required'] = 'Please enter your billing city.';
+            $msg['billing_state_required'] = 'Please enter your billing state.';
+            $msg['billing_country_required'] = 'Please enter your billing country.';
+            $msg['billing_country_exists'] = 'The selected billing country is invalid.';
+            $msg['billing_zip_required'] = 'Please enter your billing zip.';
+            $msg['card_number_required'] = 'Please enter your credit card number.';
+            $msg['card_number_numeric'] = 'Credit card number must be numeric.';
+            $msg['expiration_month_required'] = 'Please enter expiry month.';
+            $msg['expiration_month_in'] = 'The selected expiry month is invalid.';
+            $msg['expiration_year_required'] = 'Please enter expiry year.';
+            $msg['expiration_year_in'] = 'The selected expiry year is invalid.';
+            $msg['cvv_required'] = 'Please enter your cvv.';
+            $msg['future'] = 'Expiry date must be a future date.';  // custom error msg for expiration date.
+            $msg['valid_us_state'] = 'The selected billing state is invalid.';  // custom error msg for valid us state.
 
             return $msg;
             
