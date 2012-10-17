@@ -43,6 +43,7 @@
                                         <li><span>Unlimited Published Feedback</span></li>
                                         <li><span>No Branding Option</span></li>
                                         <li><span>Full Library Options</span></li>
+                                        <li><span>Unlimited Feedback Submissions</span></li>
                                     </ul>
                                 </div>
                             </div>
@@ -56,8 +57,8 @@
                         <div class="plan-list" style="padding-left: 50px;">
                         <ul>
                             <li><span>50 Published Feedback monthly</span></li>
-                            <li><span>With Branding Option</span></li>
                             <li><span>Unlimited Feedback Submissions</span></li>
+                            <li style="visibility: hidden;"><span>With Branding Option</span></li>
                         </ul>
                         </div>
                         <div class="signup" onclick="window.location='registration/basic'"></div>

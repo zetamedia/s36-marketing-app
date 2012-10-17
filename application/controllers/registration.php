@@ -165,7 +165,7 @@
         // set and return the custom validation messages.
         function get_validation_messages(){
             
-            $msg['first_name_required'] = 'Please Enter Your First Name';
+            $msg['first_name_required'] = 'Please enter your first name';
             $msg['first_name_max'] = 'The First Name must be less than :max characters';
             $msg['last_name_required'] = 'Please Enter Your Last Name';
             $msg['last_name_max'] = 'The Last Name must be less than :max characters';
