@@ -18,6 +18,54 @@
 	<div id="mainbodycontent">
 		<div id="pricing-page-contents">
         	<div id="pricing-plans">
+                <div id="the-plans">
+                    <div class="plan-box">
+                        <h1>Free</h1>
+                        <!--<h3 style="visibility: hidden;">$9/month</h3>-->
+                        <h4 style="margin-bottom: 34px;">NO RISK TRY OUT</h4>
+                        <div class="plan-list">
+                        <ul>
+                            <li><span>15 Published Feedback</span></li>
+                            <li style="visibility: hidden;"><span>With Branding Option</span></li>
+                            <li style="visibility: hidden;"><span>Unlimited feedback</span></li>
+                        </ul>
+                        </div>
+                        <div class="signup" onclick="window.location='registration/free'"></div>
+                    </div>
+                    <div class="plan-box">
+                        <div class="enhanced">
+                            <div class="red-ribbon"></div>
+                            <div class="enhanced-plan-text">
+                                <?//=HTML::image('img/enhanced-text.png')?>
+                                <h1>Premium</h1>
+                                <h3>$39/month</h3>
+                                <h4>MOST POPULAR</h4>
+                                <div class="enhanced-plan-list">
+                                    <ul>
+                                        <li><span>Unlimited Published Feedback</span></li>
+                                        <li><span>No Branding Option</span></li>
+                                        <li><span>Full Library Options</span></li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="signup-blue" onclick="window.location='registration/premium'"></div>
+                        </div>
+                    </div>
+                    <div class="plan-box">
+                        <h1>Basic</h1>
+                        <h3>$9/month</h3>
+                        <h4>FOR SMALL BUSINESSES</h4>
+                        <div class="plan-list">                        
+                        <ul>
+                            <li><span>50 Published Feedback monthly</span></li>
+                            <li><span>With Branding Option</span></li>
+                            <li><span>Unlimited feedback</span></li>
+                        </ul>
+                        </div>
+                        <div class="signup" onclick="window.location='registration/basic'"></div>
+                    </div>
+                </div>
+                <!--
             	<div id="the-plans">
                 	<div class="plan-box">
                     	<h1>Basic</h1>
@@ -64,13 +112,14 @@
                         <div class="signup" onclick="window.location='registration/premium'"></div>
                     </div>
                 </div>
+                -->
             </div>
             <div class="pricing-plans-shadow">
             	<style>
 					strong a{color:#333}
 					strong a:hover{color:#444}
 				</style>
-            	<p>We also offer a <strong><?=HTML::link('registration/free','free plan')?></strong>: 30 published feedback and 10 Library Themes.</p>
+            	<!--<p>We also offer a <strong><?=HTML::link('registration/free','free plan')?></strong>: 30 published feedback and 10 Library Themes.</p>-->
             </div>
         	<h1><span>36</span>Stories is trusted by businesses of all sizes</h1>
             <div class="page-block" style="padding-right:10px;">

@@ -20,15 +20,9 @@
         	<div id="leftcontents">
             	<div>
 					<?php
-                    if($plan == "free"){
-                        echo HTML::image('img/plan_free.png');
-                    }elseif($plan == "basic"){
-                        echo HTML::image('img/plan_basic.png');
-                    }elseif($plan == "enhanced"){
-                        echo HTML::image('img/plan_enhanced.png');
-                    }elseif($plan == "premium"){
-                        echo HTML::image('img/plan_premium.png');
-                    }
+                        if( URI::segment(2) != 'secret' ){
+                            echo HTML::image('img/plan_' . $plan . '.png');
+                        }
                     ?>
                     <br /><br />                        
                 </div>

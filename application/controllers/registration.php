@@ -18,13 +18,17 @@
 
             // add "secret" to valid plans.
             $valid_plans[] = 'secret';
+            
+            // remove "enhanced" to valid plans.
+            unset( $valid_plans[array_search('enhanced', $valid_plans)] );
+            
 
             // redirect to plan selection if the selected plan is not valid.
             if( ! in_array($plan, $valid_plans) ) return Redirect::to('pricing');
             
 
-            // if plan is secret, treat it as basic.
-            $data['plan'] = ($plan == 'secret' ? 'basic' : $plan);
+            // if plan is secret, treat it as premium.
+            $data['plan'] = ($plan == 'secret' ? 'premium' : $plan);
             $data['country_names'] = DBCountry::get_all_names();
             $data['us_states'] = $this->us_states;
             $data['no_billing_plans'] = $this->no_billing_plans;
