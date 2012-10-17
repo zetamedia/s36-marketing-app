@@ -38,7 +38,7 @@
                                 <?//=HTML::image('img/enhanced-text.png')?>
                                 <h1>Premium</h1>
                                 <h3>$39/month</h3>
-                                <h4>MOST POPULAR</h4>
+                                <h4>MOST POPULAR!</h4>
                                 <div class="enhanced-plan-list">
                                     <ul>
                                         <li><span>Unlimited Published Feedback</span></li>
@@ -52,9 +52,9 @@
                     </div>
                     <div class="plan-box basic">
                         <h1>Basic</h1>
-                        <h3>$9/month</h3>
+                        <h3>$19/month</h3>
                         <h4>FOR SMALL BUSINESSES</h4>
-                        <div class="plan-list">                        
+                        <div class="plan-list" style="padding-left: 50px;">
                         <ul>
                             <li><span>50 Published Feedback monthly</span></li>
                             <li><span>With Branding Option</span></li>

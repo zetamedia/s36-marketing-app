@@ -259,7 +259,7 @@ br.clear,div.clear{clear:both;width:100%;height:0px;}
 #pricing-page-contents #pricing-plans #the-plans .plan-box h1{font-family:Arial, Helvetica, sans-serif;font-size:42px;font-weight:bold;color:#53595f;padding-top:10px;margin-bottom:0px;}
 #pricing-page-contents #pricing-plans #the-plans .plan-box h3{font-size:20px;font-weight:bold;color:#53595f;margin:0;padding:0;}
 #pricing-page-contents #pricing-plans #the-plans .plan-box h4{font-size:12px;font-weight:bold;color:#5d6369;}
-#pricing-page-contents #pricing-plans #the-plans .plan-box .plan-list{text-align:center;display:block;padding-left:80px;}
+#pricing-page-contents #pricing-plans #the-plans .plan-box .plan-list{text-align:center;display:block;padding-left:60px;}
 #pricing-page-contents #pricing-plans #the-plans .plan-box ul{list-style:none;margin:0 auto;padding:0;text-align:left;margin-top:10px;}
 #pricing-page-contents #pricing-plans #the-plans .plan-box ul li{margin:2px 0px;}
 #pricing-page-contents #pricing-plans #the-plans .plan-box ul li span{margin:0;padding:0;padding-left:25px;background:url(../img/ico-check.png) left center no-repeat;}
@@ -272,7 +272,7 @@ br.clear,div.clear{clear:both;width:100%;height:0px;}
 #pricing-page-contents #pricing-plans #the-plans .plan-box .enhanced .red-ribbon{width:130px;height:79px;background:url(../img/most-popular-ribbon.png) no-repeat;position:absolute;right:10px;top:-2px;}
 #pricing-page-contents #pricing-plans #the-plans .plan-box .enhanced .enhanced-plan-text{margin-top:54px;}
 #pricing-page-contents #pricing-plans #the-plans .plan-box .enhanced .enhanced-plan-text h1,.enhanced .enhanced-plan-text h3,.enhanced .enhanced-plan-text h4{color:#1e2c3a !important;}
-#pricing-page-contents #pricing-plans #the-plans .plan-box .enhanced .enhanced-plan-text .enhanced-plan-list{text-align:center;display:block;padding-left:80px;color:#1e2c3a;font-weight:bold;}
+#pricing-page-contents #pricing-plans #the-plans .plan-box .enhanced .enhanced-plan-text .enhanced-plan-list{text-align:center;display:block;padding-left:73px;color:#1e2c3a;font-weight:bold;}
 #pricing-page-contents #pricing-plans #the-plans .plan-box .enhanced .enhanced-plan-text .enhanced-plan-list ul{list-style:none;margin:0 auto;padding:0;text-align:left;margin-top:10px;}
 #pricing-page-contents #pricing-plans #the-plans .plan-box .enhanced .enhanced-plan-text .enhanced-plan-list ul li{margin:2px 0px;}
 #pricing-page-contents #pricing-plans #the-plans .plan-box .enhanced .enhanced-plan-text .enhanced-plan-list ul li span{margin:0;padding:0;padding-left:25px;background:url(../img/ico-check-blue.png) left center no-repeat;}
