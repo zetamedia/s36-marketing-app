@@ -219,6 +219,8 @@ br.clear,div.clear{clear:both;width:100%;height:0px;}
 #pricing-page-contents .paper{background:url(../img/ico-thumb-paper.jpg) left center no-repeat;}
 #pricing-page-contents .mag{background:url(../img/ico-thumb-mag.jpg) left center no-repeat;}
 
+
+/*
 #pricing-page-contents #pricing-plans{height:310px;width:880px;}
 #pricing-page-contents #pricing-plans #the-plans{width:878px;height:265px;position:absolute;bottom:0px;border-left:1px solid #c9cacc;border-top:1px solid #c9cacc;border-right:1px solid #c9cacc;
 												-webkit-border-top-left-radius:6px;-moz-border-top-left-radius:6px;border-top-left-radius:6px;
@@ -245,6 +247,41 @@ br.clear,div.clear{clear:both;width:100%;height:0px;}
 #pricing-page-contents #pricing-plans #the-plans .plan-box .enhanced .enhanced-plan-text .enhanced-plan-list ul{list-style:none;margin:0 auto;padding:0;text-align:left;margin-top:10px;}
 #pricing-page-contents #pricing-plans #the-plans .plan-box .enhanced .enhanced-plan-text .enhanced-plan-list ul li{margin:2px 0px;}
 #pricing-page-contents #pricing-plans #the-plans .plan-box .enhanced .enhanced-plan-text .enhanced-plan-list ul li span{margin:0;padding:0;padding-left:25px;background:url(../img/ico-check-blue.png) left center no-repeat;}
+*/
+
+
+#pricing-page-contents #pricing-plans{ width:880px; height:310px; }
+#pricing-page-contents #pricing-plans #the-plans { width:878px;height:265px;position:absolute;bottom:0px; /*border-left:1px solid #c9cacc;border-top:1px solid #c9cacc;border-right:1px solid #c9cacc;
+												-webkit-border-top-left-radius:6px;-moz-border-top-left-radius:6px;border-top-left-radius:6px;
+												-webkit-border-top-right-radius:6px;-moz-border-top-right-radius:6px;border-top-right-radius:6px;
+												background: url(../img/pricing-box-graybg.jpg) repeat-x bottom;*/ }
+#pricing-page-contents #pricing-plans #the-plans .plan-box{width:292px;height:30px;float:left;text-align:center;}
+#pricing-page-contents #pricing-plans #the-plans .plan-box h1{font-family:Arial, Helvetica, sans-serif;font-size:42px;font-weight:bold;color:#53595f;padding-top:10px;margin-bottom:0px;}
+#pricing-page-contents #pricing-plans #the-plans .plan-box h3{font-size:20px;font-weight:bold;color:#53595f;margin:0;padding:0;}
+#pricing-page-contents #pricing-plans #the-plans .plan-box h4{font-size:12px;font-weight:bold;color:#5d6369;}
+#pricing-page-contents #pricing-plans #the-plans .plan-box .plan-list{text-align:center;display:block;padding-left:80px;}
+#pricing-page-contents #pricing-plans #the-plans .plan-box ul{list-style:none;margin:0 auto;padding:0;text-align:left;margin-top:10px;}
+#pricing-page-contents #pricing-plans #the-plans .plan-box ul li{margin:2px 0px;}
+#pricing-page-contents #pricing-plans #the-plans .plan-box ul li span{margin:0;padding:0;padding-left:25px;background:url(../img/ico-check.png) left center no-repeat;}
+#pricing-page-contents #pricing-plans #the-plans .plan-box div.signup{background:url(../img/btn-signup-green.png) top center no-repeat;width:152px;height:58px;margin:10px auto;cursor:pointer;}
+#pricing-page-contents #pricing-plans #the-plans .plan-box div.signup:hover{background-position:bottom center;}
+#pricing-page-contents #pricing-plans #the-plans .plan-box div.signup-blue{background:url(../img/btn-signup-blue.png) top center no-repeat;width:144px;height:61px;margin:10px auto;cursor:pointer;}
+#pricing-page-contents #pricing-plans #the-plans .plan-box div.signup-blue:hover{background-position:bottom center;}
+
+#pricing-page-contents #pricing-plans #the-plans .plan-box .enhanced{ z-index: 1; width:321px;height:305px;background:url(../img/enhancedbg.png);position:absolute;top:-40px;}
+#pricing-page-contents #pricing-plans #the-plans .plan-box .enhanced .red-ribbon{width:130px;height:79px;background:url(../img/most-popular-ribbon.png) no-repeat;position:absolute;right:10px;top:-2px;}
+#pricing-page-contents #pricing-plans #the-plans .plan-box .enhanced .enhanced-plan-text{margin-top:54px;}
+#pricing-page-contents #pricing-plans #the-plans .plan-box .enhanced .enhanced-plan-text h1,.enhanced .enhanced-plan-text h3,.enhanced .enhanced-plan-text h4{color:#1e2c3a !important;}
+#pricing-page-contents #pricing-plans #the-plans .plan-box .enhanced .enhanced-plan-text .enhanced-plan-list{text-align:center;display:block;padding-left:80px;color:#1e2c3a;font-weight:bold;}
+#pricing-page-contents #pricing-plans #the-plans .plan-box .enhanced .enhanced-plan-text .enhanced-plan-list ul{list-style:none;margin:0 auto;padding:0;text-align:left;margin-top:10px;}
+#pricing-page-contents #pricing-plans #the-plans .plan-box .enhanced .enhanced-plan-text .enhanced-plan-list ul li{margin:2px 0px;}
+#pricing-page-contents #pricing-plans #the-plans .plan-box .enhanced .enhanced-plan-text .enhanced-plan-list ul li span{margin:0;padding:0;padding-left:25px;background:url(../img/ico-check-blue.png) left center no-repeat;}
+
+#pricing-page-contents #pricing-plans #the-plans .plan-box.free{ height: 235px; width: 310px; margin-top: 30px; background: url(../img/pricing-box-graybg.jpg) repeat-x bottom; border-left:1px solid #c9cacc; border-top:1px solid #c9cacc; -webkit-border-top-left-radius:6px; -moz-border-top-left-radius:6px; border-top-left-radius:6px; }
+#pricing-page-contents #pricing-plans #the-plans .plan-box.premium{ margin-left: -18px; }
+#pricing-page-contents #pricing-plans #the-plans .plan-box.basic{ height: 265px; background: url(../img/pricing-box-graybg.jpg) repeat-x bottom; border-right:1px solid #c9cacc; border-top:1px solid #c9cacc; -webkit-border-top-right-radius:6px; -moz-border-top-right-radius:6px; border-top-right-radius:6px; }
+
+
 
 #pricing-page-contents .pricing-plans-shadow{height:30px;width:880px;background:url(../img/pricing-plans-shadow.jpg) no-repeat top;font-size:11px;color:#3b3e41;text-align:center;padding-top:7px;}
 #pricing-page-contents .pricing-plans-shadow strong{color:#274a6b;}
