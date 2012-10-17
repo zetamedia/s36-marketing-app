@@ -47,7 +47,7 @@
             	<div class="box-contents">
                 	<div class="box-title one-line">Powerful Feedback Control</div>
                     <div class="box-thumb"><?=HTML::image('img/home-image-1.png')?></div>
-                    <div class="box-info"><br />Intuitive, simple and 1-click features allows you to get your endorsements published instantly or hidden seamlessly.<br /></div>
+                    <div class="box-info"><br />Intuitive, simple and 1-click features allows you to get your endorsements published instantly or hidden seamlessly.<br /><br /><br /></div>
                     <div class="box-link"><?=HTML::link('tour#0','learn more')?></div>
                 </div>
             </div>
@@ -55,7 +55,7 @@
             	<div class="box-contents">
                 	<div class="box-title one-line">Profile Rich Features</div>
                     <div class="box-thumb"><?=HTML::image('img/home-image-2.png')?></div>
-                    <div class="box-info"><br />Get your business featured and talked about on your customer's social profiles every day.<br /><br /></div>
+                    <div class="box-info"><br />Boost sales with authentic profile rich information (photos, job title, city and country) from your customers' social media profiles. We do all the heavy lifting - so your customers don't have to.</div>
                     <div class="box-link"><?=HTML::link('tour#2','learn more')?></div>
                 </div>
             </div>
@@ -63,7 +63,7 @@
             	<div class="box-contents">
                 	<div class="box-title one-line">Complete Feedback Analytics</div>
                     <div class="box-thumb"><?=HTML::image('img/home-image-3.png')?></div>
-                    <div class="box-info"><br />Simple metrics allow you to discover pain points in your website rapidly and resolve problems fast.<br /><br /></div>
+                    <div class="box-info"><br />Simple metrics allow you to discover pain points in your website rapidly and resolve problems fast.<br /><br /><br /><br /></div>
                     <div class="box-link"><?=HTML::link('tour#1','learn more')?></div>
                 </div>
             </div>
