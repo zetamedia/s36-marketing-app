@@ -61,7 +61,7 @@
                             <li style="visibility: hidden;"><span>With Branding Option</span></li>
                         </ul>
                         </div>
-                        <div class="signup" onclick="window.location='registration/basic'"></div>
+                        <div class="signup-green2" onclick="window.location='registration/basic'"></div>
                     </div>
                 </div>
             </div>
