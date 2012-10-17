@@ -138,7 +138,7 @@
             $rules['username'] = 'required|max:45|match:/^\w+[\_]*$/|unique:User,username';
             $rules['password'] = 'required|min:6|same:password_confirmation';
             $rules['password_confirmation'] = 'required|min:6';
-            $rules['site_name'] = 'required|max:50|match:/^\w+[\w\-\_]*$/|unique:Company,name'; 
+            $rules['site_name'] = 'required|max:25|match:/^\w+[\w\-\_]*$/|unique:Company,name'; 
             
             // validate the billing data only if the selected plan is not a no billing plan.
             // URI::segment(3) comes from ajax validation code in view.
