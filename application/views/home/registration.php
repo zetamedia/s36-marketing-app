@@ -365,7 +365,12 @@
             
         }else{
             
-            $('#billing_state_container').html('<input type="text" name="billing_state" class="reg-text" />');
+            // change only to textbox if it's not a textbox.
+            if( $('#billing_state_container select').length ){
+                
+                $('#billing_state_container').html('<input type="text" name="billing_state" class="reg-text" />');
+                
+            }
             
         }
         
