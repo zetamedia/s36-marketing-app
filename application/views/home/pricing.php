@@ -35,8 +35,8 @@
                         <div class="enhanced">
                             <div class="red-ribbon"></div>
                             <div class="enhanced-plan-text">
-                                <?//=HTML::image('img/enhanced-text.png')?>
-                                <h1>Premium</h1>
+                                <?=HTML::image('img/premium.png')?>
+                                
                                 <h3>$39/month</h3>
                                 <h4>MOST POPULAR!</h4>
                                 <div class="enhanced-plan-list">
