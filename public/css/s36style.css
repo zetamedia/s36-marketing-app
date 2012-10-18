@@ -263,11 +263,11 @@ br.clear,div.clear{clear:both;width:100%;height:0px;}
 #pricing-page-contents #pricing-plans #the-plans .plan-box ul{list-style:none;margin:0 auto;padding:0;text-align:left;margin-top:10px;}
 #pricing-page-contents #pricing-plans #the-plans .plan-box ul li{margin:2px 0px;}
 #pricing-page-contents #pricing-plans #the-plans .plan-box ul li span{margin:0;padding:0;padding-left:25px;background:url(../img/ico-check.png) left center no-repeat;}
-#pricing-page-contents #pricing-plans #the-plans .plan-box div.signup{background:url(../img/btn-signup-green.png) top center no-repeat;width:152px;height:58px;margin:10px auto;cursor:pointer;}
+#pricing-page-contents #pricing-plans #the-plans .plan-box div.signup{background:url(../img/btn-signup-green2_2.png) top center no-repeat;width:152px;height:61px;margin:10px auto;cursor:pointer;}
 #pricing-page-contents #pricing-plans #the-plans .plan-box div.signup:hover{background-position:bottom center;}
 #pricing-page-contents #pricing-plans #the-plans .plan-box div.signup-blue{background:url(../img/btn-signup-blue.png) top center no-repeat;width:144px;height:61px;margin:10px auto;cursor:pointer;}
 #pricing-page-contents #pricing-plans #the-plans .plan-box div.signup-blue:hover{background-position:bottom center;}
-#pricing-page-contents #pricing-plans #the-plans .plan-box div.signup-green2{background:url(../img/btn-signup-green2.png) top center no-repeat;width:152px;height:58px;margin:10px auto;cursor:pointer;}
+#pricing-page-contents #pricing-plans #the-plans .plan-box div.signup-green2{background:url(../img/btn-signup-green2_2.png) top center no-repeat;width:152px;height:61px;margin:10px auto;cursor:pointer;}
 #pricing-page-contents #pricing-plans #the-plans .plan-box div.signup-green2:hover{background-position:bottom center;}
 
 #pricing-page-contents #pricing-plans #the-plans .plan-box .enhanced{ z-index: 1; width:321px;height:305px;background:url(../img/enhancedbg.png);position:absolute;top:-40px;}

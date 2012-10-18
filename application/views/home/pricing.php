@@ -23,13 +23,13 @@
                         <h1>Free</h1>
                         <!--<h3 style="visibility: hidden;">$9/month</h3>-->
                         <h4>NO RISK TRY OUT</h4>
-                        <div class="plan-list" style="margin-bottom: 21px;">
+                        <div class="plan-list">
                         <ul>
                             <li><span>15 Published Feedback</span></li>
                             <li><span>Unlimited Feedback Submissions</span></li>
                         </ul>
                         </div>
-                        <div class="signup" onclick="window.location='registration/free'"></div>
+                        <div style="margin-top: 24px;" class="signup" onclick="window.location='registration/free'"></div>
                     </div>
                     
                     <div class="plan-box enhanced">
@@ -46,7 +46,7 @@
                                     </ul>
                                 </div>
                             </div>
-                            <div class="signup-blue" onclick="window.location='registration/premium'"></div>
+                            <div style="margin-top: 35px;" class="signup-blue" onclick="window.location='registration/premium'"></div>
                         </div>
                     </div>
                     
@@ -61,7 +61,7 @@
                             <li><span>Unlimited Feedback Submissions</span></li>
                         </ul>
                         </div>
-                        <div style="margin-left: 79px;" class="signup-green2" onclick="window.location='registration/enhanced'"></div>
+                        <div style="margin-top: 14px; margin-left: 79px;" class="signup-green2" onclick="window.location='registration/enhanced'"></div>
                     </div>
                     
                 </div>
