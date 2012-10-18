@@ -19,8 +19,8 @@
             // add "secret" to valid plans.
             $valid_plans[] = 'secret';
             
-            // remove "enhanced" to valid plans.
-            unset( $valid_plans[array_search('enhanced', $valid_plans)] );
+            // remove "basic" to valid plans.
+            unset( $valid_plans[array_search('basic', $valid_plans)] );
             
 
             // redirect to plan selection if the selected plan is not valid.

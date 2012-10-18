@@ -20,48 +20,49 @@
         	<div id="pricing-plans">
                 <div id="the-plans">
                     <div class="plan-box free">
-                        <h1 style="margin-left: -18px;">Free</h1>
+                        <h1>Free</h1>
                         <!--<h3 style="visibility: hidden;">$9/month</h3>-->
-                        <h4 style="margin-left: -20px;">NO RISK TRY OUT</h4>
+                        <h4>NO RISK TRY OUT</h4>
                         <div class="plan-list" style="margin-bottom: 21px;">
                         <ul>
                             <li><span>15 Published Feedback</span></li>
                             <li><span>Unlimited Feedback Submissions</span></li>
                         </ul>
                         </div>
-                        <div style="margin-left: 71px;" class="signup" onclick="window.location='registration/free'"></div>
+                        <div class="signup" onclick="window.location='registration/free'"></div>
                     </div>
+                    
+                    <div class="plan-box enhanced">
+                        <h1 style="margin-left: 8px;">Enhanced</h1>
+                        <h3>$39/month</h3>
+                        <h4>FOR SMALL BUSINESSES</h4>
+                        <div class="plan-list">
+                        <ul>
+                            <li><span>350 Published Feedback monthly</span></li>
+                            <li><span>Unlimited Feedback Submissions</span></li>
+                            <li style="visibility: hidden;"><span>With Branding Option</span></li>
+                        </ul>
+                        </div>
+                        <div class="signup-green2" onclick="window.location='registration/enhanced'"></div>
+                    </div>
+                    
                     <div class="plan-box premium">
                         <div class="enhanced">
                             <div class="red-ribbon"></div>
                             <div class="enhanced-plan-text">
                                 <?= HTML::image('img/premium.png'); ?>
-                                <h3>$39/month</h3>
+                                <h3>$129/month</h3>
                                 <h4>MOST POPULAR!</h4>
                                 <div class="enhanced-plan-list">
                                     <ul>
                                         <li><span>Unlimited Published Feedback</span></li>
                                         <li><span>No Branding Option</span></li>
-                                        <li><span>Full Library Options</span></li>
                                         <li><span>Unlimited Feedback Submissions</span></li>
                                     </ul>
                                 </div>
                             </div>
                             <div class="signup-blue" onclick="window.location='registration/premium'"></div>
                         </div>
-                    </div>
-                    <div class="plan-box basic">
-                        <h1 style="margin-left: 17px;">Basic</h1>
-                        <h3 style="margin-left: 16px;">$19/month</h3>
-                        <h4 style="margin-left: 19px;">FOR SMALL BUSINESSES</h4>
-                        <div class="plan-list" style="padding-left: 50px;">
-                        <ul>
-                            <li><span>50 Published Feedback monthly</span></li>
-                            <li><span>Unlimited Feedback Submissions</span></li>
-                            <li style="visibility: hidden;"><span>With Branding Option</span></li>
-                        </ul>
-                        </div>
-                        <div style="margin-left: 80px;" class="signup-green2" onclick="window.location='registration/basic'"></div>
                     </div>
                 </div>
             </div>
