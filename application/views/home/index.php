@@ -4,7 +4,7 @@
 	<div id="mainsubbannerwrapper">
     	<div id="mainbannercontent">
         	<div id="banner-left">
-            	<h1 class="larger-text">Supercharge Your Customer Feedback into Powerful, Authentic Endorsements.</h1>
+            	<h1 class="larger-text">Supercharge Your Customer Feedback into Powerful, Authentic Endorsements</h1>
                 <!--
                 <ul>
                 	<li>Build your reputation and track record faster than your competition</li>
@@ -13,7 +13,7 @@
                 -->
                 <br />
                 <p> 
-                    Share thousands of great customer experiences, gain instant credibility and fast track your business’s track record.
+                    Gain instant credibility and accelerate profits with great customer experiences and viral word of mouth marketing.
                 </p>
               
                 <div class="take-tour-btn" onclick="window.location='tour#0'"></div>

@@ -130,7 +130,7 @@
                             Form::text(
                                 'site_name',
                                 ! is_null($err) ? ($err->has('site_name') ? $err->first('site_name') : Input::get('site_name')) : Input::get('site_name'),
-                                array('class' => 'reg-text ' . ( ! is_null($err) ? ($err->has('site_name') ? 'err-text' : '') : '') )
+                                array('maxlength' => '25', 'class' => 'reg-text ' . ( ! is_null($err) ? ($err->has('site_name') ? 'err-text' : '') : '') )
                             ); 
                         ?>
                         .36storiesapp.com
