@@ -61,7 +61,7 @@
                             <li style="visibility: hidden;"><span>With Branding Option</span></li>
                         </ul>
                         </div>
-                        <div style="margin-left: 77px;" class="signup-green2" onclick="window.location='registration/basic'"></div>
+                        <div style="margin-left: 80px;" class="signup-green2" onclick="window.location='registration/basic'"></div>
                     </div>
                 </div>
             </div>
