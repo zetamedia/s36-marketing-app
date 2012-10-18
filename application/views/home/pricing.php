@@ -20,16 +20,16 @@
         	<div id="pricing-plans">
                 <div id="the-plans">
                     <div class="plan-box free">
-                        <h1>Free</h1>
+                        <h1 style="margin-left: -18px;">Free</h1>
                         <!--<h3 style="visibility: hidden;">$9/month</h3>-->
-                        <h4>NO RISK TRY OUT</h4>
+                        <h4 style="margin-left: -20px;">NO RISK TRY OUT</h4>
                         <div class="plan-list" style="margin-bottom: 21px;">
                         <ul>
                             <li><span>15 Published Feedback</span></li>
                             <li><span>Unlimited Feedback Submissions</span></li>
                         </ul>
                         </div>
-                        <div class="signup" onclick="window.location='registration/free'"></div>
+                        <div style="margin-left: 71px;" class="signup" onclick="window.location='registration/free'"></div>
                     </div>
                     <div class="plan-box premium">
                         <div class="enhanced">
@@ -51,9 +51,9 @@
                         </div>
                     </div>
                     <div class="plan-box basic">
-                        <h1>Basic</h1>
-                        <h3>$19/month</h3>
-                        <h4>FOR SMALL BUSINESSES</h4>
+                        <h1 style="margin-left: 17px;">Basic</h1>
+                        <h3 style="margin-left: 16px;">$19/month</h3>
+                        <h4 style="margin-left: 19px;">FOR SMALL BUSINESSES</h4>
                         <div class="plan-list" style="padding-left: 50px;">
                         <ul>
                             <li><span>50 Published Feedback monthly</span></li>
@@ -61,7 +61,7 @@
                             <li style="visibility: hidden;"><span>With Branding Option</span></li>
                         </ul>
                         </div>
-                        <div class="signup-green2" onclick="window.location='registration/basic'"></div>
+                        <div style="margin-left: 77px;" class="signup-green2" onclick="window.location='registration/basic'"></div>
                     </div>
                 </div>
             </div>
