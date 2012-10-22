@@ -125,15 +125,22 @@
                 	<h2><span>3.</span> Create your <span>36</span>Stories site address</h2>
                     <p>Every 36Stories account has its own web address. For example, if you want <br />your 36Stories account to be at https://acme.36storiesapp.com you'd enter acme <br /> in the field below. Letters and Numbers only.</p>
                     <p>
-                        <span style="font-size:13px;">https://</span>
-                        <?=
-                            Form::text(
-                                'site_name',
-                                ! is_null($err) ? ($err->has('site_name') ? $err->first('site_name') : Input::get('site_name')) : Input::get('site_name'),
-                                array('maxlength' => '25', 'class' => 'reg-text ' . ( ! is_null($err) ? ($err->has('site_name') ? 'err-text' : '') : '') )
-                            ); 
-                        ?>
-                        .36storiesapp.com
+                        <table>
+                            <tr>
+                                <td width="1"><span style="font-size:13px;">https://</span></td>
+                                <td>
+                                    <?=
+                                        Form::text(
+                                            'site_name',
+                                            ! is_null($err) ? ($err->has('site_name') ? $err->first('site_name') : Input::get('site_name')) : Input::get('site_name'),
+                                            array('maxlength' => '25', 'class' => 'reg-text ' . ( ! is_null($err) ? ($err->has('site_name') ? 'err-text' : '') : '') )
+                                        ); 
+                                    ?>
+                                    .36storiesapp.com
+                                </td>
+                            </tr>
+                            <tr><td></td><td><small>Accepts only alphanumeric characters, dash, and underscore.</small></td></tr>
+                        </table>
                     </p>
                 </div>
 

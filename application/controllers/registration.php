@@ -180,7 +180,7 @@
             $msg['password_same'] = 'Your passwords don\'t match.';
             $msg['password_confirmation_required'] = 'Please enter your password confirmation.';
             $msg['password_confirmation_min'] = 'Password confirmation must be at lest :min characters.';
-            $msg['site_name_required'] = 'Please enter your site address.';
+            $msg['site_name_required'] = 'Please enter your site name.';
             $msg['site_name_max'] = 'The site address must be less than :max characters.';
             $msg['billing_first_name_required'] = 'Please enter your billing first name.';
             $msg['billing_last_name_required'] = 'Please enter your billing last name.';
