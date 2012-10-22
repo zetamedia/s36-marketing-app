@@ -150,7 +150,7 @@
                 $rules['billing_state'] = 'required|valid_us_state';
                 $rules['billing_country'] = 'required|exists:Country,name';
                 $rules['billing_zip'] = 'required|min:3|max:9|match:/[\w\d]+/';
-                $rules['card_number'] = 'required|numeric';
+                $rules['card_number'] = 'required|numeric|max:20';
                 $rules['expiration_month'] = 'required|in:01,02,03,04,05,06,07,08,09,10,11,12|future';
                 $rules['expiration_year'] = 'required|in:' . implode(',', range(date('Y'), date('Y') + 5) );
                 $rules['cvv'] = 'required';

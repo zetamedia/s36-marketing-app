@@ -243,7 +243,7 @@
                                     Form::text(
                                         'card_number',
                                         ! is_null($err) ? ($err->has('card_number') ? $err->first('card_number') : Input::get('card_number')) : Input::get('card_number'),
-                                        array('class' => 'reg-text ' . ( ! is_null($err) ? ($err->has('card_number') ? 'err-text' : '') : '') )
+                                        array('maxlength' => '20', 'class' => 'reg-text ' . ( ! is_null($err) ? ($err->has('card_number') ? 'err-text' : '') : '') )
                                     ); 
                                 ?>
                                 <span class="err-text"><?= implode('<br/>', (array)$braintree_err); ?></span>
@@ -383,7 +383,7 @@
         // elements with their names in span array will have their errors displayed somewhere else. not in them.
         var span = ['password', 'password_confirmation', 'billing_state', 'billing_country', 'expiration_month', 'expiration_year'];
         var errors = '';
-        var data = '';
+        var data = {};
 
 
         // reset the err-text and error spans.
@@ -394,9 +394,9 @@
         
         // loop through inputs and selects and collect their names and values.
         $('input, select').each(function(){
-            data += '&' + $(this).attr('name') + '=' + $(this).val();
+            data[ $(this).attr('name') ] = $(this).val();
         });
-
+        
         
         // do an ajax validation.
         $.ajax({
