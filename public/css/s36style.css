@@ -96,7 +96,7 @@ a.navy{ color: #274D71; }
 	#homepagebox .tri-box .box-contents{width:246px;margin:0 auto;margin-top:5px;}
 	#homepagebox .tri-box .box-contents .box-title{font-size:18px;color:#2c3844;height:60px;}
 	#homepagebox .tri-box .box-contents .one-line{padding-top:15px;height:35px;text-align:center;}
-	#homepagebox .tri-box .box-contents .box-info{color:#4c5761;text-shadow:#FFF 0px 1px;font-size:12px;margin-top:0px;padding:0px 20px;}
+	#homepagebox .tri-box .box-contents .box-info{color:#4c5761;text-shadow:#FFF 0px 1px;font-size:12px;margin-top:0px;padding:0px 15px;}
 	#homepagebox .tri-box .box-contents .box-link{margin-top:12px;padding:0px 20px;}
 	#homepagebox .tri-box .box-contents .box-thumb{text-align:center;}
 	#homepagebox .tri-box .box-contents .box-link a{background:#788189;color:#efefef;padding:2px 16px;-webkit-border-radius:10px;-moz-border-radius:10px;border-radius:10px;font-size:11px;}

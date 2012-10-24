@@ -47,7 +47,7 @@
             	<div class="box-contents">
                 	<div class="box-title one-line">Powerful Feedback Control</div>
                     <div class="box-thumb"><?=HTML::image('img/home-image-1.png')?></div>
-                    <div class="box-info"><br />Intuitive, simple and 1-click features allows you to get your endorsements published instantly or hidden seamlessly.<br /><br /><br /></div>
+                    <div class="box-info"><br />Intuitive, simple and 1-click features allows you to get your endorsements published instantly or hidden seamlessly.<br /><br /></div>
                     <div class="box-link"><?=HTML::link('tour#0','learn more')?></div>
                 </div>
             </div>
