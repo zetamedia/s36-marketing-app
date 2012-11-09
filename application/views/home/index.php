@@ -62,7 +62,7 @@
             <div class="tri-box last-box">
             	<div class="box-contents">
                 	<div class="box-title one-line">Grow Your Testimonials</div>
-                    <div class="box-thumb"><?=HTML::image('img/home-image-3.png')?></div>
+                    <div class="box-thumb"><?=HTML::image('img/home-image-3_2.png')?></div>
                     <div class="box-info"><br />Create and customize your 36Stories page for free and start increasing your brand credibility and popularity! We host your feedback on our secured servers so you’ll never lose them again.<br /></div>
                     <div class="box-link"><?=HTML::link('tour#1','learn more')?></div>
                 </div>
