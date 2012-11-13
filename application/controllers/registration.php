@@ -8,6 +8,9 @@
         // states in US.
         private $us_states = array( 'AL' => 'Alabama', 'AK' => 'Alaska', 'AZ' => 'Arizona', 'AR' => 'Arkansas', 'CA' => 'California', 'CO' => 'Colorado', 'CT' => 'Connecticut', 'DE' => 'Delaware', 'DC' => 'District of Columbia', 'FL' => 'Florida', 'GA' => 'Georgia', 'HI' => 'Hawaii', 'ID' => 'Idaho', 'IL' => 'Illinois', 'IN' => 'Indiana', 'IA' => 'Iowa', 'KS' => 'Kansas', 'KY' => 'Kentucky', 'LA' => 'Louisiana', 'ME' => 'Maine', 'MD' => 'Maryland', 'MA' => 'Massachusetts', 'MI' => 'Michigan', 'MN' => 'Minnesota', 'MS' => 'Mississippi', 'MO' => 'Missouri', 'MT' => 'Montana', 'NE' => 'Nebraska', 'NV' => 'Nevada', 'NH' => 'New Hampshire', 'NJ' => 'New Jersey', 'NM' => 'New Mexico', 'NY' => 'New York', 'NC' => 'North Carolina', 'ND' => 'North Dakota', 'OH' => 'Ohio', 'OK' => 'Oklahoma', 'OR' => 'Oregon', 'PA' => 'Pennsylvania', 'RI' => 'Rhode Island', 'SC' => 'South Carolina', 'SD' => 'South Dakota', 'TN' => 'Tennessee', 'TX' => 'Texas', 'UT' => 'Utah', 'VT' => 'Vermont', 'VA' => 'Virginia', 'WA' => 'Washington', 'WV' => 'West Virginia', 'WI' => 'Wisconsin', 'WY' => 'Wyoming' );
         
+        // reserved words for company name and site name.
+        private $reserved_company = array('blog', '36stories', '36 stories');
+        
         
         
         // show the registration form.
@@ -119,13 +122,17 @@
             // if billing country is United States of America, billing state should be a US state.
             Validator::register('valid_us_state', function($attr, $val, $param){
                 
-                // using $this->us_states inside this function gets error. even self::$us_states.
-                // we have no choice but to redeclare this here.
-                $us_states = array( 'AL' => 'Alabama', 'AK' => 'Alaska', 'AZ' => 'Arizona', 'AR' => 'Arkansas', 'CA' => 'California', 'CO' => 'Colorado', 'CT' => 'Connecticut', 'DE' => 'Delaware', 'DC' => 'District of Columbia', 'FL' => 'Florida', 'GA' => 'Georgia', 'HI' => 'Hawaii', 'ID' => 'Idaho', 'IL' => 'Illinois', 'IN' => 'Indiana', 'IA' => 'Iowa', 'KS' => 'Kansas', 'KY' => 'Kentucky', 'LA' => 'Louisiana', 'ME' => 'Maine', 'MD' => 'Maryland', 'MA' => 'Massachusetts', 'MI' => 'Michigan', 'MN' => 'Minnesota', 'MS' => 'Mississippi', 'MO' => 'Missouri', 'MT' => 'Montana', 'NE' => 'Nebraska', 'NV' => 'Nevada', 'NH' => 'New Hampshire', 'NJ' => 'New Jersey', 'NM' => 'New Mexico', 'NY' => 'New York', 'NC' => 'North Carolina', 'ND' => 'North Dakota', 'OH' => 'Ohio', 'OK' => 'Oklahoma', 'OR' => 'Oregon', 'PA' => 'Pennsylvania', 'RI' => 'Rhode Island', 'SC' => 'South Carolina', 'SD' => 'South Dakota', 'TN' => 'Tennessee', 'TX' => 'Texas', 'UT' => 'Utah', 'VT' => 'Vermont', 'VA' => 'Virginia', 'WA' => 'Washington', 'WV' => 'West Virginia', 'WI' => 'Wisconsin', 'WY' => 'Wyoming' );
+                if( Input::get('billing_country') == 'United States of America' ) return in_array($val, $param);
                 
-                if( Input::get('billing_country') == 'United States of America' ) return array_key_exists($val, $us_states);
+                return true;  // this is a must. this is for the state of other countries.
                 
-                return true;
+            });
+
+
+            // company name and site name should not be a reserved word.
+            Validator::register('not_reserved', function($attr, $val, $param){
+                
+                return ! in_array(strtolower($val), $param);
                 
             });
             
@@ -134,11 +141,11 @@
             $rules['first_name'] = 'required|max:80';
             $rules['last_name'] = 'required|max:80';
             $rules['email'] = 'required|email|max:45|unique:User,email';
-            $rules['company'] = 'required|max:45|unique:Company,name';
+            $rules['company'] = 'required|max:45|unique:Company,name|not_reserved:' . implode(',', $this->reserved_company);
             $rules['username'] = 'required|max:45|match:/^\w+[\_]*$/|unique:User,username';
             $rules['password'] = 'required|min:6|same:password_confirmation';
             $rules['password_confirmation'] = 'required|min:6';
-            $rules['site_name'] = 'required|max:25|match:/^\w+[\w\-\_]*$/|unique:Company,name'; 
+            $rules['site_name'] = 'required|max:25|match:/^\w+[\w\-\_]*$/|unique:Company,name|not_reserved:' . implode(',', $this->reserved_company); 
             
             // validate the billing data only if the selected plan is not a no billing plan.
             // URI::segment(3) comes from ajax validation code in view.
@@ -147,7 +154,7 @@
                 $rules['billing_last_name'] = 'required';
                 $rules['billing_address'] = 'required';
                 $rules['billing_city'] = 'required';
-                $rules['billing_state'] = 'required|valid_us_state';
+                $rules['billing_state'] = 'required|valid_us_state:' . implode(',', array_keys($this->us_states));
                 $rules['billing_country'] = 'required|exists:Country,name';
                 $rules['billing_zip'] = 'required|min:3|max:9|match:/[\w\d]+/';
                 $rules['card_number'] = 'required|numeric|max:20';
@@ -199,6 +206,7 @@
             $msg['cvv_required'] = 'Please enter your cvv.';
             $msg['future'] = 'Expiry date must be a future date.';  // custom error msg for expiration date.
             $msg['valid_us_state'] = 'The selected billing state is invalid.';  // custom error msg for valid us state.
+            $msg['not_reserved'] = 'The :attribute has already been taken.';  // custom error msg for reserved words for company name and site name.
 
             return $msg;
             

@@ -376,6 +376,7 @@
             if( $('#billing_state_container select').length ){
                 
                 $('#billing_state_container').html('<input type="text" name="billing_state" class="reg-text" />');
+                $('#billing_state_container input').bind('focus', clear_error);
                 
             }
             
