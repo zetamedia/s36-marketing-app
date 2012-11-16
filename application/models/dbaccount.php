@@ -50,23 +50,36 @@ class DBAccount extends s36dataobject {
         } else {
             
             $this->dbh->beginTransaction();
-            $this->dbh->query('INSERT INTO Company (`name`, `planId`, `billTo`, `bt_customer_id`) VALUES("'.$site_name.'", ' . $plan_id . ', "'.$bill_to.'", "' . $customer_id . '")');
+            $this->dbh->query('
+                INSERT INTO Company (`name`, `planId`, `billTo`, `bt_customer_id`) 
+                VALUES("'.$site_name.'", ' . $plan_id . ', "'.$bill_to.'", "' . $customer_id . '")
+            ');
             $this->dbh->query('SET @company_id = LAST_INSERT_ID()');
-            $this->dbh->query('INSERT INTO Metric (`companyId`, `totalRequest`, `totalResponse`) VALUES(@company_id, 0, 0)'); 
-            $this->dbh->query('INSERT INTO Site (`companyId`, `domain`, `name`, `defaultFormId`) VALUES(@company_id, "'.$site.'", "'.$site_name.'", 1)');   
+            $this->dbh->query('
+                INSERT INTO Metric (`companyId`, `totalRequest`, `totalResponse`) 
+                VALUES(@company_id, 0, 0)
+            '); 
+            $this->dbh->query('
+                INSERT INTO Site (`companyId`, `domain`, `name`, `defaultFormId`) 
+                VALUES(@company_id, "'.$site.'", "'.$site_name.'", 1)
+            ');
             $this->dbh->query('SET @site_id = LAST_INSERT_ID()');
-            $this->dbh->query('INSERT INTO User (`companyId`, `username`, `firstname`, `lastname`, `account_owner`,`confirmed`, `password`, `encryptString`, `email`, `title`, `imId`)  
-                               VALUES (@company_id, "'.$username.'", "' . $firstname . '", "' . $lastname . '", 1, 1, "'.$password.'", "'.$encrypt_string.'", "'.$email.'", "CEO", 1)');
+            $this->dbh->query('
+                INSERT INTO User (`companyId`, `username`, `firstname`, `lastname`, `account_owner`,`confirmed`, `password`, `encryptString`, `email`, `title`, `imId`)  
+                VALUES (@company_id, "'.$username.'", "' . $firstname . '", "' . $lastname . '", 1, 1, "'.$password.'", "'.$encrypt_string.'", "'.$email.'", "CEO", 1)
+            ');
             $this->dbh->query('SET @user_id = LAST_INSERT_ID()');
             $this->dbh->query('INSERT INTO AuthAssignment (`itemname`, `userid`) VALUES ("Admin", @user_id)');
-            $this->dbh->query('INSERT INTO Category (`companyId`, `intName`, `name`, `changeable`) 
-                               VALUES
-                                  (@company_id, "default", "Inbox", 0) 
-                                , (@company_id, "general", "General", 1)
-                                , (@company_id, "misc", "Miscelleanous", 1)
-                                , (@company_id, "price", "Price", 1)
-                                , (@company_id, "bugs", "Problems/Bugs", 1)
-                                , (@company_id, "suggestions", "Suggestions", 1)');
+            $this->dbh->query('
+                INSERT INTO Category (`companyId`, `intName`, `name`, `changeable`) 
+                VALUES
+                (@company_id, "default", "Inbox", 0) 
+                , (@company_id, "general", "General", 1)
+                , (@company_id, "misc", "Miscelleanous", 1)
+                , (@company_id, "price", "Price", 1)
+                , (@company_id, "bugs", "Problems/Bugs", 1)
+                , (@company_id, "suggestions", "Suggestions", 1)
+            ');
             $this->dbh->query('
                 INSERT INTO HostedSettings (`companyId`, `theme_name`, `header_text`, `submit_form_text`, `submit_form_question`, `background_image`) 
                 VALUES (@company_id, "simple", "What some of our customers have to say", "Share your feedback with us", "What do you think about us?", NULL);
