@@ -96,17 +96,31 @@ Route::get('registration-successful', function(){
     return View::of('layout')->nest('contents', 'home.registration-successful', array('site' => $site));
 
 });
-/*
+
+
+Route::get('jqueryfileuploader', function(){
+    $upload_handler = new \UploadHandler();
+});
+
+Route::post('jqueryfileuploader', function(){
+    $upload_handler = new \UploadHandler();
+});
+
 use Helpers\Helpers;
+
 Route::get('test', function(){
     
-    $val = 'ssfsdftest';
-    $company = DB::table('User')
-        ->where('username', '=', $val)
-        ->or_where('email', '=', $val)
-        ->get('username');
+    return View::make('jqueryfileuploader.index');
+    
+    
+    
+    //$val = 'ssfsdftest';
+    //$company = DB::table('User')
+    //    ->where('username', '=', $val)
+    //    ->or_where('email', '=', $val)
+    //    ->get('username');
         
-    var_dump( empty($company) );
+    //var_dump( empty($company) );
     
     
     //$site_name = 'derps';
@@ -149,7 +163,7 @@ Route::get('test', function(){
     //Helpers::show_data($result);
 
 });
-*/
+
 
 /*
 |--------------------------------------------------------------------------
