@@ -107,7 +107,7 @@ Route::post('jqueryfileuploader', function(){
 });
 
 use Helpers\Helpers;
-
+Route::get('ching', function(){ echo 'ching'; });
 Route::get('test', function(){
     
     return View::make('jqueryfileuploader.index');
