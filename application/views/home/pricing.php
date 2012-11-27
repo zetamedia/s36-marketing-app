@@ -46,7 +46,7 @@
                                     </ul>
                                 </div>
                             </div>
-                            <div style="margin-top: 35px;" class="signup-blue" onclick="window.location='registration/premium'"></div>
+                            <div style="margin-top: 35px;" class="signup-blue" onclick="window.location='registration/enhanced'"></div>
                         </div>
                     </div>
                     
@@ -61,7 +61,7 @@
                             <li><span>Unlimited Feedback Submissions</span></li>
                         </ul>
                         </div>
-                        <div style="margin-top: 14px; margin-left: 79px;" class="signup-green2" onclick="window.location='registration/enhanced'"></div>
+                        <div style="margin-top: 14px; margin-left: 79px;" class="signup-green2" onclick="window.location='registration/premium'"></div>
                     </div>
                     
                 </div>
