@@ -17,8 +17,9 @@
 </head>
 <body>
 
-    <form method="post" enctype="multipart/form-data">
-        <input type="text" id="url" placeholder="url" size="100" value="http://mashable.com/2012/01/25/get-old-facebook-back" />
+    <form method="post" enctype="multipart/form-data" id="form">
+        <!--<input type="text" id="url" placeholder="url" size="100" value="http://mashable.com/2012/01/25/get-old-facebook-back" />-->
+        <input type="text" id="url" placeholder="url" size="100" value="" />
         <input type="button" value="test" id="test" /><br/><br/>
         
         
@@ -42,7 +43,7 @@
         
         
         <div id="url_preview">
-            <?php echo file_get_contents('http://query.yahooapis.com/v1/public/yql?q=SELECT%20*%20FROM%20html%20WHERE%20url%3D%22http%3A%2F%2Fmashable.com%2F2012%2F01%2F25%2Fget-old-facebook-back%22%20AND%20xpath%3D%22%2F%2Ftitle%7C%2F%2Fhead%2Fmeta%22&format=json&diagnostics=true&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys&callback=cbfunc'); ?>
+            <img src="" />
         </div>
     </form>
     
@@ -51,21 +52,41 @@
 
 <script type="text/javascript">
     
-    $('#test').click(function(){
+    $('#test').click(function(e){
+        
+        e.preventDefault();
         
         var url = $('#url').val();
-        var query = 'http://query.yahooapis.com/v1/public/yql?q=' + encodeURIComponent('SELECT * FROM html WHERE url="' + url + '" AND xpath="//title|//head/meta"') + '&format=json&callback=cbfunc';
+        var query = 'http://query.yahooapis.com/v1/public/yql?q=' + encodeURIComponent('SELECT * FROM html WHERE url="' + url + '" AND xpath="//title|//head/meta"') + '&format=json&diagnostics=true&callback=?';
         
         $.ajax({
             type: 'GET',
             dataType: 'jsonp',
-            //url: query,
-            url: 'http://query.yahooapis.com/v1/public/yql?q=SELECT%20*%20FROM%20html%20WHERE%20url%3D%22http%3A%2F%2Fmashable.com%2F2012%2F01%2F25%2Fget-old-facebook-back%22%20AND%20xpath%3D%22%2F%2Ftitle%7C%2F%2Fhead%2Fmeta%22&format=json&diagnostics=true&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys&callback=cbfunc',
+            url: query,
             success: function(data){
-                alert(data);
-            },
-            error: function(a, b, c){
-                alert(a); alert(b); alert(c);
+                
+                var title = 'title => ' + data.query.results.title;
+                var url = 'url => ' + data.query.diagnostics.url.content;
+                var desc = 'desc => ';
+                var img = '';
+                var misc = '';
+                
+                $.each(data.query.results.meta, function(k, v){
+                    
+                    if( v.name == 'description' ){
+                        desc += v.content;
+                    }
+                    
+                    //misc += k + ' => ' + v.name + '<br/>';
+                    //misc += k + ' => ' + v.content + '<br/>';
+                    $.each(v, function(a, b){
+                        misc += a + ' => ' + b + '<br/>';
+                    });
+                    
+                });
+                
+                $('#url_preview').html( title + '<br/>' + desc + '<br/>' + url + '<br/><br/>' + misc );
+                //$('#url_preview img').attr('src', img);
             }
         });
         
