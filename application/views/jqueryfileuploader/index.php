@@ -14,16 +14,50 @@
         .progress_container{ width: 250px; }
         .progress_shade{ width: 0%; height: 15px; background: green; }
     </style>
+    
+    
+    <link rel="stylesheet" type="text/css" href="css/link.preview.css" />
+    <script type="text/javascript" src="js/link.preview.js" ></script>
 </head>
 <body>
 
     <form method="post" enctype="multipart/form-data" id="form">
-        <!--<input type="text" id="url" placeholder="url" size="100" value="http://mashable.com/2012/01/25/get-old-facebook-back" />-->
-        <input type="text" id="url" placeholder="url" size="100" value="" />
-        <input type="button" value="test" id="test" /><br/><br/>
+        
+        <div class="linkPreview" style="margin: 0;">
+            <div id="previewLoading"></div>
+            <div style="float: left;">
+                <textarea type="text" id="text" /> What's on your mind?</textarea>
+                <div style="clear: both"></div>
+            </div>
+            <div id="preview">
+                <div id="previewImages">
+                    <div id="previewImage"><img src='img/LinkPreview/loader.gif' style='margin-left: 43%; margin-top: 39%;' ></img></div>
+                    <input type="hidden" id="photoNumber" value="0" />
+                </div>
+                <div id="previewContent">
+                    <div id="closePreview" title="Remove" ></div>
+                    <div id="previewTitle"></div>
+                    <div id="previewUrl"></div>
+                    <div id="previewDescription"></div>
+                    <div id="hiddenDescription"></div>
+                    <div id="previewButtons" >
+                        <div id='previewPreviousImg' class="buttonLeftDeactive" ></div><div id='previewNextImg' class="buttonRightDeactive"  ></div>  <div class="photoNumbers" ></div> <div class="chooseThumbnail">Choose a thumbnail</div>
+                    </div>
+                    <input type="checkbox" id="noThumb" class="noThumbCb" />
+                    <div class="nT"  ><span id="noThumbDiv" >No thumbnail</span></div>
+                </div>
+                <div style="clear: both"></div>
+            </div>
+            <div style="clear: both"></div>
+            <div id="postPreview">
+                <input class="postPreviewButton" type="submit" value="Post" />
+                <div style="clear: both"></div>
+            </div>
+            <div class="previewPostedList"></div>
+        </div><br/><br/>
         
         
-        <input type="file" multiple id="file_uploader" data-url="jqueryfileuploader" />
+        <input type="file" multiple id="file_uploader" data-url="jquery_file_uploader" />
         <input type="submit" value="Save" />
         
         
@@ -41,10 +75,6 @@
             </div>
         </div><br/><br/>
         
-        
-        <div id="url_preview">
-            <img src="" />
-        </div>
     </form>
     
 </body>
@@ -52,46 +82,7 @@
 
 <script type="text/javascript">
     
-    $('#test').click(function(e){
-        
-        e.preventDefault();
-        
-        var url = $('#url').val();
-        var query = 'http://query.yahooapis.com/v1/public/yql?q=' + encodeURIComponent('SELECT * FROM html WHERE url="' + url + '" AND xpath="//title|//head/meta"') + '&format=json&diagnostics=true&callback=?';
-        
-        $.ajax({
-            type: 'GET',
-            dataType: 'jsonp',
-            url: query,
-            success: function(data){
-                
-                var title = 'title => ' + data.query.results.title;
-                var url = 'url => ' + data.query.diagnostics.url.content;
-                var desc = 'desc => ';
-                var img = '';
-                var misc = '';
-                
-                $.each(data.query.results.meta, function(k, v){
-                    
-                    if( v.name == 'description' ){
-                        desc += v.content;
-                    }
-                    
-                    //misc += k + ' => ' + v.name + '<br/>';
-                    //misc += k + ' => ' + v.content + '<br/>';
-                    $.each(v, function(a, b){
-                        misc += a + ' => ' + b + '<br/>';
-                    });
-                    
-                });
-                
-                $('#url_preview').html( title + '<br/>' + desc + '<br/>' + url + '<br/><br/>' + misc );
-                //$('#url_preview img').attr('src', img);
-            }
-        });
-        
-    });
-    
+    $('.linkPreview').linkPreview();
     
     
     $('#file_uploader').fileupload({

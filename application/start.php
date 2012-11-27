@@ -61,7 +61,8 @@ Laravel\Autoloader::$aliases = $aliases;
 Autoloader::map(array(
 	'Base_Controller' => path('app').'controllers/base.php',
     'Braintree' => path('app') . 'libraries/braintree/lib/Braintree.php',  // added.
-    'UploadHandler' => path('app') . 'libraries/JqueryFileUploader/UploadHandler.php'  // added.
+    'JqueryFileUploader' => path('app') . 'libraries/jqueryfileuploader/jqueryfileuploader.php',  // added.
+    'LinkPreview' => path('app') . 'libraries/linkpreview/LinkPreview.php'  // added.
 ));
 
 /*

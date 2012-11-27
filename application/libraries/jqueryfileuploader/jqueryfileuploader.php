@@ -10,7 +10,9 @@
  * http://www.opensource.org/licenses/MIT
  */
 
-class UploadHandler
+namespace JqueryFileUploader;
+
+class JqueryFileUploader
 {
     protected $options;
     // PHP File Upload error message codes:
@@ -225,7 +227,7 @@ class UploadHandler
 
     protected function get_file_object($file_name) {
         if ($this->is_valid_file_object($file_name)) {
-            $file = new stdClass();
+            $file = new \stdClass();  // needed to add a backslash because we used namespace - kennwel.
             $file->name = $file_name;
             $file->size = $this->get_file_size(
                 $this->get_upload_path($file_name)
@@ -486,7 +488,7 @@ class UploadHandler
 
     protected function handle_file_upload($uploaded_file, $name, $size, $type, $error,
             $index = null, $content_range = null) {
-        $file = new stdClass();
+        $file = new \stdClass();  // needed to add a backslash because we used namespace - kennwel.
         $file->name = $this->trim_file_name($name, $type, $index, $content_range);
         $file->size = $this->fix_integer_overflow(intval($size));
         $file->type = $type;
