@@ -37,21 +37,26 @@ class JqueryFileUploader
     );
 
     function __construct($options = null, $initialize = true) {
+        
+        // upload sub dir for every feedback session.
+        $upload_sub_dir = date('Y-m-d') . '/' . \Session::get('feedback_sess') . '/';
+        
         $this->options = array(
-            'script_url' => $this->get_full_url().'/',
+            //'script_url' => $this->get_full_url().'/',
+            'script_url' => $this->get_full_url().'/jquery_file_uploader',
             //'upload_dir' => dirname($_SERVER['SCRIPT_FILENAME']).'/files/',
             //'upload_url' => $this->get_full_url().'/files/',
-            //'upload_dir' => '/var/www/JqueryFileUploaderImages/',  // upload folder. this worked.
+            //'upload_dir' => '/var/www/JqueryFileUploaderImages/',  // upload folder.
             //'upload_url' => $this->get_full_url().'/JqueryFileUploaderImages/',  // uploaded image url. this didn't worked. uploaded images can't be viewed in browser.
-            'upload_dir' => dirname($_SERVER['SCRIPT_FILENAME']) . '/JqueryFileUploaderImages/',  // upload folder.
-            'upload_url' => $this->get_full_url() . '/JqueryFileUploaderImages/',  // uploaded image url.
+            'upload_dir' => dirname($_SERVER['SCRIPT_FILENAME']) . '/JqueryFileUploaderImages/' . $upload_sub_dir,  // upload folder.
+            'upload_url' => $this->get_full_url() . '/JqueryFileUploaderImages/' . $upload_sub_dir,  // uploaded image url.
             'user_dirs' => false,
             'mkdir_mode' => 0755,
             'param_name' => 'files',
             // Set the following option to 'POST', if your server does not support
             // DELETE requests. This is a parameter sent to the client:
-            'delete_type' => 'DELETE',
-            //'delete_type' => 'POST',
+            //'delete_type' => 'DELETE',
+            'delete_type' => 'POST',
             'access_control_allow_origin' => '*',
             'access_control_allow_credentials' => false,
             'access_control_allow_methods' => array(
@@ -75,13 +80,15 @@ class JqueryFileUploader
             'inline_file_types' => '/\.(gif|jpe?g|png)$/i',
             // Defines which files (based on their names) are accepted for upload:
             //'accept_file_types' => '/.+$/i',
-            'accept_file_types' => '/\.(gif|jpe?g|png)$/i',  // allow images only to be uploaded.
+            'accept_file_types' => '/\.(gif|jpe?g|png)$/i',  // allowed images only to be uploaded.
             // The php.ini settings upload_max_filesize and post_max_size
             // take precedence over the following max_file_size setting:
-            'max_file_size' => null,
+            //'max_file_size' => null,
+            'max_file_size' => 2000000,
             'min_file_size' => 1,
             // The maximum number of files for the upload directory:
-            'max_number_of_files' => null,
+            //'max_number_of_files' => null,
+            'max_number_of_files' => 3,
             // Image resolution restrictions:
             'max_width' => null,
             'max_height' => null,

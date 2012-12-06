@@ -46,6 +46,7 @@
 				$(this).css({'color': 'black'});
 			}
 		});
+		
 		$('#text').blur(function(){
 			if(trim($('#text').val()) == ""){
 				$(this).val(textText);
@@ -69,20 +70,28 @@
 			$('#noThumb').removeAttr("checked");
 			images = "";
 		}
+		
+		
+		
 		$('#text').keyup(function(e){
 			if((e.which == 13 || e.which == 32 || e.which == 17) && trim($(this).val()) != ""){
+				
 				text = " "+$('#text').val();
 				video = "no";
 				videoPlay = "";
+				
 				if(block == false && urlRegex.test(text)){
+					/*
 					block = true;
 					$('#preview').hide();
 					$('#previewButtons').hide();
-					//$('#previewLoading').html("<img src='http://leocardz.com/img/littleLoader.gif' ></img>");
-					$('#previewLoading').html("<img src='img/LinkPreview/loader.gif' ></img>");
+					$('#previewLoading').html("<img src='img/link-preview/loader.gif' ></img>");
 					$('#photoNumber').val(0);
-					//$.get('textCrawler.php', {text: text}, function(answer) {
+					*/
+					$('#previewLoading').html("<img src='img/link-preview/loader.gif' ></img>");
+					
 					$.get('text_crawler', {text: text}, function(answer) {
+						
 						if(answer.url == null) answer.url = "";
 						if(answer.pageUrl == null) answer.pageUrl = "";
 						if(answer.title == null) answer.title = answer.titleEsc;
@@ -94,12 +103,32 @@
 						if(answer.video == null) answer.video = "";
 						if(answer.videoIframe == null) answer.videoIframe = "";
 						resetPreview();
+						
+						
+						// start of populating custom field.
+						
+						$('#link_url').val(answer.url);
+						$('#link_title').val(answer.title);
+						$('#link_desc').val(answer.description);
+						$('#link_image').val(answer.images);
+						$('#link_preview_data').html(
+							'url => ' + answer.url + '<br/><br/>' +
+							'title => ' + answer.title + '<br/><br/>' +
+							'desc => ' + answer.description + '<br/><br/>' +
+							'images => ' + answer.images + '<br/><br/>'
+						);
+						
+						// end of populating custom field.
+						$('#previewLoading').html("");
+						
+						/*
 						$('#previewLoading').html("");
 						$('#preview').show();
 						$('#previewTitle').html("<span id='previewSpanTitle' >"+answer.title+"</span><input type='text' value='"+answer.title+"' id='previewInputTitle' class='inputPreview' style='display: none;'/>");
 						$('#text').css({"border": "1px solid #b3b3b3", "border-bottom": "1px dashed #b3b3b3"});
 						$('#previewUrl').html(answer.url);
 						$('#previewDescription').html("<span id='previewSpanDescription' >"+answer.description+"</span><textarea id='previewInputDescription' style='width: 290px; display: none;' class='inputPreview' >"+answer.description+"</textarea>");
+						
 						title = "<a href='"+answer.pageUrl+"' target='_blank'>"+$('#previewTitle').html()+"</a>";
 						url = "<a href='http://"+answer.cannonicalUrl+"' target='_blank'>"+answer.cannonicalUrl+"</a>"; 
 						fancyUrl = answer.cannonicalUrl;
@@ -107,24 +136,31 @@
 						description = $('#previewDescription').html(); 
 						video = answer.video;
 						videoIframe = answer.videoIframe;
+						
 						try{
 							images = (answer.images).split("|");
 							$('#previewImages').show();
 							$('#previewButtons').show();
-						}
-						catch(err){
+							
+						}catch(err){
 							$('#previewImages').hide();
 							$('#previewButtons').hide();
 						}
+						
 						images.length = parseInt(images.length);
 						var appendImage = "";
+						
 						for(i = 0; i < images.length; i++){
 							if(i == 0) appendImage += "<img id='imagePreview"+i+"' src='"+images[i]+"' style='width: 130px; height: auto' ></img>";
 							else appendImage += "<img id='imagePreview"+i+"' src='"+images[i]+"' style='width: 130px; height: auto; display: none' ></img>";
 						}
+						
 						$('#previewImage').html("<a href='"+answer.pageUrl+"' target='_blank'>"+appendImage+"</a><div id='whiteImage' style='width: 130px; color: transparent; display:none;'>...</div>");
 						$('.photoNumbers').html("1 of "+ images.length);
-						if(images.length > 1){							
+						
+						
+						if(images.length > 1){
+							
 							$('#previewNextImg').removeClass('buttonRightDeactive');
 							$('#previewNextImg').addClass('buttonRightActive');
 							
@@ -167,8 +203,10 @@
 									}
 								});
 							}
-						}
-						else if(images.length == 0){
+							
+							
+						}else if(images.length == 0){
+							
 							$('#closePreview').css({"margin-right": "-206px"});
 							$('#previewTitle').css({"width": "495px"});
 							$('#previewDescription').css({"width": "495px"});
@@ -177,8 +215,12 @@
 							$('#previewButtons').hide();
 							$('#noThumb').hide();
 							$('.nT').hide();
+							
 						}
+						
+						
 						if(nT == false){
+							
 							nT = true;
 							$('.nT').click(function(){
 								var noThumb = $('#noThumb').attr("checked");
@@ -195,7 +237,11 @@
 									$('#previewButtons').show();
 								}
 							});	
+							
 						}
+						
+						
+						
 						$('#previewSpanTitle').click(function(){
 							if(blockTitle == false){
 								blockTitle = true;
@@ -205,12 +251,14 @@
 								$('#previewInputTitle').focus().select();
 							}
 						});
+						
 						$('#previewInputTitle').blur(function(){
 							blockTitle = false;
 							$('#previewSpanTitle').html($('#previewInputTitle').val());
 							$('#previewSpanTitle').show();
 							$('#previewInputTitle').hide();	
 						});
+						
 						$('#previewInputTitle').keypress(function(e){
 							if(e.which == 13){
 								blockTitle = false;
@@ -219,6 +267,7 @@
 								$('#previewInputTitle').hide();	
 							}
 						});
+						
 						$('#previewSpanDescription').click(function(){
 							if(blockDescription == false){
 								blockDescription = true;
@@ -228,12 +277,14 @@
 								$('#previewInputDescription').focus().select();
 							}
 						});
+						
 						$('#previewInputDescription').blur(function(){
 							blockDescription = false;
 							$('#previewSpanDescription').html($('#previewInputDescription').val());
 							$('#previewSpanDescription').show();
 							$('#previewInputDescription').hide();	
 						});
+						
 						$('#previewInputDescription').keypress(function(e){
 							if(e.which == 13){
 								blockDescription = false;
@@ -242,18 +293,23 @@
 								$('#previewInputDescription').hide();	
 							}
 						});
+						
 						$('#previewSpanTitle').mouseover(function(){
 							$('#previewSpanTitle').css({"background-color": "#ff9"});
 						});
+						
 						$('#previewSpanTitle').mouseout(function(){
 							$('#previewSpanTitle').css({"background-color": "transparent"});
 						});		
+						
 						$('#previewSpanDescription').mouseover(function(){
 							$('#previewSpanDescription').css({"background-color": "#ff9"});
 						});	
+						
 						$('#previewSpanDescription').mouseout(function(){
 							$('#previewSpanDescription').css({"background-color": "transparent"});
 						});	
+						
 						$('#noThumb').click(function(){
 							var noThumb = $(this).attr("checked");
 							if(noThumb != "checked"){
@@ -267,6 +323,7 @@
 								$('#previewButtons').hide();
 							}
 						});	
+						
 						$('#closePreview').click(function(){
 							block = false;
 							endOfCrawling = false;
@@ -278,7 +335,9 @@
 								$('#previewDescription').html("");
 							});
 						});			
+						
 						endOfCrawling = true;
+						
 						if(firstPosting == false){
 							firstPosting = true;
 							$('#postPreview').click(function(){
@@ -294,7 +353,6 @@
 									allowPosting = true;
 								}
 								if((trim(text) != "" && endOfCrawling == true) || allowPosting == true){
-									//$.get('searchUrls.php', {text: text, description: description}, function(urls) {
 									$.get('search_urls', {text: text, description: description}, function(urls) {
 										if($('#noThumb').attr("checked") == "checked" || images.length == 0){
 											contentWidth = 495;
@@ -359,9 +417,15 @@
 								}	
 							});
 						}
+						*/
+						
+						
 					}, "json");
 				}
+				
 			}
 		});
+
+
 	}
 })(jQuery);

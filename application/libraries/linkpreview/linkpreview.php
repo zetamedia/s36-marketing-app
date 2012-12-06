@@ -72,18 +72,18 @@
                 if(strpos($match[0], " ") === 0) $match[0] = "http://".substr($match[0], 1);
                 $finalUrl = $match[0];
                 $pageUrl = str_replace("https://", "http://", $finalUrl);
-                $urlData = getPage($pageUrl);
+                $urlData = $this->getPage($pageUrl);
                 $pageUrl = $finalUrl = $urlData["url"];
                 $raw = $urlData["content"];
                 
-                //if(!($raw = file_get_contents($pageUrl))) $raw = getPage($pageUrl, 'http://google.com', '30');
+                //if(!($raw = file_get_contents($pageUrl))) $raw = $this->getPage($pageUrl, 'http://google.com', '30');
                 $metaTags = get_meta_tags($pageUrl);
                 
                 if(isset($metaTags['title'])){
                     $title = $metaTags['title'];
                 }
                 else{
-                    $title = getOpenGraphicContent("og:title", $raw);
+                    $title = $this->getOpenGraphicContent("og:title", $raw);
                     if($title == ""){
                         if(preg_match("/<title(.*?)>(.*?)<\/title>/i", str_replace("\n", " ", $raw), $matching)) $title = $matching[2];
                         $titleAnalysis = " ".strtolower($title);
@@ -92,35 +92,35 @@
                     }
                 }
                 
-                $description = getOpenGraphicContent("og:description", $raw);
+                $description = $this->getOpenGraphicContent("og:description", $raw);
                 if($description == ""){
                     if(isset($metaTags['description'])){
                         $description = $metaTags['description'];
                         $descriptionUnderstood = true;
                     }
                     else{
-                        $description = crawCode($raw);
+                        $description = $this->crawCode($raw);
                     }
                 }
                 if(($descriptionUnderstood == false && strlen($title) > strlen($description) && !preg_match($urlRegex, $description) && $description != "" && !preg_match('/[A-Z]/', $description)) || $title == $description){
                     $title = $description;
-                    $description = crawCode($raw);
+                    $description = $this->crawCode($raw);
                 }
-                $images = getOpenGraphicContent("og:image", $raw);
+                $images = $this->getOpenGraphicContent("og:image", $raw);
                 $media = array();
                 
                 if(strpos($pageUrl, "youtube.com") !== false){
-                    $media = mediaYoutube($pageUrl);
+                    $media = $this->mediaYoutube($pageUrl);
                     $images = $media[0];
                     $videoIframe = $media[1];
                 }
                 else if(strpos($pageUrl, "vimeo.com") !== false){
-                    $media = mediaVimeo($pageUrl);
+                    $media = $this->mediaVimeo($pageUrl);
                     $images = $media[0];
                     $videoIframe = $media[1];
                 }
                 if($images == ""){
-                    $images = getImages($raw, $pageUrl);
+                    $images = $this->getImages($raw, $pageUrl);
                 }
                 if($media != null && $media[0] != "" && $media[1] != "") $video = "yes";
                 
@@ -133,15 +133,15 @@
                 
                 $description = preg_replace("/<script(.*?)>(.*?)<\/script>/i", "", $description);
                 
-                $title = utf8Fix($title);
-                $description = utf8Fix($description);
+                $title = $this->utf8Fix($title);
+                $description = $this->utf8Fix($description);
                 
                 $answer = array(
                     "title" => $title,
                     "titleEsc" => htmlentities($title),
                     "url" => $finalLink,
                     "pageUrl" => $finalUrl,
-                    "cannonicalUrl" => cannonicalPage($pageUrl),
+                    "cannonicalUrl" => $this->cannonicalPage($pageUrl),
                     "description" => strip_tags($description),
                     "descriptionEsc" => htmlentities(strip_tags($description)),
                     "images" => $images,
@@ -278,8 +278,8 @@
         
         function cannonicalLink($imgSrc, $referer){
             if(strpos($imgSrc, "//") === 0) $imgSrc = "http:".$imgSrc;
-            else if(strpos($imgSrc, "/") === 0) $imgSrc = "http://".cannonicalPage($referer).$imgSrc;
-            else $imgSrc = "http://".cannonicalPage($referer).'/'.$imgSrc;
+            else if(strpos($imgSrc, "/") === 0) $imgSrc = "http://". $this->cannonicalPage($referer) . $imgSrc;
+            else $imgSrc = "http://". $this->cannonicalPage($referer) . '/'.$imgSrc;
             return $imgSrc;
         }
         
@@ -339,7 +339,7 @@
                 $src = "";
                 $pathCounter = substr_count($imgSrc, "../");
                 if(!preg_match("/https?\:\/\//i", $imgSrc)){
-                    $src = getImageUrl($pathCounter, cannonicalLink($imgSrc, $url));
+                    $src = $this->getImageUrl($pathCounter, $this->cannonicalLink($imgSrc, $url));
                 }
                 if($src.$imgSrc != $url){
                     if($src == "") array_push($content, $src.$imgSrc);
@@ -356,9 +356,9 @@
                     $src = "";
                     $pathCounter = substr_count($matching[0][$i], "../");
                     preg_match('/src=(\"|\')(.+?)(\"|\')/i', $matching[0][$i], $imgSrc);
-                    $imgSrc = cannonicalImgSrc($imgSrc[2]);
+                    $imgSrc = $this->cannonicalImgSrc($imgSrc[2]);
                     if(!preg_match("/https?\:\/\//i", $imgSrc)){
-                        $src = getImageUrl($pathCounter, cannonicalLink($imgSrc, $url));
+                        $src = $this->getImageUrl($pathCounter, $this->cannonicalLink($imgSrc, $url));
                     }
                     if($src.$imgSrc != $url){
                         if($src == "") array_push($content, $src.$imgSrc);
@@ -367,16 +367,16 @@
                 }
             }
             if(preg_match_all("/<link(.*?)rel=(\"|\')(.*?)icon(.*?)(\"|\')(.*?)href=(\"|\')(.+?)(gif|jpg|png|bmp|ico)(\"|\')(.*?)(\/)?>(<\/link>)?/", $text, $matching)){
-                $content = joinAll($matching, 8, $url, $content);
+                $content = $this->joinAll($matching, 8, $url, $content);
             }
             else if(preg_match_all("/<link(.*?)href=(\"|\')(.+?)(gif|jpg|png|bmp|ico)(\"|\')(.*?)rel=(\"|\')(.*?)icon(.*?)(\"|\')(.*?)(\/)?>(<\/link>)?/", $text, $matching)){
-                $content = joinAll($matching, 3, $url, $content);
+                $content = $this->joinAll($matching, 3, $url, $content);
             }
             if(preg_match_all("/<meta(.*?)itemprop=(\"|\')image(\"|\')(.*?)content=(\"|\')(.+?)(gif|jpg|png|bmp|ico)(\"|\')(.*?)(\/)?>(<\/meta>)?/", $text, $matching)){
-                $content = joinAll($matching, 6, $url, $content);
+                $content = $this->joinAll($matching, 6, $url, $content);
             }
             else if(preg_match_all("/<meta(.*?)content=(\"|\')(.+?)(gif|jpg|png|bmp|ico)(\"|\')(.*?)itemprop=(\"|\')image(\"|\')(.*?)(\/)?>(<\/meta>)?/", $text, $matching)){
-                $content = joinAll($matching, 3, $url, $content);
+                $content = $this->joinAll($matching, 3, $url, $content);
             }
             $content = array_unique($content);
             $content = array_values($content);
@@ -392,9 +392,9 @@
             $content = "";
             $contentSpan = "";
             $contentParagraph = "";
-            $contentSpan = getTagContent("span", $text);
-            $contentParagraph = getTagContent("p", $text);
-            $contentDiv = getTagContent("div", $text);
+            $contentSpan = $this->getTagContent("span", $text);
+            $contentParagraph = $this->getTagContent("p", $text);
+            $contentDiv = $this->getTagContent("div", $text);
             $content = $contentSpan;
             if(strlen($contentParagraph) > strlen($contentSpan) && strlen($contentParagraph) >= strlen($contentDiv)) $content = $contentParagraph;
             else if(strlen($contentParagraph) > strlen($contentSpan) && strlen($contentParagraph) < strlen($contentDiv)) $content = $contentDiv;
