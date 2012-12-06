@@ -2,17 +2,6 @@
     
     class Registration_Controller extends Base_Controller{
         
-        // plans that don't do the billing processes like braintree and friends.
-        private $no_billing_plans = array('secret', 'free');
-        
-        // states in US.
-        private $us_states = array( 'AL' => 'Alabama', 'AK' => 'Alaska', 'AZ' => 'Arizona', 'AR' => 'Arkansas', 'CA' => 'California', 'CO' => 'Colorado', 'CT' => 'Connecticut', 'DE' => 'Delaware', 'DC' => 'District of Columbia', 'FL' => 'Florida', 'GA' => 'Georgia', 'HI' => 'Hawaii', 'ID' => 'Idaho', 'IL' => 'Illinois', 'IN' => 'Indiana', 'IA' => 'Iowa', 'KS' => 'Kansas', 'KY' => 'Kentucky', 'LA' => 'Louisiana', 'ME' => 'Maine', 'MD' => 'Maryland', 'MA' => 'Massachusetts', 'MI' => 'Michigan', 'MN' => 'Minnesota', 'MS' => 'Mississippi', 'MO' => 'Missouri', 'MT' => 'Montana', 'NE' => 'Nebraska', 'NV' => 'Nevada', 'NH' => 'New Hampshire', 'NJ' => 'New Jersey', 'NM' => 'New Mexico', 'NY' => 'New York', 'NC' => 'North Carolina', 'ND' => 'North Dakota', 'OH' => 'Ohio', 'OK' => 'Oklahoma', 'OR' => 'Oregon', 'PA' => 'Pennsylvania', 'RI' => 'Rhode Island', 'SC' => 'South Carolina', 'SD' => 'South Dakota', 'TN' => 'Tennessee', 'TX' => 'Texas', 'UT' => 'Utah', 'VT' => 'Vermont', 'VA' => 'Virginia', 'WA' => 'Washington', 'WV' => 'West Virginia', 'WI' => 'Wisconsin', 'WY' => 'Wyoming' );
-        
-        // reserved words for company name and site name.
-        private $reserved_company = array('blog', '36stories', '36 stories');
-        
-        
-        
         // show the registration form.
         function action_show_form($plan = null, $errors = null){
             
@@ -33,8 +22,8 @@
             // if plan is secret, treat it as premium.
             $data['plan'] = ($plan == 'secret' ? 'premium' : $plan);
             $data['country_names'] = DBCountry::get_all_names();
-            $data['us_states'] = $this->us_states;
-            $data['no_billing_plans'] = $this->no_billing_plans;
+            $data['us_states'] = ReservedData::get('us_states');
+            $data['no_billing_plans'] = ReservedData::get('no_billing_plans');
 
             // if $errors is object, it's an error from form validation.
             $data['err'] = ( is_object($errors) ? $errors : null );
@@ -59,7 +48,7 @@
 
             
             // if selected plan is a no billing plan, need not to do braintree stuffs.
-            if( ! in_array(URI::segment(2), $this->no_billing_plans) ){
+            if( ! in_array(URI::segment(2), ReservedData::get('no_billing_plans')) ){
                 
                 // create braintree account and get the result.
                 $result = S36Braintree::create_account();
@@ -70,7 +59,7 @@
             }
 
             // if selected plan is a no billing plan, set customer_id to blank.
-            $result['customer_id'] = ( in_array(URI::segment(2), $this->no_billing_plans) ? '' : $result['customer_id'] );
+            $result['customer_id'] = ( in_array(URI::segment(2), ReservedData::get('no_billing_plans')) ? '' : $result['customer_id'] );
 
             
             // do the registration processing if form validation and braintree succeeds.
@@ -141,23 +130,23 @@
             $rules['first_name'] = 'required|max:80';
             $rules['last_name'] = 'required|max:80';
             $rules['email'] = 'required|email|max:45|unique:User,email';
-            $rules['company'] = 'required|max:45|unique:Company,name|not_reserved:' . implode(',', $this->reserved_company);
+            $rules['company'] = 'required|max:45|unique:Company,name|not_reserved:' . implode(',', ReservedData::get('reserved_company'));
             $rules['username'] = 'required|max:45|match:/^\w+[\_]*$/|unique:User,username';
             $rules['password'] = 'required|min:6|same:password_confirmation';
             $rules['password_confirmation'] = 'required|min:6';
-            $rules['site_name'] = 'required|max:25|match:/^\w+[\w\-\_]*$/|unique:Company,name|not_reserved:' . implode(',', $this->reserved_company); 
+            $rules['site_name'] = 'required|max:25|match:/^\w+[\w\-\_]*$/|unique:Company,name|not_reserved:' . implode(',', ReservedData::get('reserved_company')); 
             
             // validate the billing data only if the selected plan is not a no billing plan.
             // URI::segment(3) comes from ajax validation code in view.
-            if( ! in_array(URI::segment(2), $this->no_billing_plans) && ! in_array(URI::segment(3), $this->no_billing_plans) ){
+            if( ! in_array(URI::segment(2), ReservedData::get('no_billing_plans')) && ! in_array(URI::segment(3), ReservedData::get('no_billing_plans')) ){
                 $rules['billing_first_name'] = 'required';
                 $rules['billing_last_name'] = 'required';
                 $rules['billing_address'] = 'required';
                 $rules['billing_city'] = 'required';
-                $rules['billing_state'] = 'required|valid_us_state:' . implode(',', array_keys($this->us_states));
+                $rules['billing_state'] = 'required|valid_us_state:' . implode(',', array_keys(ReservedData::get('us_states')));
                 $rules['billing_country'] = 'required|exists:Country,name';
                 $rules['billing_zip'] = 'required|min:3|max:9|match:/[\w\d]+/';
-                $rules['card_number'] = 'required|numeric|max:20';
+                $rules['card_number'] = 'required|match:/^[\d]+$/|max:20';
                 $rules['expiration_month'] = 'required|in:01,02,03,04,05,06,07,08,09,10,11,12|future';
                 $rules['expiration_year'] = 'required|in:' . implode(',', range(date('Y'), date('Y') + 5) );
                 $rules['cvv'] = 'required';
@@ -198,7 +187,7 @@
             $msg['billing_country_exists'] = 'The selected billing country is invalid.';
             $msg['billing_zip_required'] = 'Please enter your billing zip.';
             $msg['card_number_required'] = 'Please enter your credit card number.';
-            $msg['card_number_numeric'] = 'Credit card number must be numeric.';
+            $msg['card_number_match'] = 'Credit card number must be numeric.';
             $msg['expiration_month_required'] = 'Please enter expiry month.';
             $msg['expiration_month_in'] = 'The selected expiry month is invalid.';
             $msg['expiration_year_required'] = 'Please enter expiry year.';
