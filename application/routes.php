@@ -87,7 +87,13 @@ Route::post('registration/ajax_validation/(:any?)', 'registration@ajax_validatio
 Route::get('registration/(:any?)', 'registration@show_form');
 
 
-Route::post('registration/(:any?)', 'registration@process');
+//Route::post('registration/(:any?)', 'registration@process');
+Route::post('registration/(:any?)', function(){
+    
+    $form_data = new Account\Entities\FormData( (object)Input::get() );
+    var_dump( $form_data->get() );
+    
+});
 
 
 Route::get('registration-successful', function(){
