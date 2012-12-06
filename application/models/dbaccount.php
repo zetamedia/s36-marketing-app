@@ -1,5 +1,5 @@
 <?php
-use s36dataobject\S36DataObject, Encryption\Encryption, RawPDO\RawPDO;
+use s36dataobject\S36DataObject, Encryption\Encryption;
 
 class DBAccount extends s36dataobject {
 
@@ -7,13 +7,11 @@ class DBAccount extends s36dataobject {
 
     public function __construct() {
         
-        $this->dbh = RawPDO::get_connection();
-
-        //$this->dbh = DB::connection('master')->pdo;
+        $this->dbh = DB::connection('master')->pdo;
 
         //if (S36Auth::check()) {
-            //$this->user_id = S36Auth::user()->userid;             
-        //} 
+        //    $this->user_id = S36Auth::user()->userid;             
+        // } 
     }
 
     public function create_account($customer_id) {
