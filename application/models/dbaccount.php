@@ -84,14 +84,15 @@ class DBAccount extends s36dataobject {
             ');
             $this->dbh->commit();
 
-            /*
-            $company_info = $this->company($company);
+            
+            //$company_info = $this->company($company);
+            $company_info = $this->company($site_name);
             $site_id = $company_info->siteid;
             $company_id = $company_info->companyid;
             
             $form = new Widget\Entities\FormWidget;
             $form->make_default = True;
-
+            
             $form_data = (object) Array(
                 'widgetkey'   => False
               , 'widget_type' => 'submit'
@@ -108,7 +109,6 @@ class DBAccount extends s36dataobject {
 
             $form->set_widgetdata($form_data);
             $form->save();
-            */
             
         }
         

@@ -121,7 +121,6 @@ Route::get('text_crawler', function(){
 
 
 use Helpers\Helpers;
-Route::post('test', function(){ var_dump(Input::all()); });
 Route::get('test', function(){
     
     return View::make('jqueryfileuploader.index');
