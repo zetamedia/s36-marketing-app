@@ -86,9 +86,6 @@ class DBAccount extends s36dataobject {
             ');
             $this->dbh->commit();
 
-
-
-            
             /*
             $company_info = $this->company($company);
             $site_id = $company_info->siteid;
