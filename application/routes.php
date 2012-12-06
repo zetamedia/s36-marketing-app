@@ -127,7 +127,6 @@ Route::get('test', function(){
     return View::make('jqueryfileuploader.index');
     
     
-    
     //$val = 'ssfsdftest';
     //$company = DB::table('User')
     //    ->where('username', '=', $val)
