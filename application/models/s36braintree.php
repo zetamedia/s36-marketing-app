@@ -154,36 +154,6 @@
         static function create_account($form_data){
             
             self::set_keys();
-            /*
-            $plan = new DBPlan(Input::get('plan'));
-            $plan_id = strtolower($plan->get_name());
-            $result_arr = array('success' => true, 'message' => array());
-            
-            
-            // create braintree customer account.
-            $result = \Braintree_Customer::create(array(
-                'firstName' => Input::get('first_name'),
-                'lastName' => Input::get('last_name'),
-                'email' => Input::get('email'),
-                'company' => Input::get('company'),
-                'website' => 'www.' . Input::get('site_name') . '.com',
-                'creditCard' => array(
-                    'number' => Input::get('card_number'),
-                    'expirationMonth' => Input::get('expiration_month'),
-                    'expirationYear' => Input::get('expiration_year'),
-                    'cvv' => Input::get('cvv'),
-                    'billingAddress' => array(
-                        'firstName' => Input::get('billing_first_name'),
-                        'lastName' => Input::get('billing_last_name'),
-                        'streetAddress' => Input::get('billing_address'),
-                        'locality' => Input::get('billing_city'),
-                        'region' => Input::get('billing_state'),
-                        'countryName' => Input::get('billing_country'),
-                        'postalCode' => Input::get('billing_zip')
-                    )
-                )
-            ));
-            */
             
             $plan = new DBPlan($form_data->get('plan'));
             $plan_id = strtolower($plan->get_name());

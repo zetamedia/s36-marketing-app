@@ -73,10 +73,10 @@
             $db_account->create_account($form_data, $bt_customer_id);
             
             // send email to customer.
-            $s36_email->create_new_account_email($form_data)->to( $form_data->get()->email )->send();
+            $s36_email->create_new_account_email($form_data)->to( $form_data->get('email') )->send();
             
             // redirect to success page with the customer's site name.
-            return Redirect::to('registration-successful/?login_url=' . $account_service->create_account_url( $form_data->get()->site_name ));
+            return Redirect::to('registration-successful/?login_url=' . $account_service->create_account_url( $form_data->get('site_name') ));
             
         }
         
