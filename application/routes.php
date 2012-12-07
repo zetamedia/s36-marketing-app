@@ -87,13 +87,16 @@ Route::post('registration/ajax_validation/(:any?)', 'registration@ajax_validatio
 Route::get('registration/(:any?)', 'registration@show_form');
 
 
-//Route::post('registration/(:any?)', 'registration@process');
-Route::post('registration/(:any?)', function(){
+Route::post('registration/(:any?)', 'registration@process');
+/*Route::post('registration/(:any?)', function(){
     
     $form_data = new Account\Entities\FormData( (object)Input::get() );
-    var_dump( $form_data->get() );
+    $account_service = new Account\Services\AccountService();
     
-});
+    $account_service->validate_form($form_data);
+    var_dump( $account_service->get_form_errors()->messages );
+    
+});*/
 
 
 Route::get('registration-successful', function(){
@@ -128,6 +131,9 @@ Route::get('text_crawler', function(){
 
 use Helpers\Helpers;
 Route::get('test', function(){
+    
+    $account_service = new Account\Services\AccountService;
+    return $account_service->create_account_url('test');
     
     //return View::make('jqueryfileuploader.index');
     

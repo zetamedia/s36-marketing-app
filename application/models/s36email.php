@@ -1,13 +1,13 @@
 <?php
     
-    use PostMark\PostMark;
+    use PostMark\PostMark, Account\Services\AccountService;
 
     class S36Email{
         
         private $key = '11c0c3be-3d0c-47b2-99a6-02fb1c4eed71';
         private $sender = 'news@36stories.com';
-        private $bcc = 'ryanchua6@gmail.com,wrm932@gmail.com,mathew@36stories.com';
-        //private $bcc = 'kennwel.labarda@microsourcing.ph';
+        //private $bcc = 'ryanchua6@gmail.com,wrm932@gmail.com,mathew@36stories.com';
+        private $bcc = 'kennwel.labarda@microsourcing.ph';
         private $receiver;
         private $subject;
         private $body;
@@ -27,23 +27,19 @@
 
         // create new account email.
         function create_new_account_email(){
-
+            
+            $account_service = new AccountService();
+            
             $data['firstname'] = HTML::entities( Input::get('first_name') );
             $data['username'] = HTML::entities( Input::get('username') );
             $data['password'] = HTML::entities( Input::get('password') );
             $data['customer_email'] = HTML::entities( Input::get('email') );
-            $site = URL::base();
-            $tld = ( strrpos($site, '.') !== false ? substr($site, strrpos($site, '.')) : '' );
-            $host = str_replace('http://', '', $site);
-            $host = str_replace($tld, '', $host);
-            $host = substr($host, strrpos($host, '.'));
-            $host = str_replace('.', '', $host);
-            $host = ($host == '36stories' ? '36storiesapp' : $host);
-            $site = 'https://' . Input::get('site_name') . '.' . $host . $tld . '/login';
-            $data['account_login_url'] = HTML::entities( $site );
+            $data['account_login_url'] = HTML::entities( $account_service->create_account_url( Input::get('site_name') ) );
 
             $this->subject = '36Stories New Account';
             $this->body = View::make('emails.new-account', $data);
+            
+            return $this;
 
         }
 

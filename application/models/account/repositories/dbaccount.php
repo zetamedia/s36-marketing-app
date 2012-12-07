@@ -1,7 +1,8 @@
 <?php
     
     namespace Account\Repositories;
-    use s36dataobject\S36DataObject, Encryption\Encryption;
+    use s36dataobject\S36DataObject, Encryption\Encryption, Widget\Entities\FormWidget;
+    use DB, Input, DBPlan, PDO;
 
     class DBAccount extends s36dataobject {
 
@@ -45,6 +46,7 @@
             
             if($this->company($company)) {
                 
+                // remove this shit later.
                 throw new Exception("The company $company already exists.");
 
             } else {
@@ -92,7 +94,8 @@
                 $site_id = $company_info->siteid;
                 $company_id = $company_info->companyid;
                 
-                $form = new Widget\Entities\FormWidget;
+                //$form = new Widget\Entities\FormWidget;
+                $form = new FormWidget;
                 $form->make_default = True;
                 
                 $form_data = (object) Array(
@@ -157,7 +160,8 @@
             $accounts = $this->companies_wo_defaultwidgets();
             foreach($accounts as $account) {
                 
-                $form = new Widget\Entities\FormWidget;
+                //$form = new Widget\Entities\FormWidget;
+                $form = new FormWidget;
                 $form->make_default = True;
 
                 $form_data = (object) Array(
