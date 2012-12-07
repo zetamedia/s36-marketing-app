@@ -26,16 +26,16 @@
 
 
         // create new account email.
-        function create_new_account_email(){
+        function create_new_account_email($form_data){
             
             $account_service = new AccountService();
             
-            $data['firstname'] = HTML::entities( Input::get('first_name') );
-            $data['username'] = HTML::entities( Input::get('username') );
-            $data['password'] = HTML::entities( Input::get('password') );
-            $data['customer_email'] = HTML::entities( Input::get('email') );
-            $data['account_login_url'] = HTML::entities( $account_service->create_account_url( Input::get('site_name') ) );
-
+            $data['firstname'] = HTML::entities( $form_data->get()->first_name );
+            $data['username'] = HTML::entities( $form_data->get()->username );
+            $data['password'] = HTML::entities( $form_data->get()->password );
+            $data['customer_email'] = HTML::entities( $form_data->get()->email );
+            $data['account_login_url'] = HTML::entities( $account_service->create_account_url( $form_data->get()->site_name ) );
+            
             $this->subject = '36Stories New Account';
             $this->body = View::make('emails.new-account', $data);
             

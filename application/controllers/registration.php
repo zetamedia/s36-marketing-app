@@ -40,6 +40,7 @@
             $account_service = new AccountService();
             $db_account = new DBAccount();
             $s36_email = new S36Email();
+            $bt_customer_id = '';
             
             
             // run the form validation and show errors in form if there are.
@@ -50,28 +51,29 @@
             }
             
             
-            // if selected plan is a no billing plan, need not to do braintree stuffs.
+            // if the selected plan is a no billing plan, need not to do braintree stuffs.
             if( ! in_array(URI::segment(2), ReservedData::get('no_billing_plans')) ){
                 
                 // create braintree account and get the result.
-                $result = S36Braintree::create_account();
+                $result = S36Braintree::create_account($form_data);
                 
                 // if braintree account creation didn't succeed, show the regs form with errors.
                 if( ! $result['success'] ) return $this->action_show_form(URI::segment(2), $result['message']);
-
+                
+                // store the braintree customer id. if the selected plan is a no billing plan
+                // braintree customer id that will be stored is blank.
+                $bt_customer_id = $result['customer_id'];
+                
             }
             
-            // if selected plan is a no billing plan, set customer_id to blank.
-            $result['customer_id'] = ( in_array(URI::segment(2), ReservedData::get('no_billing_plans')) ? '' : $result['customer_id'] );
-
             
-            // do the registration processing if form validation and braintree succeeds.
+            // process account creation if there's no error in form and braintree.
             
             // save customer account in db.
-            $db_account->create_account($result['customer_id']);
+            $db_account->create_account($form_data, $bt_customer_id);
             
             // send email to customer.
-            $s36_email->create_new_account_email()->to( $form_data->get()->email )->send();
+            $s36_email->create_new_account_email($form_data)->to( $form_data->get()->email )->send();
             
             // redirect to success page with the customer's site name.
             return Redirect::to('registration-successful/?login_url=' . $account_service->create_account_url( $form_data->get()->site_name ));

@@ -387,7 +387,7 @@
 
     // validate form when submitted.
     $('input[type=submit]').click(function(e){
-        //return;
+        
         // elements with their names in span array will have their errors displayed somewhere else. not in them.
         var span = ['password', 'password_confirmation', 'billing_state', 'billing_country', 'expiration_month', 'expiration_year'];
         var errors = '';

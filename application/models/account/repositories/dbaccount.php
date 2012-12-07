@@ -17,30 +17,30 @@
             // } 
         }
 
-        public function create_account($customer_id) {
+        public function create_account($form_data, $bt_customer_id){
             
             $encrypt = new Encryption();
-            $password_string = Input::get('password');
+            $password_string = $form_data->get('password');
             $password = crypt( $password_string );
-            $name = $this->escape( Input::get('first_name') . ' ' . Input::get('last_name') );
-            $email = $this->escape( Input::get('email') );
+            $name = $this->escape( $form_data->get('first_name') . ' ' . $form_data->get('last_name') );
+            $email = $this->escape( $form_data->get('email') );
             $encrypt_string = $encrypt->encrypt($email."|".$password_string);
-            $company = $this->escape(strtolower( Input::get('company') ));
-            $username = $this->escape( Input::get('username') );
-            //$fullName = $this->escape( Input::get('first_name') . ' ' . Input::get('last_name') );
-            $firstname = $this->escape( Input::get('first_name') );
-            $lastname = $this->escape( Input::get('last_name') );
-            $site = $this->escape('www.' . Input::get('site_name') . '.com');
-            $site_name = $this->escape(strtolower( Input::get('site_name') ));
-            $plan = new DBPlan(Input::get('plan'));
+            $company = $this->escape(strtolower( $form_data->get('company') ));
+            $username = $this->escape( $form_data->get('username') );
+            //$fullName = $this->escape( $form_data->get('first_name') . ' ' . $form_data->get('last_name') );
+            $firstname = $this->escape( $form_data->get('first_name') );
+            $lastname = $this->escape( $form_data->get('last_name') );
+            $site = $this->escape('www.' . $form_data->get('site_name') . '.com');
+            $site_name = $this->escape(strtolower( $form_data->get('site_name') ));
+            $plan = new DBPlan($form_data->get('plan'));
             $plan_id = $plan->get_plan_id();
             
-            $billing_name = Input::get('billing_first_name') . ' ' . Input::get('billing_last_name');
-            $billing_address = Input::get('billing_address');
-            $billing_city = Input::get('billing_city');
-            $billing_state = Input::get('billing_state');
-            $billing_country = Input::get('billing_country');
-            $billing_zip = Input::get('billing_zip');
+            $billing_name = $form_data->get('billing_first_name') . ' ' . $form_data->get('billing_last_name');
+            $billing_address = $form_data->get('billing_address');
+            $billing_city = $form_data->get('billing_city');
+            $billing_state = $form_data->get('billing_state');
+            $billing_country = $form_data->get('billing_country');
+            $billing_zip = $form_data->get('billing_zip');
             $bill_to = "$company, $billing_name, $billing_address, $billing_city, $billing_state, $billing_country, $billing_zip"; 
 
             
@@ -54,7 +54,7 @@
                 $this->dbh->beginTransaction();
                 $this->dbh->query('
                     INSERT INTO Company (`name`, `planId`, `billTo`, `bt_customer_id`) 
-                    VALUES("'.$site_name.'", ' . $plan_id . ', "'.$bill_to.'", "' . $customer_id . '")
+                    VALUES("'.$site_name.'", ' . $plan_id . ', "'.$bill_to.'", "' . $bt_customer_id . '")
                 ');
                 $this->dbh->query('SET @company_id = LAST_INSERT_ID()');
                 $this->dbh->query('
@@ -89,12 +89,10 @@
                 $this->dbh->commit();
 
                 
-                //$company_info = $this->company($company);
                 $company_info = $this->company($site_name);
                 $site_id = $company_info->siteid;
                 $company_id = $company_info->companyid;
                 
-                //$form = new Widget\Entities\FormWidget;
                 $form = new FormWidget;
                 $form->make_default = True;
                 
@@ -160,7 +158,6 @@
             $accounts = $this->companies_wo_defaultwidgets();
             foreach($accounts as $account) {
                 
-                //$form = new Widget\Entities\FormWidget;
                 $form = new FormWidget;
                 $form->make_default = True;
 
@@ -179,7 +176,6 @@
                 );
                
                 $form->set_widgetdata($form_data);
-                //Helpers::dump($form);
                 $form->save();
             }
 

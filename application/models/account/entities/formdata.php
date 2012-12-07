@@ -16,9 +16,16 @@
         
         
         
-        function get(){
+        function get($key = null){
             
-            return $this->data;
+            // if $key is not given, return the whole $this->data.
+            if( is_null($key) ) return $this->data;
+            
+            // if $key doesn't exist in $this->data, return null.
+            if( ! property_exists($this->data, $key) ) return null;
+            
+            // if $key is known to humanity, return it from $this->data.
+            return $this->data->$key;
             
         }
         
