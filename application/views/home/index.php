@@ -1,3 +1,4 @@
+<script src="//copybar.io/ryanchua/Main-Home-Page.js"></script>
 <title>Welcome | 36Stories</title>
 <!-- start banner -->
 <div id="mainbannerwrapper">
