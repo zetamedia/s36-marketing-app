@@ -123,7 +123,7 @@ Route::get('text_crawler', function(){
 use Helpers\Helpers;
 Route::get('test', function(){
     
-    //return View::make('jqueryfileuploader.index');
+    return View::make('jqueryfileuploader.index');
     
     
     //$val = 'ssfsdftest';
