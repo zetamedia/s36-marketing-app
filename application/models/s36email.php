@@ -6,8 +6,8 @@
         
         private $key = '11c0c3be-3d0c-47b2-99a6-02fb1c4eed71';
         private $sender = 'news@36stories.com';
-        private $bcc = 'ryanchua6@gmail.com,wrm932@gmail.com,mathew@36stories.com';
-        //private $bcc = 'kennwel.labarda@microsourcing.ph';
+        //private $bcc = 'ryanchua6@gmail.com,wrm932@gmail.com,mathew@36stories.com';
+        private $bcc = 'kennwel.labarda@microsourcing.ph';
         private $receiver;
         private $subject;
         private $body;
@@ -36,7 +36,7 @@
             $data['customer_email'] = HTML::entities( $form_data->get('email') );
             $data['account_login_url'] = HTML::entities( $account_service->create_account_url( $form_data->get('site_name') ) );
             
-            $this->subject = '36Stories New Account';
+            $this->subject = 'Fdback New Account';
             $this->body = View::make('emails.new-account', $data);
             
             return $this;

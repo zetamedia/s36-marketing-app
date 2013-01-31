@@ -140,15 +140,15 @@ Route::get('test', function(){
     //$site = 'http://kennwel-marketing.gearfish.com';
     //$site = 'http://beta.36stories.com';
     //$site = 'http://www.beta.36stories.com';
-    //$site = 'http://36storiesapp.com';
-    //$site = 'http://www.36storiesapp.com';
+    //$site = 'http://fdback.com';
+    //$site = 'http://www.fdback.com';
     
     //$tld = ( strrpos($site, '.') !== false ? substr($site, strrpos($site, '.')) : '' );
     //$host = str_replace('http://', '', $site);
     //$host = str_replace($tld, '', $host);
     //$host = substr($host, strrpos($host, '.'));
     //$host = str_replace('.', '', $host);
-    //$host = ($host == '36stories' ? '36storiesapp' : $host);
+    //$host = ($host == 'fdback' ? 'fdback' : $host);
     //$site = 'https://' . $site_name . '.' . $host . $tld . '/login';
     
     //echo $site;

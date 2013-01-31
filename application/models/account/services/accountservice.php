@@ -156,7 +156,7 @@
             $host = str_replace($tld, '', $host);
             $host = substr($host, strrpos($host, '.'));
             $host = str_replace('.', '', $host);
-            $host = ($host == '36stories' ? '36storiesapp' : $host);
+            $host = ($host == '36stories' || $host == 'gearfish' ? 'fdback' : $host);
             $site = 'https://' . $site_name . '.' . $host . $tld . '/login';
             
             return $site;
