@@ -84,7 +84,7 @@
                 ');
                 $this->dbh->query('
                     INSERT INTO HostedSettings (`companyId`, `theme_name`, `header_text`, `submit_form_text`, `submit_form_question`, `background_image`) 
-                    VALUES (@company_id, "simple", "What some of our customers have to say", "Share your feedback with us", "What do you think about us?", "");
+                    VALUES (@company_id, "Timeline", "What some of our customers have to say", "Share your feedback with us", "What do you think about us?", "");
                 ');
                 $this->dbh->commit();
 
