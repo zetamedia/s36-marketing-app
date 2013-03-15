@@ -91,10 +91,10 @@
                 <p>Currently we accept Visa, Mastercard, and American Express. We do not accept PayPal. At this time we only accept payments online so we will not be able to accept a P.O., invoice you, or take an order over the phone</p>
             </div>
             <br class="clear" />
-            <div class="warning-block">
+            <!--<div class="warning-block">
             	<h4>Your data is safe and secure</h4>
                 <p>Our state-of-the-art computer servers are protected by biometric locks and 24-hour surveillance. Our product software and infrastructure is updated regularly with the latest security patches. Our network is protected by an enterprise-class firewall and all Basecamp plans include SSL encryption to keep your data safe.</p>
-            </div>
+            </div>-->
             
             <div class="info-block earth">
             	<h4>What websites work with 36Stories?</h4>
