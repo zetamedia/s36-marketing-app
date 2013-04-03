@@ -50,7 +50,7 @@
                 ->or_where('User.email', '=', Input::get('username'))
                 ->get('Company.name');
             
-            return 'https://' . $company[0]->name . '.36storiesapp.com/login';
+            return 'https://' . $company[0]->name . '.fdback.com/login';
             
         }
         

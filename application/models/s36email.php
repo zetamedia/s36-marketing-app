@@ -1,6 +1,6 @@
 <?php
     
-    use PostMark\PostMark;
+    use PostMark\PostMark, Account\Services\AccountService;
 
     class S36Email{
         
@@ -26,24 +26,20 @@
 
 
         // create new account email.
-        function create_new_account_email(){
-
-            $data['firstname'] = HTML::entities( Input::get('first_name') );
-            $data['username'] = HTML::entities( Input::get('username') );
-            $data['password'] = HTML::entities( Input::get('password') );
-            $data['customer_email'] = HTML::entities( Input::get('email') );
-            $site = URL::base();
-            $tld = ( strrpos($site, '.') !== false ? substr($site, strrpos($site, '.')) : '' );
-            $host = str_replace('http://', '', $site);
-            $host = str_replace($tld, '', $host);
-            $host = substr($host, strrpos($host, '.'));
-            $host = str_replace('.', '', $host);
-            $host = ($host == '36stories' ? '36storiesapp' : $host);
-            $site = 'https://' . Input::get('site_name') . '.' . $host . $tld . '/login';
-            $data['account_login_url'] = HTML::entities( $site );
-
-            $this->subject = '36Stories New Account';
+        function create_new_account_email($form_data){
+            
+            $account_service = new AccountService();
+            
+            $data['firstname'] = HTML::entities( $form_data->get('first_name') );
+            $data['username'] = HTML::entities( $form_data->get('username') );
+            $data['password'] = HTML::entities( $form_data->get('password') );
+            $data['customer_email'] = HTML::entities( $form_data->get('email') );
+            $data['account_login_url'] = HTML::entities( $account_service->create_account_url( $form_data->get('site_name') ) );
+            
+            $this->subject = 'Fdback New Account';
             $this->body = View::make('emails.new-account', $data);
+            
+            return $this;
 
         }
 

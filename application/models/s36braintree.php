@@ -151,35 +151,35 @@
 
         
         // create account with braintree.
-        static function create_account(){
+        static function create_account($form_data){
             
             self::set_keys();
             
-            $plan = new DBPlan(Input::get('plan'));
+            $plan = new DBPlan($form_data->get('plan'));
             $plan_id = strtolower($plan->get_name());
             $result_arr = array('success' => true, 'message' => array());
             
             
             // create braintree customer account.
             $result = \Braintree_Customer::create(array(
-                'firstName' => Input::get('first_name'),
-                'lastName' => Input::get('last_name'),
-                'email' => Input::get('email'),
-                'company' => Input::get('company'),
-                'website' => 'www.' . Input::get('site_name') . '.com',
+                'firstName' => $form_data->get('first_name'),
+                'lastName' => $form_data->get('last_name'),
+                'email' => $form_data->get('email'),
+                'company' => $form_data->get('company'),
+                'website' => 'www.' . $form_data->get('site_name') . '.com',
                 'creditCard' => array(
-                    'number' => Input::get('card_number'),
-                    'expirationMonth' => Input::get('expiration_month'),
-                    'expirationYear' => Input::get('expiration_year'),
-                    'cvv' => Input::get('cvv'),
+                    'number' => $form_data->get('card_number'),
+                    'expirationMonth' => $form_data->get('expiration_month'),
+                    'expirationYear' => $form_data->get('expiration_year'),
+                    'cvv' => $form_data->get('cvv'),
                     'billingAddress' => array(
-                        'firstName' => Input::get('billing_first_name'),
-                        'lastName' => Input::get('billing_last_name'),
-                        'streetAddress' => Input::get('billing_address'),
-                        'locality' => Input::get('billing_city'),
-                        'region' => Input::get('billing_state'),
-                        'countryName' => Input::get('billing_country'),
-                        'postalCode' => Input::get('billing_zip')
+                        'firstName' => $form_data->get('billing_first_name'),
+                        'lastName' => $form_data->get('billing_last_name'),
+                        'streetAddress' => $form_data->get('billing_address'),
+                        'locality' => $form_data->get('billing_city'),
+                        'region' => $form_data->get('billing_state'),
+                        'countryName' => $form_data->get('billing_country'),
+                        'postalCode' => $form_data->get('billing_zip')
                     )
                 )
             ));

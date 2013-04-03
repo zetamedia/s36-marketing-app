@@ -12,10 +12,10 @@
                 </ul>
                 -->
                 <br />
-                <p> 
+                <p>
                     Gain instant credibility, accelerate profits with great customer experiences and viral word of mouth marketing.
                 </p>
-              
+                
                 <div class="take-tour-btn" onclick="window.location='tour#0'"></div>
             </div>
             <!--<div class="discover-text"></div>-->

@@ -123,7 +123,7 @@
                 </div>
                 <div class="leftcontentblock">
                 	<h2><span>3.</span> Create your <span>36</span>Stories site address</h2>
-                    <p>Every 36Stories account has its own web address. For example, if you want <br />your 36Stories account to be at https://acme.36storiesapp.com you'd enter acme <br /> in the field below. Letters and Numbers only.</p>
+                    <p>Every 36Stories account has its own web address. For example, if you want <br />your 36Stories account to be at https://acme.fdback.com you'd enter acme <br /> in the field below. Letters and Numbers only.</p>
                     <p>
                         <table>
                             <tr>
@@ -136,7 +136,7 @@
                                             array('maxlength' => '25', 'class' => 'reg-text ' . ( ! is_null($err) ? ($err->has('site_name') ? 'err-text' : '') : '') )
                                         ); 
                                     ?>
-                                    .36storiesapp.com
+                                    .fdback.com
                                 </td>
                             </tr>
                             <tr><td></td><td><small>Accepts only alphanumeric characters, dash, and underscore.</small></td></tr>
@@ -392,7 +392,7 @@
         var span = ['password', 'password_confirmation', 'billing_state', 'billing_country', 'expiration_month', 'expiration_year'];
         var errors = '';
         var data = {};
-
+        
 
         // reset the err-text and error spans.
         $('span.err-text').text('');

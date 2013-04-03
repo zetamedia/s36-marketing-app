@@ -148,7 +148,6 @@ class DBAccount extends s36dataobject {
             );
            
             $form->set_widgetdata($form_data);
-            //Helpers::dump($form);
             $form->save();
         }
 

@@ -98,20 +98,32 @@ Route::get('registration-successful', function(){
 });
 
 
-Route::get('jqueryfileuploader', function(){
-    $upload_handler = new \UploadHandler();
+use JqueryFileUploader\JqueryFileUploader;
+use LinkPreview\LinkPreview;
+
+Route::get('jquery_file_uploader', function(){
+    new JqueryFileUploader();
 });
 
-Route::post('jqueryfileuploader', function(){
-    $upload_handler = new \UploadHandler();
+Route::post('jquery_file_uploader', function(){
+    new JqueryFileUploader();
 });
+
+Route::get('search_urls', function(){
+    $link_preview = new LinkPreview();
+    $link_preview->search_urls();
+});
+
+Route::get('text_crawler', function(){
+    $link_preview = new LinkPreview();
+    $link_preview->text_crawler();
+});
+
 
 use Helpers\Helpers;
-
 Route::get('test', function(){
     
-    return View::make('jqueryfileuploader.index');
-    
+    //return View::make('jqueryfileuploader.index');
     
     
     //$val = 'ssfsdftest';
@@ -128,15 +140,15 @@ Route::get('test', function(){
     //$site = 'http://kennwel-marketing.gearfish.com';
     //$site = 'http://beta.36stories.com';
     //$site = 'http://www.beta.36stories.com';
-    //$site = 'http://36storiesapp.com';
-    //$site = 'http://www.36storiesapp.com';
+    //$site = 'http://fdback.com';
+    //$site = 'http://www.fdback.com';
     
     //$tld = ( strrpos($site, '.') !== false ? substr($site, strrpos($site, '.')) : '' );
     //$host = str_replace('http://', '', $site);
     //$host = str_replace($tld, '', $host);
     //$host = substr($host, strrpos($host, '.'));
     //$host = str_replace('.', '', $host);
-    //$host = ($host == '36stories' ? '36storiesapp' : $host);
+    //$host = ($host == 'fdback' ? 'fdback' : $host);
     //$site = 'https://' . $site_name . '.' . $host . $tld . '/login';
     
     //echo $site;
@@ -163,6 +175,7 @@ Route::get('test', function(){
     //Helpers::show_data($result);
 
 });
+
 
 
 /*
