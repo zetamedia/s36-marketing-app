@@ -84,34 +84,7 @@ class DBAccount extends s36dataobject {
                 INSERT INTO HostedSettings (`companyId`, `theme_name`, `header_text`, `submit_form_text`, `submit_form_question`, `background_image`) 
                 VALUES (@company_id, "simple", "What some of our customers have to say", "Share your feedback with us", "What do you think about us?", NULL);
             ');
-            $this->dbh->commit();
-
-            /*
-            $company_info = $this->company($company);
-            $site_id = $company_info->siteid;
-            $company_id = $company_info->companyid;
-            
-            $form = new Widget\Entities\FormWidget;
-            $form->make_default = True;
-
-            $form_data = (object) Array(
-                'widgetkey'   => False
-              , 'widget_type' => 'submit'
-              , 'site_id'     => $site_id 
-              , 'company_id' => $company_id
-              , 'theme_type' => 'form-aglow'
-              , 'theme_name' => "$company Default"
-              , 'embed_type' => 'form'
-              , 'submit_form_text'     => 'Please gives us your feedback'
-              , 'submit_form_question' => 'What are your thoughts about our product/services?'
-              , 'tab_pos'  => 'side'
-              , 'tab_type' => 'tab-l-aglow'
-            );
-
-            $form->set_widgetdata($form_data);
-            $form->save();
-            */
-            
+            $this->dbh->commit(); 
         }
         
     }
@@ -168,7 +141,7 @@ class DBAccount extends s36dataobject {
               , 'theme_type' => 'form-aglow'
               , 'theme_name' => "$account->name Default"
               , 'embed_type' => 'form'
-              , 'submit_form_text'     => 'Please gives us your feedback'
+              , 'submit_form_text'     => 'Please give us your feedback'
               , 'submit_form_question' => 'What are your thoughts about our product/services?'
               , 'tab_pos'  => 'side'
               , 'tab_type' => 'tab-l-aglow'
