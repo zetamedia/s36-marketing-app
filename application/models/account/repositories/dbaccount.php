@@ -104,7 +104,7 @@
                   , 'theme_type' => 'form-aglow'
                   , 'theme_name' => "$company Default"
                   , 'embed_type' => 'form'
-                  , 'submit_form_text'     => 'Please gives us your feedback'
+                  , 'submit_form_text'     => 'Please give us your feedback'
                   , 'submit_form_question' => 'What are your thoughts about our product/services?'
                   , 'tab_pos'  => 'side'
                   , 'tab_type' => 'tab-l-aglow'
