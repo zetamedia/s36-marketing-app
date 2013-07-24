@@ -19,11 +19,11 @@
 		<div id="company-page-contents">
             <p align="left" style="padding:10px 10px;line-height:18px;font-size:13px;"><strong>We are the company we keep</strong> | 36Stories is run globally with a small team consisting of ninja designers, code wizards and wicked server engineers from the USA and Asia-Pacific. We love agile development, staying nimble, keeping late nights and munching on really, really good pizza.</p>
             <p align="left" style="padding:10px 10px;line-height:18px;font-size:13px;">We have a philosophy that work should be fun, innovative and that we should do our best to change the world for the better, no matter the size of the impact. The belief and understanding that life's too short to be chasing the wrong things and that each of us has a special part to play in making things better for every business, partner and colleagues we work with.</p>
-            <p align="left" style="padding:10px 10px;line-height:18px;font-size:13px;">We'd definitely love to hear from you (even if you're not a customer!) . Join us on <a href="http://twitter.com/36Stories" style="color:#066;text-decoration:underline">Twitter</a> and our <a href="http://www.facebook.com/pages/36Stories/209135269123195" style="color:#066;text-decoration:underline">Facebook</a> page for more updates.</p>
+            <p align="left" style="padding:10px 10px;line-height:18px;font-size:13px;">We'd definitely love to hear from you (even if you're not a customer!) . Join us on <a href="https://twitter.com/36Stories" style="color:#066;text-decoration:underline">Twitter</a> and our <a href="https://www.facebook.com/pages/36Stories/209135269123195" style="color:#066;text-decoration:underline">Facebook</a> page for more updates.</p>
             
             <div class="company-profile-block">
             	<div class="profile-image">
-                	<?=HTML::image('img/team-images/matthew.jpg','Mathew Wong',array('width' => '184','height'=>'241'))?>
+                	<img src="img/team-images/matthew.jpg" width="184" height="241"/>
                 </div>
                 <div class="profile-details">
                 	<h2>Mathew Wong - CTO, Co-Founder</h2>
@@ -35,7 +35,7 @@
             
             <div class="company-profile-block">
             	<div class="profile-image">
-                	<?=HTML::image('img/team-images/rz.jpg','R.Z Harbin',array('width' => '184','height'=>'241'))?>
+                    <img src="img/team-images/rz.jpg" width="184" height="241"/>
                 </div>
                 <div class="profile-details">
                 	<h2>Clement A. - Architect, Co-Founder</h2>
@@ -47,7 +47,7 @@
             
             <div class="company-profile-block">
             	<div class="profile-image">
-                	<?=HTML::image('img/team-images/henry.jpg','Henry Castor',array('width' => '184','height'=>'241'))?>
+                    <img src="img/team-images/henry.jpg" width="184" height="241"/>
                 </div>
                 <div class="profile-details">
                 	<h2>Henry Castor -  Design Manager</h2>
@@ -59,7 +59,7 @@
             
             <div class="company-profile-block">
             	<div class="profile-image">
-                	<?=HTML::image('img/team-images/dan.jpg','Dan Oliver Calpatura',array('width' => '184','height'=>'241'))?>
+                    <img src="img/team-images/dan.jpg" width="184" height="241"/>
                 </div>
                 <div class="profile-details">
                 	<h2>Dan Oliver Calpatura - Developer</h2>
@@ -71,7 +71,7 @@
             
             <div class="company-profile-block">
             	<div class="profile-image">
-                	<?=HTML::image('img/team-images/leicha.jpg','Leica Chang',array('width' => '184','height'=>'241'))?>
+                    <img src="img/team-images/leica.jpg" width="184" height="241"/>
                 </div>
                 <div class="profile-details">
                 	<h2>Leica Chang – Operations Manager</h2>

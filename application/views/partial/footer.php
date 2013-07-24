@@ -21,8 +21,8 @@
     	<div class="link-block">
         	<h2>ABOUT US</h2>
             <ul>
-            	<li><a href="#">Blog</a></li>
-                <li><a href="#">The Team</a></li>
+            	<li><a href="javascript:;">Blog</a></li>
+                <li><a href="javascript:;">The Team</a></li>
                 <!--<li><a href="#">Investors</a></li>
                 <li><a href="#">Jobs</a></li>-->
                 <li><a href="<?//= URL::to('contact'); ?>">Contact Us</a></li>
@@ -31,7 +31,7 @@
         <div class="link-block">
         	<h2>SUPPORT</h2>
             <ul>
-            	<li><a href="http://36stories.freshdesk.com" target="_blank">Help Center</a></li>
+            	<li><a href="javascript:;" target="_blank">Help Center</a></li>
                 <!--<li><a href="#">Community</a></li>-->
                 <!--<li><a href="#">Quick Start Guide</a></li>-->
             </ul>
@@ -39,8 +39,8 @@
         <div class="link-block">
         	<h2>COMMUNITY</h2>
             <ul>
-            	<li><a href="http://facebook.com/36Stories" target="_blank">Facebook</a></li>
-            	<li><a href="http://Twitter.com/36Stories" target="_blank">Twitter</a></li>
+            	<li><a href="https://facebook.com/36Stories" target="_blank">Facebook</a></li>
+            	<li><a href="https://Twitter.com/36Stories" target="_blank">Twitter</a></li>
             </ul>
         </div>
         <!--
@@ -92,7 +92,7 @@
                 <li class="mobile">1-8000-12345678</li>-->
                 <li class="email"><strong>Drop us an email</strong></li>
             </ul>
-            <div class="bottom-logo"><?=HTML::image('img/36-storieslogo.png')?></div>
+            <div class="bottom-logo"><img src="img/36-storieslogo.png"/></div>
         </div>
         <br class="clear" />
 	</div><!-- end of link block contents -->
@@ -101,13 +101,13 @@
 <div id="footerwrapper">
     <div id="footercontents">
     	<div class="copyright">
-    		<span>© 2011 36Stories Inc. All Rights Reserved.</span>  <?=HTML::link('/tac', 'Terms')?>  | <?=HTML::link('/privacy', 'Privacy')?>
+    		<span>© 2011 36Stories Inc. All Rights Reserved.</span>  <?=HTML::link_to_secure('/tac', 'Terms')?>  | <?=HTML::link_to_secure('/privacy', 'Privacy')?>
         </div>
         <div class="socialicons">
         	<div class="text">Stay in touch</div>
             <ul>
-                <li><a href="http://facebook.com/36Stories" title="Facebook Page" target="_blank"><?=HTML::image('img/ico-fb.png')?></a></li>
-                <li><a href="http://Twitter.com/36Stories" title="Twitter Page" target="_blank"><?=HTML::image('img/ico-twitter.png')?></a></li>
+                <li><a href="https://facebook.com/36Stories" title="Facebook Page" target="_blank"><img src="img/ico-fb.png"/></a></li>
+                <li><a href="https://Twitter.com/36Stories" title="Twitter Page" target="_blank"><img src="img/ico-twitter.png"/></a></li>
                 <!--this is a comment
                 <li><a href="#"><?=HTML::image('img/ico-tumblr.png')?></a></li>
                 <li><a href="#"><?=HTML::image('img/ico-youtube.png')?></a></li>

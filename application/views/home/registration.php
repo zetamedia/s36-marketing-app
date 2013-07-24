@@ -31,7 +31,7 @@
                 <div class="leftcontentblock">
                 	<h2><span>1.</span> Create your <span>36</span>Stories Account</h2>
                     <table>
-                    	<tr><td class="label">First Name : </td>
+                    	<tr><td class="label" style="width:110px">First Name : </td>
                         	<td>
                                 <?=
                                     Form::text(
@@ -80,7 +80,7 @@
                 <div class="leftcontentblock">
                 	<h2><span>2.</span> Now choose a username and password</h2>
                     <table>
-                    	<tr><td class="label">Username : </td>
+                    	<tr><td class="label" style="width:110px">Username : </td>
                         	<td>
                                 <?=
                                     Form::text(
@@ -106,7 +106,7 @@
                                 <div><small>6 characters or longer with at least one number is safest.</small></div>
                             </td>
                         </tr>
-                        <tr><td class="label" valign="middle">Confirm Password : </td>
+                        <tr><td class="label" valign="middle" style="width:110px;">Confirm Password : </td>
                         	<td>
                                 <?=
                                     Form::password(

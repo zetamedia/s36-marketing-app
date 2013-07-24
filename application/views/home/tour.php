@@ -155,7 +155,7 @@ function onAfter(curr, next, opts, fwd) {
         <div class="container-box">
           <div class="main-title">
             <div class="main-title-image">
-              <?=HTML::image('img/tour-main-image1.png')?>
+              <img src="img/tour-main-image1.png"/>
               <br class="clear" />
             </div>
             <div class="main-title-text">
@@ -175,13 +175,13 @@ function onAfter(curr, next, opts, fwd) {
               <br class="clear" />
             </div>
             <div class="subinfo-image right">
-              <?=HTML::image('img/toursubimage11.png')?>
+              <img src="img/toursubimage11.png"/>
             </div>
             <br class="clear" />
           </div>
           <div class="sub-info">
             <div class="subinfo-image left">
-              <?=HTML::image('img/toursubimage12.png')?>
+              <img src="img/toursubimage12.png"/>
             </div>
             <div class="subinfo-text">
               <h2>Feature endorsements that truly matter</h2>
@@ -196,20 +196,20 @@ function onAfter(curr, next, opts, fwd) {
             <div class="subinfo-text left" style="width:255px">
               <p>File away negative feedback into configurable categories to follow up on them later. You can create new categories that suit your business. </p>
               <p>Whether it's a pricing issue or a technical problem, you can always refer to it quickly and easily later.</p>
-              <?=HTML::image('img/toursubimage13.png')?>
+              <img src="img/toursubimage13.png"/>
               <br class="clear" />
             </div>
             <div class="subinfo-text left" style="width:275px;padding-left:45px;">
               <p>Our Fast Forward options allow you to send feedback quickly to someone else within your company. </p>
               <p>For example – if you have a customer asking for his shipping status through our feedback prompt, you can forward it to your shipping department for rapid follow up.</p>
-              <?=HTML::image('img/toursubimage14.png')?>
+              <img src="img/toursubimage14.png"/>
               <br class="clear" />
             </div>
             <br class="clear" />
           </div>
           <div class="sub-info">
             <div class="subinfo-image left">
-              <?=HTML::image('img/toursubimage15.png')?>
+              <img src="img/toursubimage15.png"/>
             </div>
             <div class="subinfo-text">
               <h2>Respond instantly to feedback</h2>
@@ -228,18 +228,18 @@ function onAfter(curr, next, opts, fwd) {
               <br class="clear" />
             </div>
             <div class="subinfo-image right">
-              <?=HTML::image('img/toursubimage16.png')?>
+              <img src="img/toursubimage16.png"/>
             </div>
             <br class="clear" />
           </div>
-          <a href="<?php echo URL::to('registration/free'); ?>"><div class="free-account-button"></div></a>
+          <a href="<?php echo URL::to_secure('registration/free'); ?>"><div class="free-account-button"></div></a>
           <br class="clear" />
         </div>
         <!-- slide 2 -->
         <div class="container-box">
           <div class="main-title">
             <div class="main-title-image">
-              <?=HTML::image('img/ico-small-pie.png')?>
+              <img src="img/ico-small-pie.png"/>
               <br class="clear" />
             </div>
             <div class="main-title-text">
@@ -257,13 +257,13 @@ function onAfter(curr, next, opts, fwd) {
               <br class="clear" />
             </div>
             <div class="subinfo-image " style="width:355px;min-height:80px;margin-right:-30px;">
-              <?=HTML::image('img/toursubimage21.png')?>
+              <img src="img/toursubimage21.png"/>
               <br class="clear" />
             </div>
             <br class="clear" />
             <div>
               <div class="subinfo-image left" style="width:405px;min-height:80px;margin-left:-10px;">
-                <?=HTML::image('img/toursubimage22.png')?>
+                <img src="img/toursubimage22.png"/>
               </div>
               <div class="subinfo-text" style="width:172px">
                 <p>Fix problematic areas in your business or improve your processes. Have a simplified yet detailed insight into your customer satisfaction ratings, geographic profiles and pain points in your business. </p>
@@ -276,7 +276,7 @@ function onAfter(curr, next, opts, fwd) {
           </div>
           <div class="sub-info last">
             <div class="subinfo-image left">
-              <?=HTML::image('img/toursubimage23.png')?>
+              <img src="img/toursubimage23.png"/>
             </div>
             <div class="subinfo-text">
               <h2>Get strategic feedback where it matters most</h2>
@@ -287,14 +287,14 @@ function onAfter(curr, next, opts, fwd) {
             </div>
             <br class="clear" />
           </div>
-          <a href="<?php echo URL::to('registration/free'); ?>"><div class="free-account-button"></div></a>
+          <a href="<?php echo URL::to_secure('registration/free'); ?>"><div class="free-account-button"></div></a>
           <br class="clear" />
         </div>
         <!-- slide 3 -->
         <div class="container-box">
           <div class="main-title">
             <div class="main-title-image">
-              <?=HTML::image('img/ico-small-mail.png')?>
+              <img src="img/ico-small-mail.png"/>
               <br class="clear" />
             </div>
             <div class="main-title-text">
@@ -312,13 +312,13 @@ function onAfter(curr, next, opts, fwd) {
               <br class="clear" />
             </div>
             <div class="subinfo-image right">
-              <?=HTML::image('img/toursubimage31.png')?>
+              <img src="img/toursubimage31.png"/>
             </div>
             <br class="clear" />
           </div>
           <div class="sub-info">
             <div class="subinfo-image left">
-              <?=HTML::image('img/toursubimage44.png')?>
+              <img src="img/toursubimage44.png"/>
             </div>
             <div class="subinfo-text">
               <h2>Social sharing</h2>
@@ -335,13 +335,13 @@ function onAfter(curr, next, opts, fwd) {
               <br class="clear" />
             </div>
             <div class="subinfo-image right">
-              <?=HTML::image('img/toursubimage46.png')?>
+              <img src="img/toursubimage46.png"/>
             </div>
             <br class="clear" />
           </div>
           <div class="sub-info last">            
             <div class="subinfo-image left">
-              <?=HTML::image('img/toursubimage33.png')?>
+              <img src="img/toursubimage33.png"/>
             </div>
             <div class="subinfo-text">
               <h2>Show them all off in style</h2>
@@ -350,14 +350,14 @@ function onAfter(curr, next, opts, fwd) {
             </div>
             <br class="clear" />
           </div>
-          <a href="<?php echo URL::to('registration/free'); ?>"><div class="free-account-button"></div></a>
+          <a href="<?php echo URL::to_secure('registration/free'); ?>"><div class="free-account-button"></div></a>
           <br class="clear" />
         </div>
         <!-- slide 4 -->
         <div class="container-box">
           <div class="main-title">
             <div class="main-title-image">
-              <?=HTML::image('img/tourmainimage4.png')?>
+              <img src="img/tourmainimage4.png"/>
               <br class="clear" />
             </div>
             <div class="main-title-text">
@@ -375,13 +375,13 @@ function onAfter(curr, next, opts, fwd) {
               <br class="clear" />
             </div>
             <div class="subinfo-image right" style="margin-top:-10px;">
-              <?=HTML::image('img/toursubimage41.png')?>
+              <img src="img/toursubimage41.png"/>
             </div>
             <br class="clear" />
           </div>
           <div class="sub-info">
             <div class="subinfo-image left">
-              <?=HTML::image('img/toursubimage42.png')?>
+              <img src="img/toursubimage42.png"/>
             </div>
             <div class="subinfo-text">
               <h2>Personalized and courtesy follow ups</h2>
@@ -401,14 +401,14 @@ function onAfter(curr, next, opts, fwd) {
               <br class="clear" />
             </div>
             <div class="subinfo-image right"style="width:275px">
-              <?=HTML::image('img/toursubimage43.png')?>
+              <img src="img/toursubimage43.png"/>
             </div>
             <br class="clear" />
           </div>
           
           <div class="sub-info">
             <div class="subinfo-image left" style="width:405px;">
-              <?=HTML::image('img/toursubimage45.png')?>
+              <img src="img/toursubimage45.png"/>
             </div>
             
             <div class="subinfo-text" style="width:172px">
@@ -426,11 +426,11 @@ function onAfter(curr, next, opts, fwd) {
               <br class="clear" />
             </div>
             <div class="subinfo-image right" style="width:275px;">
-              <?=HTML::image('img/toursubimage47.png')?>
+              <img src="img/toursubimage47.png"/>
             </div>
             <br class="clear" />
           </div>
-          <a href="<?php echo URL::to('registration/free'); ?>"><div class="free-account-button"></div></a>
+          <a href="<?php echo URL::to_secure('registration/free'); ?>"><div class="free-account-button"></div></a>
           <br class="clear" />
         </div> 
         
@@ -438,7 +438,7 @@ function onAfter(curr, next, opts, fwd) {
         <div class="container-box">
           <div class="main-title">
             <div class="main-title-image">
-              <?=HTML::image('img/tourmainimage5.png')?>
+              <img src="img/tourmainimage5.png"/>
               <br class="clear" />
             </div>
             <div class="main-title-text">
@@ -455,13 +455,13 @@ function onAfter(curr, next, opts, fwd) {
               <br class="clear" />
             </div>
             <div class="subinfo-image right">
-              <?=HTML::image('img/toursubimage51.png')?>
+              <img src="img/toursubimage51.png"/>
             </div>
             <br class="clear" />
           </div>
           <div class="sub-info">
             <div class="subinfo-image left">
-              <?=HTML::image('img/toursubimage52.png')?>
+              <img src="img/toursubimage52.png"/>
             </div>
             <div class="subinfo-text">
               <h2>Built to scale with your business</h2>
@@ -478,14 +478,14 @@ function onAfter(curr, next, opts, fwd) {
               <br class="clear" />
             </div>
             <div class="subinfo-image right">
-              <?=HTML::image('img/toursubimage53.png')?>
+              <img src="img/toursubimage53.png"/>
             </div>
             <br class="clear" />
           </div>
           <br class="clear" />
           <div class="sub-info">
             <div class="subinfo-image left">
-              <?=HTML::image('img/toursubimage54.png')?>
+              <img src="img/toursubimage54.png"/>
             </div>
             <div class="subinfo-text">
               <h2>No long term contracts - pay as you go</h2>
@@ -501,11 +501,11 @@ function onAfter(curr, next, opts, fwd) {
               <br class="clear" />
             </div>
             <div class="subinfo-image right">
-              <?=HTML::image('img/toursubimage55.png')?>
+              <img src="img/toursubimage55.png"/>
             </div>
             <br class="clear" />
           </div>
-          <a href="<?php echo URL::to('registration/free'); ?>"><div class="free-account-button"></div></a>
+          <a href="<?php echo URL::to_secure('registration/free'); ?>"><div class="free-account-button"></div></a>
           <br class="clear" />
         </div>
       </div>
