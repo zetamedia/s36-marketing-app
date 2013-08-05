@@ -26,7 +26,8 @@
                     ?>
                     <br /><br />                        
                 </div>
-            	<?= Form::open(URL::current(), 'POST', array('autocomplete' => 'off')); ?>
+            	<?//= Form::open('/registration/ajax_validation/' . (in_array(URI::segment(2), $no_billing_plans) ? URI::segment(2) : '' ), 'POST', array('autocomplete' => 'off')); ?>
+                <form method="post" >
                 <?= Form::hidden('plan', $plan); ?>
                 <div class="leftcontentblock">
                 	<h2><span>1.</span> Create your <span>36</span>Stories Account</h2>
@@ -411,7 +412,7 @@
             async: false,
             type: 'post',
             data: data,
-            url: '<?= URL::base(); ?>/registration/ajax_validation/<?= ( in_array(URI::segment(2), $no_billing_plans) ? URI::segment(2) : '' ); ?>',
+            url: '/registration/ajax_validation/<?= ( in_array(URI::segment(2), $no_billing_plans) ? URI::segment(2) : '' ); ?>',
             success: function(error_msg){
                 
                 // display errors if there are.
