@@ -44,11 +44,12 @@
             $bill_to = "$company, $billing_name, $billing_address, $billing_city, $billing_state, $billing_country, $billing_zip"; 
             
             
-            $company_data['name']           = $site_name;
-            $company_data['planId']         = $plan_id;
-            $company_data['billTo']         = $bill_to;
-            $company_data['bt_customer_id'] = $bt_customer_id;
-            $company_id = DB::table('Company')->insert_get_id( $company_data );
+            $company_data['name']                = $site_name;
+            $company_data['fullpageCompanyName'] = $company;
+            $company_data['planId']              = $plan_id;
+            $company_data['billTo']              = $bill_to;
+            $company_data['bt_customer_id']      = $bt_customer_id;
+            $company_id                          = DB::table('Company')->insert_get_id( $company_data );
             
             $metrict_data['companyId']     = $company_id;
             $metrict_data['totalRequest']  = 0;
@@ -59,7 +60,7 @@
             $site_data['domain']        = $site;
             $site_data['name']          = $site_name;
             $site_data['defaultFormId'] = 1;
-            $site_id = DB::table('Site')->insert_get_id( $site_data );
+            $site_id                    = DB::table('Site')->insert_get_id( $site_data );
             
             $user_data['companyId']     = $company_id;
             $user_data['username']      = $username;
@@ -72,7 +73,7 @@
             $user_data['email']         = $email;
             $user_data['title']         = 'CEO';
             $user_data['imId']          = 1;
-            $user_id = DB::table('User')->insert_get_id( $user_data );
+            $user_id                    = DB::table('User')->insert_get_id( $user_data );
             
             $auth_assignment_data['itemname'] = 'Admin';
             $auth_assignment_data['userid'] = $user_id;
