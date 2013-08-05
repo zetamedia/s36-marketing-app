@@ -66,7 +66,7 @@
             $rules['last_name'] = 'required|max:80';
             $rules['email'] = 'required|email|max:45|unique:User,email';
             $rules['company'] = 'required|max:125|unique:Company,name|not_reserved:' . implode(',', ReservedData::get('reserved_company'));
-            $rules['username'] = 'required|max:45|match:/^\w+[\-\_]*$/|unique:User,username';
+            $rules['username'] = 'required|max:45|match:/^\w+[\w\-\_]*$/|unique:User,username';
             $rules['password'] = 'required|min:6|same:password_confirmation';
             $rules['password_confirmation'] = 'required|min:6';
             $rules['site_name'] = 'required|max:45|match:/^\w+[\w\-\_]*$/|unique:Company,name|not_reserved:' . implode(',', ReservedData::get('reserved_company')); 
