@@ -8,9 +8,9 @@
         <link href="/css/slider.css" media="all" type="text/css" rel="stylesheet"/>
       
         <script src="/js/jquery.js"></script>
-        <script src="js/slider.js"></script>
-        <script src="js/jquery.cycle.all.min.js"></script>
-        <script src="js/jquery.easing.js"></script>
+        <script src="/js/slider.js"></script>
+        <script src="/js/jquery.cycle.all.min.js"></script>
+        <script src="/js/jquery.easing.js"></script>
 </head>
 <body>
 <div id="the-main-content">
@@ -20,7 +20,7 @@
     	<div id="headercontent">
         	<div id="mainlogo">
             <a href="<?php echo URL::base(); ?>">
-                <img src="img/36-storieslogo.png"/>
+                <img src="/img/36-storieslogo.png"/>
             </a>
             </div>
             <div id="top-nav">
@@ -36,8 +36,8 @@
                 	<?=HTML::link_to_secure('/login', 'LOGIN')?>
                 </div>
                 <div id="social-icon-block">
-                    <a href="https://facebook.com/36Stories" title="Facebook Page" target="_blank"><img src="img/head-fb-icon.png"/></a>
-                    <a href="https://Twitter.com/36Stories" title="Twitter Page" target="_blank"><img src="img/head-tw-icon.png"/></a>
+                    <a href="https://facebook.com/36Stories" title="Facebook Page" target="_blank"><img src="/img/head-fb-icon.png"/></a>
+                    <a href="https://Twitter.com/36Stories" title="Twitter Page" target="_blank"><img src="/img/head-tw-icon.png"/></a>
                 </div>
             </div>
         </div>

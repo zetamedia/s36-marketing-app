@@ -92,7 +92,7 @@
                 <li class="mobile">1-8000-12345678</li>-->
                 <li class="email"><strong>Drop us an email</strong></li>
             </ul>
-            <div class="bottom-logo"><img src="img/36-storieslogo.png"/></div>
+            <div class="bottom-logo"><img src="/img/36-storieslogo.png"/></div>
         </div>
         <br class="clear" />
 	</div><!-- end of link block contents -->
@@ -106,8 +106,8 @@
         <div class="socialicons">
         	<div class="text">Stay in touch</div>
             <ul>
-                <li><a href="https://facebook.com/36Stories" title="Facebook Page" target="_blank"><img src="img/ico-fb.png"/></a></li>
-                <li><a href="https://Twitter.com/36Stories" title="Twitter Page" target="_blank"><img src="img/ico-twitter.png"/></a></li>
+                <li><a href="https://facebook.com/36Stories" title="Facebook Page" target="_blank"><img src="/img/ico-fb.png"/></a></li>
+                <li><a href="https://Twitter.com/36Stories" title="Twitter Page" target="_blank"><img src="/img/ico-twitter.png"/></a></li>
                 <!--this is a comment
                 <li><a href="#"><?=HTML::image('img/ico-tumblr.png')?></a></li>
                 <li><a href="#"><?=HTML::image('img/ico-youtube.png')?></a></li>
