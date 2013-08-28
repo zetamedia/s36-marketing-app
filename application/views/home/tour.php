@@ -1,4 +1,4 @@
-<title>Tour | 36Stories</title>
+<title>Tour | fdback</title>
 <script type="text/javascript">
 $(document).ready(function(){
 	
@@ -59,7 +59,7 @@ function onAfter(curr, next, opts, fwd) {
   <div id="subtitlebarwrapper">
     <div id="titlebarcontent">
       <h1>Let your brand get better, faster than ever before.</h1>
-      <p>See why 36Stories works so well for our customers worldwide.</p>
+      <p>See why fdback works so well for our customers worldwide.</p>
     </div>
   </div>
 </div>
@@ -81,7 +81,7 @@ function onAfter(curr, next, opts, fwd) {
       <div id="tour-leftbar">
         <div class="bar">
           <div class="bar-head">
-            <h2>36 Stories Tour Page</h2>
+            <h2>fdback Tour Page</h2>
           </div>
           <div class="bar-body">
             <ul id="menu-list">
@@ -185,7 +185,7 @@ function onAfter(curr, next, opts, fwd) {
             </div>
             <div class="subinfo-text">
               <h2>Feature endorsements that truly matter</h2>
-              <p>Got a recommendation from that big time CEO or a Magazine? Highlight them in a prominent position on your 36Stories page by clicking the 'Star' icon.</p>
+              <p>Got a recommendation from that big time CEO or a Magazine? Highlight them in a prominent position on your fdback page by clicking the 'Star' icon.</p>
               <!--<p>You can feature specific endorsements or quotes in a single-feedback unit, or show a whole page. It's all possible with our wide array of themes.</p>-->
               <br class="clear" />
             </div>
@@ -222,7 +222,7 @@ function onAfter(curr, next, opts, fwd) {
           <div class="sub-info last">
             <div class="subinfo-text">
               <h2>Permission based endorsements</h2>
-              <p>It's only polite to ask for complete consent and not to publish feedback without your user's permission. 36Stories has a permission based system where you get the green light from your customers to use their feedback before you even see it in your inbox. </p>
+              <p>It's only polite to ask for complete consent and not to publish feedback without your user's permission. fdback has a permission based system where you get the green light from your customers to use their feedback before you even see it in your inbox. </p>
               <p>You'll have the relief of publishing endorsements public, knowing that your customers have already given their 'okay'.</p>
               <p>We also help you ask for complete permission to use their quotes in your other marketing materials (e.g. brochures). Use quotes that make the biggest impact for your business, or use the entire endorsement in its entirety. </p>
               <br class="clear" />
@@ -252,7 +252,7 @@ function onAfter(curr, next, opts, fwd) {
           <div class="sub-info">
             <div class="subinfo-text" style="width:252px">
               <h2>Powerful insight at a glance</h2>
-              <p>What do your visitors and returning customers feel and want? With 36Stories, you get your answers quick. </p>
+              <p>What do your visitors and returning customers feel and want? With fdback, you get your answers quick. </p>
               <p>Discover whether your product is overpriced, or not as feature-rich as your competitors. Are people having a problem with your site speed? Why are potential customers abandoning your shopping cart? Get out of the dark with rapid feedback with our insight dashboard.</p>
               <br class="clear" />
             </div>
@@ -308,7 +308,7 @@ function onAfter(curr, next, opts, fwd) {
             <div class="subinfo-text">
               <h2>Word of mouth marketing - on steroids</h2>
               <p>It's not enough just having your endorsements listed on your website. Get people talking about your business and brand out there by being on your customer's social profiles such as Facebook and Twitter.</p>
-              <p>Every time you publish an endorsement sent by your customer via your admin panel, 36Stories sends an automated response to encourage him or her  to share their feedback on their favorite social networks. Freeing your brand to be spread even further through your customers' friends.</p>
+              <p>Every time you publish an endorsement sent by your customer via your admin panel, fdback sends an automated response to encourage him or her  to share their feedback on their favorite social networks. Freeing your brand to be spread even further through your customers' friends.</p>
               <br class="clear" />
             </div>
             <div class="subinfo-image right">
@@ -322,7 +322,7 @@ function onAfter(curr, next, opts, fwd) {
             </div>
             <div class="subinfo-text">
               <h2>Social sharing</h2>
-              <p>Let your endorsements go viral with integrated social media links. 36Stories makes it easier for others to agree and share the same experience they've had with your brand.</p>
+              <p>Let your endorsements go viral with integrated social media links. fdback makes it easier for others to agree and share the same experience they've had with your brand.</p>
               <br class="clear" />
             </div>
             <br class="clear" />
@@ -422,7 +422,7 @@ function onAfter(curr, next, opts, fwd) {
           <div class="sub-info last">
             <div class="subinfo-text" style="width:255px;">
               <h2>Easy to integrate</h2>
-              <p>Start using 36Stories on your website within minutes with a wide variety of great-looking tabs and links.</p>
+              <p>Start using fdback on your website within minutes with a wide variety of great-looking tabs and links.</p>
               <br class="clear" />
             </div>
             <div class="subinfo-image right" style="width:275px;">
@@ -465,7 +465,7 @@ function onAfter(curr, next, opts, fwd) {
             </div>
             <div class="subinfo-text">
               <h2>Built to scale with your business</h2>
-              <p>Whether you're a one-man (or woman) army, or a Fortune 500 enterprise with a thousand over employees, 36Stories allows two or more co-admins to easily access and manage feedback without fuss and confusion. </p>
+              <p>Whether you're a one-man (or woman) army, or a Fortune 500 enterprise with a thousand over employees, fdback allows two or more co-admins to easily access and manage feedback without fuss and confusion. </p>
               <p>It also integrates easily within your customer relationship processes to improve user satisfaction, sales and brand reputation.</p>
               <br class="clear" />
             </div>

@@ -1,4 +1,4 @@
-<title>Pricing | 36Stories</title>
+<title>Pricing | fdback</title>
 <!-- start title of page -->
 <div id="titlebarwrapper">
 	<div id="subtitlebarwrapper">
@@ -73,7 +73,7 @@
 				</style>
             	<!--<p>We also offer a <strong><?=HTML::link('registration/free','free plan')?></strong>: 30 published feedback and 10 Library Themes.</p>-->
             </div>
-        	<h1><span>36</span>Stories is trusted by businesses of all sizes</h1>
+        	<h1><span>fdback</span> is trusted by businesses of all sizes</h1>
             <div class="page-block" style="padding-right:10px;">
             	<h4>How does the 30-day free trial work?</h4>
                 <p>If you cancel a paying plan within 30 days of signing up you won't be charged a thing. If you do choose to cancel your account in the future you will never be charged again, but you are responsible for charges already incurred up until your cancellation. Refunds can not be issued after your initial 30 day trial and we don't prorate for partial months.</p>
@@ -84,7 +84,7 @@
             </div>
             <div class="page-block" style="padding-left:10px;">
             	<h4>Do I have to sign a long term contract?</h4>
-                <p>No. 36Stories is a pay-as-you-go service. There are no long term contracts or commitments on your part. You simply pay month-to-month. If you cancel, you'll be billed for the current month, but you won't be billed again.</p>
+                <p>No. fdback is a pay-as-you-go service. There are no long term contracts or commitments on your part. You simply pay month-to-month. If you cancel, you'll be billed for the current month, but you won't be billed again.</p>
                 <h4>How secure is my payment info?</h4>
                 <p>All payments are securely processed by industry leader Braintree. Your card information never even touches our servers.</p>
                 <h4>What types of payment do you accept?</h4>
@@ -97,12 +97,12 @@
             </div>-->
             
             <div class="info-block earth">
-            	<h4>What websites work with 36Stories?</h4>
-                <p>Typically, all websites are able to utilize 36Stories's features. It's a simple matter of placing a piece of code on your site and letting us do the rest. This however, does not currently apply to complete flash-based websites.</p>
+            	<h4>What websites work with fdback?</h4>
+                <p>Typically, all websites are able to utilize fdback's features. It's a simple matter of placing a piece of code on your site and letting us do the rest. This however, does not currently apply to complete flash-based websites.</p>
             </div>
             <div class="info-block paper">
             	<h4>Any questions before you sign up?</h4>
-                <p>If you have questions about 36Stories or the sign up process just submit a support request and we'll get right back to you.</p>
+                <p>If you have questions about fdback or the sign up process just submit a support request and we'll get right back to you.</p>
             </div>
             <div class="info-block mag">
             	<h4>Got terms of service and privacy policies?</h4>
@@ -112,3 +112,4 @@
     </div>
 </div>
 <!-- end of content -->
+nt -->

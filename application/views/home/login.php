@@ -1,10 +1,10 @@
-<title>Login | 36Stories</title>
+<title>Login | fdback</title>
 <!-- start title of page -->
 <div id="titlebarwrapper">
 	<div id="subtitlebarwrapper">
     	<div id="titlebarcontent">
         	<h1>Login</h1>
-            <p>Login with 36Stories Account or Register Now.</p>
+            <p>Login with fdback Account or Register Now.</p>
         </div>
     </div>
 </div>

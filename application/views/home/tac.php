@@ -1,4 +1,4 @@
-<title>Terms and Conditions | 36Stories</title>
+<title>Terms and Conditions | fdback</title>
 <!-- start title of page -->
 <div id="titlebarwrapper">
 	<div id="subtitlebarwrapper">

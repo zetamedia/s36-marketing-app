@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>Welcome | 36Stories | Let your customers speak about you.</title>
+<title>Welcome | fdback | Let your customers speak about you.</title>
 <link type="text/css" href="css/style.css" rel="stylesheet" />
 <link type="text/css" href="css/slider.css" rel="stylesheet" />
 <script type="text/javascript" src="js/jquery.js"></script>
@@ -21,7 +21,7 @@
     	<div id="headercontent">
         	<div id="mainlogo">
             <a href="index.php">
-            	<img src="images/36-storieslogo.png" width="160" height="44" alt="36 Stories Logo" title="36 Stories Homepage" />
+            	<img src="images/36-storieslogo.png" width="160" height="44" alt="fdback Logo" title="fdback Homepage" />
             </a>
             </div>
             <div id="top-nav">

@@ -1,4 +1,4 @@
-<title>Registration Successful| 36Stories</title>
+<title>Registration Successful| fdback</title>
 <!-- start title of page -->
 <div id="titlebarwrapper">
 	<div id="subtitlebarwrapper">

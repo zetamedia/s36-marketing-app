@@ -11,7 +11,7 @@
 	<!-- Always force latest IE rendering engine (even in intranet) & Chrome Frame -->
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 	
-	<title>36Stories - Get amazing feedback for your brand and business.</title>
+	<title>fdback - Get amazing feedback for your brand and business.</title>
 	
 	<meta name="title" content="Add a descriptive title for your page">
 	<meta name="description" content="A descriiption of the your Site|Page|Application|Etc">

@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>Welcome | 36Stories | Let your customers speak about you.</title>
+<title>Welcome | fdback | Let your customers speak about you.</title>
 <link type="text/css" href="css/style.css" rel="stylesheet" />
 <link type="text/css" href="css/slider.css" rel="stylesheet" />
 <script type="text/javascript" src="js/jquery.js"></script>
@@ -46,7 +46,7 @@
     	<div id="headercontent">
         	<div id="mainlogo">
             <a href="index.php">
-            	<img src="images/36-storieslogo.png" width="160" height="44" alt="36 Stories Logo" title="36 Stories Homepage" />
+            	<img src="images/36-storieslogo.png" width="160" height="44" alt="fdback Logo" title="fdback Homepage" />
             </a>
             </div>
             <div id="top-nav">
@@ -87,7 +87,7 @@
                     	<div id="media" class="slider">
                         	<!-- comment this part if using videos instead of image slides -->
                             <div id="slider">
-                            	<a href="http://36stories.com" target="_blank"><img src="images/slideimage1.jpg" alt="Slider Image text No. 1" title="36Stories will launch soon!" /></a>
+                            	<a href="http://fdback.com" target="_blank"><img src="images/slideimage1.jpg" alt="Slider Image text No. 1" title="fdback will launch soon!" /></a>
                                 <a href="pricing.php"><img src="images/slideimage2.jpg" alt="Slider Image text No. 2" title="Choose from different Plans" /></a>
                                 <a href="tour.php"><img src="images/slideimage3.jpg" alt="Slider Image text No. 3" title="Take a Tour!" /></a>
                             </div>

@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>Welcome to 36 Stories</title>
+<title>Welcome to fdback</title>
 <link type="text/css" href="css/style.css" rel="stylesheet" />
 <script type="text/javascript" src="js/jquery.js"></script>
 <script type="text/javascript" src="js/jquery.cycle.all.min.js"></script>
@@ -55,7 +55,7 @@ function onAfter(curr, next, opts, fwd) {
 	<div id="headersubwrapper">
     	<div id="headercontent">
         	<div id="mainlogo">
-            	<img src="images/36-storieslogo.png" width="160" height="44" alt="36 Stories Logo" title="36 Stories Homepage" />
+            	<img src="images/36-storieslogo.png" width="160" height="44" alt="fdback Logo" title="fdback Homepage" />
             </div>
             <div id="top-nav">
             	<div id="nav-block">
@@ -79,7 +79,7 @@ function onAfter(curr, next, opts, fwd) {
 	<div id="subtitlebarwrapper">
     	<div id="titlebarcontent">
         	<h1>Let your brand get better, faster than ever before.</h1>
-            <p>See why 36Stories works so well for our customers worldwide.</p>
+            <p>See why fdback works so well for our customers worldwide.</p>
         </div>
     </div>
 </div>
@@ -94,7 +94,7 @@ function onAfter(curr, next, opts, fwd) {
     	<div id="tour-box">
             <div id="tour-leftbar">
 				<div class="bar">
-                	<div class="bar-head"><h2>36 Stories Tour Page</h2></div>
+                	<div class="bar-head"><h2>fdback Tour Page</h2></div>
                     <div class="bar-body">
                     	<ul id="menu-list">
                         	<li id="1" class="selected"><div class="the-arrow-right"></div>
@@ -235,7 +235,7 @@ function onAfter(curr, next, opts, fwd) {
                         <div class="subinfo-text">
                         	<h2>Rapid user feedback that you can act on.</h2>
                             <p>What do your visitors and returning customers feel and want? </p>
-							<p>With 36Stories, you get your answers quick. Discover whether your product is overpriced, or not as feature-rich as your competitors. Are people having a problem with your site speed? Why are potential customers abandoning your shopping cart? Get out of the dark with rapid feedback - and act on them to your immediate advantage.</p>
+							<p>With fdback, you get your answers quick. Discover whether your product is overpriced, or not as feature-rich as your competitors. Are people having a problem with your site speed? Why are potential customers abandoning your shopping cart? Get out of the dark with rapid feedback - and act on them to your immediate advantage.</p>
 							<br class="clear" />                       
                         </div>
                         <div class="subinfo-image right">
@@ -386,7 +386,7 @@ function onAfter(curr, next, opts, fwd) {
                         </div>
                         <div class="subinfo-text">
                         	<h2>Built to scale with your business.</h2>
-                            <p>Whether you're a one-man (or woman) army, or a Fortune 500 enterprise with a thousand over employees, 36Stories allows two or more co-admins to easily access and manage feedback without fuss and confusion. It also integrates easily within your customer relationship processes to improve user satisfaction, sales and brand reputation.</p>
+                            <p>Whether you're a one-man (or woman) army, or a Fortune 500 enterprise with a thousand over employees, fdback allows two or more co-admins to easily access and manage feedback without fuss and confusion. It also integrates easily within your customer relationship processes to improve user satisfaction, sales and brand reputation.</p>
 							<br class="clear" />                       
                         </div>
                         <br class="clear" />
@@ -522,7 +522,7 @@ function onAfter(curr, next, opts, fwd) {
 <div id="footerwrapper">
     <div id="footercontents">
     	<div class="copyright">
-    		<span>© 2011 36Stories. All Rights Reserved.</span>  <a href="#">Terms</a>  | <a href="#">Privacy</a> | <a href="#">Site Map</a>
+    		<span>© 2011 fdback. All Rights Reserved.</span>  <a href="#">Terms</a>  | <a href="#">Privacy</a> | <a href="#">Site Map</a>
         </div>
         <div class="socialicons">
         	<div class="text">Stay in touch</div>

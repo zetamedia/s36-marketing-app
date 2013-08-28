@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>Welcome to 36 Stories</title>
+<title>Welcome to fdback</title>
 <link type="text/css" href="css/style.css" rel="stylesheet" />
 </head>
 <body>
@@ -11,7 +11,7 @@
 	<div id="headersubwrapper">
     	<div id="headercontent">
         	<div id="mainlogo">
-            	<img src="images/36-storieslogo.png" width="160" height="44" alt="36 Stories Logo" title="36 Stories Homepage" />
+            	<img src="images/36-storieslogo.png" width="160" height="44" alt="fdback Logo" title="fdback Homepage" />
             </div>
             <div id="top-nav">
             	<div id="nav-block">

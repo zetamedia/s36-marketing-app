@@ -50,7 +50,7 @@
                         <tr>
                         	<td colspan="3">
                             				Thanks, <br />
-											The 36Stories Team
+											The fdback team
                             </td>
                         </tr>
                         <tr height="20">

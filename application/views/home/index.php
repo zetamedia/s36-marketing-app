@@ -1,4 +1,4 @@
-<title>Welcome | 36Stories</title>
+<title>Welcome | fdback</title>
 <!-- start banner -->
 <div id="mainbannerwrapper">
 	<div id="mainsubbannerwrapper">
@@ -62,7 +62,7 @@
             	<div class="box-contents">
                 	<div class="box-title one-line">Grow Your Testimonials</div>
                     <div class="box-thumb"><img src="img/home-image-3_2.png"/></div>
-                    <div class="box-info"><br />Create and customize your 36Stories page for free and start increasing your brand credibility and popularity! We host your feedback on our secured servers so you’ll never lose them again.<br /></div>
+                    <div class="box-info"><br />Create and customize your fdback page for free and start increasing your brand credibility and popularity! We host your feedback on our secured servers so you’ll never lose them again.<br /></div>
                     <div class="box-link"><?=HTML::link_to_secure('tour#1','learn more')?></div>
                 </div>
             </div>

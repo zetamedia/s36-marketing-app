@@ -1,10 +1,10 @@
-<title>Privacy | 36Stories</title>
+<title>Privacy | fdback</title>
 <!-- start title of page -->
 <div id="titlebarwrapper">
 	<div id="subtitlebarwrapper">
     	<div id="titlebarcontent">
         	<h1>Privacy Policy</h1>
-            <!-- <p>Discover the people behind 36Stories.</p> -->
+            <!-- <p>Discover the people behind fdback.</p> -->
         </div>
     </div>
 </div>
