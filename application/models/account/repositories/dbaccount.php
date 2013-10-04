@@ -41,6 +41,7 @@
             
             $company_data['name']                = $site_name;
             $company_data['fullpageCompanyName'] = $company;
+            $company_data['email']               = $email;
             $company_data['planId']              = $plan_id;
             $company_data['billTo']              = $bill_to;
             $company_data['bt_customer_id']      = $bt_customer_id;
