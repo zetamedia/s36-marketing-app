@@ -1,685 +1,861 @@
-/*
- * jQuery Nivo Slider v2.5.1
- * http://nivo.dev7studios.com
+/*!
+ * CSS Slider jQuery plugin
  *
- * Copyright 2011, Gilbert Pellegrom
- * Free to use and abuse under the MIT license.
- * http://www.opensource.org/licenses/mit-license.php
+ * @author digital-telepathy
  * 
- * March 2010
+ * Copyright (C) 2013 digital-telepathy  (http://www.dtelepathy.com/)
+ * 
+ * Permission is hereby granted, free of charge, to any person obtaining
+ * a copy of this software and associated documentation files (the
+ * "Software"), to deal in the Software without restriction, including
+ * without limitation the rights to use, copy, modify, merge, publish,
+ * distribute, sublicense, and/or sell copies of the Software, and to
+ * permit persons to whom the Software is furnished to do so, subject to
+ * the following conditions:
+ * 
+ * The above copyright notice and this permission notice shall be
+ * included in all copies or substantial portions of the Software.
+ * 
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+ * EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+ * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+ * NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE
+ * LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
+ * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
+ * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-(function($) {
+( function( $, window, undefined, I ) {
+    var CSSSlider = function( el, params ) {
+        // Visibility of dropdown navigation
+        this._dropdownNavVisible = false;
 
-    var NivoSlider = function(element, options){
-		//Defaults are below
-		var settings = $.extend({}, $.fn.nivoSlider.defaults, options);
+        // Event trigger counts
+        this._eventTrigger = {};
 
-        //Useful variables. Play carefully.
-        var vars = {
-            currentSlide: 0,
-            currentImage: '',
-            totalSlides: 0,
-            randAnim: '',
-            running: false,
-            paused: false,
-            stop: false
+        // Is the interface device interacting
+        this._interacting = false;
+        this._interactingOffset = {
+            top: -1,
+            left: -1
         };
-    
-        //Get this slider
-        var slider = $(element);
-        slider.data('nivo:vars', vars);
-        slider.css('position','relative');
-        slider.addClass('nivoSlider');
-        
-        //Find our slider children
-        var kids = slider.children();
-        kids.each(function() {
-            var child = $(this);
-            var link = '';
-            if(!child.is('img')){
-                if(child.is('a')){
-                    child.addClass('nivo-imageLink');
-                    link = child;
-                }
-                child = child.find('img:first');
-            }
-            //Get img width & height
-            var childWidth = child.width();
-            if(childWidth == 0) childWidth = child.attr('width');
-            var childHeight = child.height();
-            if(childHeight == 0) childHeight = child.attr('height');
-            //Resize the slider
-            if(childWidth > slider.width()){
-                slider.width(childWidth);
-            }
-            if(childHeight > slider.height()){
-                slider.height(childHeight);
-            }
-            if(link != ''){
-                link.css('display','none');
-            }
-            child.css('display','none');
-            vars.totalSlides++;
-        });
-        
-        //Set startSlide
-        if(settings.startSlide > 0){
-            if(settings.startSlide >= vars.totalSlides) settings.startSlide = vars.totalSlides - 1;
-            vars.currentSlide = settings.startSlide;
-        }
-        
-        //Get initial image
-        if($(kids[vars.currentSlide]).is('img')){
-            vars.currentImage = $(kids[vars.currentSlide]);
-        } else {
-            vars.currentImage = $(kids[vars.currentSlide]).find('img:first');
-        }
-        
-        //Show initial link
-        if($(kids[vars.currentSlide]).is('a')){
-            $(kids[vars.currentSlide]).css('display','block');
-        }
-        
-        //Set first background
-        slider.css('background','url("'+ vars.currentImage.attr('src') +'") no-repeat');
 
-        //Create caption
-        slider.append(
-            $('<div class="nivo-caption"><p></p></div>').css({ display:'none', opacity:settings.captionOpacity })
-        );			
-		
-		// Process caption function
-		var processCaption = function(settings){
-			var nivoCaption = $('.nivo-caption', slider);
-			if(vars.currentImage.attr('title') != ''){
-				var title = vars.currentImage.attr('title');
-				if(title.substr(0,1) == '#') title = $(title).html();	
+        // Cached elements
+        this.elements = {};
 
-				if(nivoCaption.css('display') == 'block'){
-					nivoCaption.find('p').fadeOut(settings.animSpeed, function(){
-						$(this).html(title);
-						$(this).fadeIn(settings.animSpeed);
-					});
-				} else {
-					nivoCaption.find('p').html(title);
-				}					
-				nivoCaption.fadeIn(settings.animSpeed);
-			} else {
-				nivoCaption.fadeOut(settings.animSpeed);
-			}
-		}
-		
-        //Process initial  caption
-        processCaption(settings);
-        
-        //In the words of Super Mario "let's a go!"
-        var timer = 0;
-        if(!settings.manualAdvance && kids.length > 1){
-            timer = setInterval(function(){ nivoRun(slider, kids, settings, false); }, settings.pauseTime);
-        }
+        // The current slide
+        this.current = 0;
 
-        //Add Direction nav
-        if(settings.directionNav){
-            slider.append('<div class="nivo-directionNav"><a class="nivo-prevNav">'+ settings.prevText +'</a><a class="nivo-nextNav">'+ settings.nextText +'</a></div>');
-            
-            //Hide Direction nav
-            if(settings.directionNavHide){
-                $('.nivo-directionNav', slider).hide();
-                slider.hover(function(){
-                    $('.nivo-directionNav', slider).show();
-                }, function(){
-                    $('.nivo-directionNav', slider).hide();
-                });
-            }
-            
-            $('a.nivo-prevNav', slider).live('click', function(){
-                if(vars.running) return false;
-                clearInterval(timer);
-                timer = '';
-                vars.currentSlide -= 2;
-                nivoRun(slider, kids, settings, 'prev');
-            });
-            
-            $('a.nivo-nextNav', slider).live('click', function(){
-                if(vars.running) return false;
-                clearInterval(timer);
-                timer = '';
-                nivoRun(slider, kids, settings, 'next');
-            });
-        }
-        
-        //Add Control nav
-        if(settings.controlNav){
-            var nivoControl = $('<div class="nivo-controlNav"></div>');
-            slider.append(nivoControl);
-            for(var i = 0; i < kids.length; i++){
-                if(settings.controlNavThumbs){
-                    var child = kids.eq(i);
-                    if(!child.is('img')){
-                        child = child.find('img:first');
-                    }
-                    if (settings.controlNavThumbsFromRel) {
-                        nivoControl.append('<a class="nivo-control" rel="'+ i +'"><img src="'+ child.attr('rel') + '" alt="" /></a>');
-                    } else {
-                        nivoControl.append('<a class="nivo-control" rel="'+ i +'"><img src="'+ child.attr('src').replace(settings.controlNavThumbsSearch, settings.controlNavThumbsReplace) +'" alt="" /></a>');
-                    }
-                } else {
-                    nivoControl.append('<a class="nivo-control" rel="'+ i +'">'+ (i + 1) +'</a>');
-                }
-                
-            }
-            //Set initial active link
-            $('.nivo-controlNav a:eq('+ vars.currentSlide +')', slider).addClass('active');
-            
-            $('.nivo-controlNav a', slider).live('click', function(){
-                if(vars.running) return false;
-                if($(this).hasClass('active')) return false;
-                clearInterval(timer);
-                timer = '';
-                slider.css('background','url("'+ vars.currentImage.attr('src') +'") no-repeat');
-                vars.currentSlide = $(this).attr('rel') - 1;
-                nivoRun(slider, kids, settings, 'control');
-            });
-        }
-        
-        //Keyboard Navigation
-        if(settings.keyboardNav){
-            $(window).keypress(function(event){
-                //Left
-                if(event.keyCode == '37'){
-                    if(vars.running) return false;
-                    clearInterval(timer);
-                    timer = '';
-                    vars.currentSlide-=2;
-                    nivoRun(slider, kids, settings, 'prev');
-                }
-                //Right
-                if(event.keyCode == '39'){
-                    if(vars.running) return false;
-                    clearInterval(timer);
-                    timer = '';
-                    nivoRun(slider, kids, settings, 'next');
-                }
-            });
-        }
-        
-        //For pauseOnHover setting
-        if(settings.pauseOnHover){
-            slider.hover(function(){
-                vars.paused = true;
-                clearInterval(timer);
-                timer = '';
-            }, function(){
-                vars.paused = false;
-                //Restart the timer
-                if(timer == '' && !settings.manualAdvance){
-                    timer = setInterval(function(){ nivoRun(slider, kids, settings, false); }, settings.pauseTime);
-                }
-            });
-        }
-        
-        //Event when Animation finishes
-        slider.bind('nivo:animFinished', function(){ 
-            vars.running = false; 
-            //Hide child links
-            $(kids).each(function(){
-                if($(this).is('a')){
-                    $(this).css('display','none');
-                }
-            });
-            //Show current link
-            if($(kids[vars.currentSlide]).is('a')){
-                $(kids[vars.currentSlide]).css('display','block');
-            }
-            //Restart the timer
-            if(timer == '' && !vars.paused && !settings.manualAdvance){
-                timer = setInterval(function(){ nivoRun(slider, kids, settings, false); }, settings.pauseTime);
-            }
-            //Trigger the afterChange callback
-            settings.afterChange.call(this);
-        });
-        
-        // Add slices for slice animations
-        var createSlices = function(slider, settings, vars){
-            for(var i = 0; i < settings.slices; i++){
-				var sliceWidth = Math.round(slider.width()/settings.slices);
-				if(i == settings.slices-1){
-					slider.append(
-						$('<div class="nivo-slice"></div>').css({ 
-							left:(sliceWidth*i)+'px', width:(slider.width()-(sliceWidth*i))+'px',
-							height:'0px', 
-							opacity:'0', 
-							background: 'url("'+ vars.currentImage.attr('src') +'") no-repeat -'+ ((sliceWidth + (i * sliceWidth)) - sliceWidth) +'px 0%'
-						})
-					);
-				} else {
-					slider.append(
-						$('<div class="nivo-slice"></div>').css({ 
-							left:(sliceWidth*i)+'px', width:sliceWidth+'px',
-							height:'0px', 
-							opacity:'0', 
-							background: 'url("'+ vars.currentImage.attr('src') +'") no-repeat -'+ ((sliceWidth + (i * sliceWidth)) - sliceWidth) +'px 0%'
-						})
-					);
-				}
-			}
-        }
-		
-		// Add boxes for box animations
-		var createBoxes = function(slider, settings, vars){
-			var boxWidth = Math.round(slider.width()/settings.boxCols);
-			var boxHeight = Math.round(slider.height()/settings.boxRows);
-			
-			for(var rows = 0; rows < settings.boxRows; rows++){
-				for(var cols = 0; cols < settings.boxCols; cols++){
-					if(cols == settings.boxCols-1){
-						slider.append(
-							$('<div class="nivo-box"></div>').css({ 
-								opacity:0,
-								left:(boxWidth*cols)+'px', 
-								top:(boxHeight*rows)+'px',
-								width:(slider.width()-(boxWidth*cols))+'px',
-								height:boxHeight+'px',
-								background: 'url("'+ vars.currentImage.attr('src') +'") no-repeat -'+ ((boxWidth + (cols * boxWidth)) - boxWidth) +'px -'+ ((boxHeight + (rows * boxHeight)) - boxHeight) +'px'
-							})
-						);
-					} else {
-						slider.append(
-							$('<div class="nivo-box"></div>').css({ 
-								opacity:0,
-								left:(boxWidth*cols)+'px', 
-								top:(boxHeight*rows)+'px',
-								width:boxWidth+'px',
-								height:boxHeight+'px',
-								background: 'url("'+ vars.currentImage.attr('src') +'") no-repeat -'+ ((boxWidth + (cols * boxWidth)) - boxWidth) +'px -'+ ((boxHeight + (rows * boxHeight)) - boxHeight) +'px'
-							})
-						);
-					}
-				}
-			}
-		}
+        // The previous slide
+        this.previous = -1;
 
-        // Private run method
-		var nivoRun = function(slider, kids, settings, nudge){
-			//Get our vars
-			var vars = slider.data('nivo:vars');
-            
-            //Trigger the lastSlide callback
-            if(vars && (vars.currentSlide == vars.totalSlides - 1)){ 
-				settings.lastSlide.call(this);
-			}
-            
-            // Stop
-			if((!vars || vars.stop) && !nudge) return false;
-			
-			//Trigger the beforeChange callback
-			settings.beforeChange.call(this);
-					
-			//Set current background before change
-			if(!nudge){
-				slider.css('background','url("'+ vars.currentImage.attr('src') +'") no-repeat');
-			} else {
-				if(nudge == 'prev'){
-					slider.css('background','url("'+ vars.currentImage.attr('src') +'") no-repeat');
-				}
-				if(nudge == 'next'){
-					slider.css('background','url("'+ vars.currentImage.attr('src') +'") no-repeat');
-				}
-			}
-			vars.currentSlide++;
-            //Trigger the slideshowEnd callback
-			if(vars.currentSlide == vars.totalSlides){ 
-				vars.currentSlide = 0;
-				settings.slideshowEnd.call(this);
-			}
-			if(vars.currentSlide < 0) vars.currentSlide = (vars.totalSlides - 1);
-			//Set vars.currentImage
-			if($(kids[vars.currentSlide]).is('img')){
-				vars.currentImage = $(kids[vars.currentSlide]);
-			} else {
-				vars.currentImage = $(kids[vars.currentSlide]).find('img:first');
-			}
-			
-			//Set active links
-			if(settings.controlNav){
-				$('.nivo-controlNav a', slider).removeClass('active');
-				$('.nivo-controlNav a:eq('+ vars.currentSlide +')', slider).addClass('active');
-			}
-			
-			//Process caption
-			processCaption(settings);
-			
-			// Remove any slices from last transition
-			$('.nivo-slice', slider).remove();
-			
-			// Remove any boxes from last transition
-			$('.nivo-box', slider).remove();
-			
-			if(settings.effect == 'random'){
-				var anims = new Array('sliceDownRight','sliceDownLeft','sliceUpRight','sliceUpLeft','sliceUpDown','sliceUpDownLeft','fold','fade',
-                'boxRandom','boxRain','boxRainReverse','boxRainGrow','boxRainGrowReverse');
-				vars.randAnim = anims[Math.floor(Math.random()*(anims.length + 1))];
-				if(vars.randAnim == undefined) vars.randAnim = 'fade';
-			}
-            
-            //Run random effect from specified set (eg: effect:'fold,fade')
-            if(settings.effect.indexOf(',') != -1){
-                var anims = settings.effect.split(',');
-                vars.randAnim = anims[Math.floor(Math.random()*(anims.length))];
-				if(vars.randAnim == undefined) vars.randAnim = 'fade';
-            }
-		
-			//Run effects
-			vars.running = true;
-			if(settings.effect == 'sliceDown' || settings.effect == 'sliceDownRight' || vars.randAnim == 'sliceDownRight' ||
-				settings.effect == 'sliceDownLeft' || vars.randAnim == 'sliceDownLeft'){
-				createSlices(slider, settings, vars);
-				var timeBuff = 0;
-				var i = 0;
-				var slices = $('.nivo-slice', slider);
-				if(settings.effect == 'sliceDownLeft' || vars.randAnim == 'sliceDownLeft') slices = $('.nivo-slice', slider)._reverse();
-				
-				slices.each(function(){
-					var slice = $(this);
-					slice.css({ 'top': '0px' });
-					if(i == settings.slices-1){
-						setTimeout(function(){
-							slice.animate({ height:'100%', opacity:'1.0' }, settings.animSpeed, '', function(){ slider.trigger('nivo:animFinished'); });
-						}, (100 + timeBuff));
-					} else {
-						setTimeout(function(){
-							slice.animate({ height:'100%', opacity:'1.0' }, settings.animSpeed);
-						}, (100 + timeBuff));
-					}
-					timeBuff += 50;
-					i++;
-				});
-			} 
-			else if(settings.effect == 'sliceUp' || settings.effect == 'sliceUpRight' || vars.randAnim == 'sliceUpRight' ||
-					settings.effect == 'sliceUpLeft' || vars.randAnim == 'sliceUpLeft'){
-				createSlices(slider, settings, vars);
-				var timeBuff = 0;
-				var i = 0;
-				var slices = $('.nivo-slice', slider);
-				if(settings.effect == 'sliceUpLeft' || vars.randAnim == 'sliceUpLeft') slices = $('.nivo-slice', slider)._reverse();
-				
-				slices.each(function(){
-					var slice = $(this);
-					slice.css({ 'bottom': '0px' });
-					if(i == settings.slices-1){
-						setTimeout(function(){
-							slice.animate({ height:'100%', opacity:'1.0' }, settings.animSpeed, '', function(){ slider.trigger('nivo:animFinished'); });
-						}, (100 + timeBuff));
-					} else {
-						setTimeout(function(){
-							slice.animate({ height:'100%', opacity:'1.0' }, settings.animSpeed);
-						}, (100 + timeBuff));
-					}
-					timeBuff += 50;
-					i++;
-				});
-			} 
-			else if(settings.effect == 'sliceUpDown' || settings.effect == 'sliceUpDownRight' || vars.randAnim == 'sliceUpDown' || 
-					settings.effect == 'sliceUpDownLeft' || vars.randAnim == 'sliceUpDownLeft'){
-				createSlices(slider, settings, vars);
-				var timeBuff = 0;
-				var i = 0;
-				var v = 0;
-				var slices = $('.nivo-slice', slider);
-				if(settings.effect == 'sliceUpDownLeft' || vars.randAnim == 'sliceUpDownLeft') slices = $('.nivo-slice', slider)._reverse();
-				
-				slices.each(function(){
-					var slice = $(this);
-					if(i == 0){
-						slice.css('top','0px');
-						i++;
-					} else {
-						slice.css('bottom','0px');
-						i = 0;
-					}
-					
-					if(v == settings.slices-1){
-						setTimeout(function(){
-							slice.animate({ height:'100%', opacity:'1.0' }, settings.animSpeed, '', function(){ slider.trigger('nivo:animFinished'); });
-						}, (100 + timeBuff));
-					} else {
-						setTimeout(function(){
-							slice.animate({ height:'100%', opacity:'1.0' }, settings.animSpeed);
-						}, (100 + timeBuff));
-					}
-					timeBuff += 50;
-					v++;
-				});
-			} 
-			else if(settings.effect == 'fold' || vars.randAnim == 'fold'){
-				createSlices(slider, settings, vars);
-				var timeBuff = 0;
-				var i = 0;
-				
-				$('.nivo-slice', slider).each(function(){
-					var slice = $(this);
-					var origWidth = slice.width();
-					slice.css({ top:'0px', height:'100%', width:'0px' });
-					if(i == settings.slices-1){
-						setTimeout(function(){
-							slice.animate({ width:origWidth, opacity:'1.0' }, settings.animSpeed, '', function(){ slider.trigger('nivo:animFinished'); });
-						}, (100 + timeBuff));
-					} else {
-						setTimeout(function(){
-							slice.animate({ width:origWidth, opacity:'1.0' }, settings.animSpeed);
-						}, (100 + timeBuff));
-					}
-					timeBuff += 50;
-					i++;
-				});
-			}  
-			else if(settings.effect == 'fade' || vars.randAnim == 'fade'){
-				createSlices(slider, settings, vars);
-				
-				var firstSlice = $('.nivo-slice:first', slider);
-                firstSlice.css({
-                    'height': '100%',
-                    'width': slider.width() + 'px'
-                });
-    
-				firstSlice.animate({ opacity:'1.0' }, (settings.animSpeed*2), '', function(){ slider.trigger('nivo:animFinished'); });
-			}          
-            else if(settings.effect == 'slideInRight' || vars.randAnim == 'slideInRight'){
-				createSlices(slider, settings, vars);
-				
-                var firstSlice = $('.nivo-slice:first', slider);
-                firstSlice.css({
-                    'height': '100%',
-                    'width': '0px',
-                    'opacity': '1'
-                });
+        // Namespace
+        this.namespace = "slider";
 
-                firstSlice.animate({ width: slider.width() + 'px' }, (settings.animSpeed*2), '', function(){ slider.trigger('nivo:animFinished'); });
-            }
-            else if(settings.effect == 'slideInLeft' || vars.randAnim == 'slideInLeft'){
-				createSlices(slider, settings, vars);
-				
-                var firstSlice = $('.nivo-slice:first', slider);
-                firstSlice.css({
-                    'height': '100%',
-                    'width': '0px',
-                    'opacity': '1',
-                    'left': '',
-                    'right': '0px'
-                });
+        // CSSSlider Width
+        this.sliderWidth = -1;
 
-                firstSlice.animate({ width: slider.width() + 'px' }, (settings.animSpeed*2), '', function(){ 
-                    // Reset positioning
-                    firstSlice.css({
-                        'left': '0px',
-                        'right': ''
-                    });
-                    slider.trigger('nivo:animFinished'); 
-                });
-            }
-			else if(settings.effect == 'boxRandom' || vars.randAnim == 'boxRandom'){
-				createBoxes(slider, settings, vars);
-				
-				var totalBoxes = settings.boxCols * settings.boxRows;
-				var i = 0;
-				var timeBuff = 0;
-				
-				var boxes = shuffle($('.nivo-box', slider));
-				boxes.each(function(){
-					var box = $(this);
-					if(i == totalBoxes-1){
-						setTimeout(function(){
-							box.animate({ opacity:'1' }, settings.animSpeed, '', function(){ slider.trigger('nivo:animFinished'); });
-						}, (100 + timeBuff));
-					} else {
-						setTimeout(function(){
-							box.animate({ opacity:'1' }, settings.animSpeed);
-						}, (100 + timeBuff));
-					}
-					timeBuff += 20;
-					i++;
-				});
-			}
-			else if(settings.effect == 'boxRain' || vars.randAnim == 'boxRain' || settings.effect == 'boxRainReverse' || vars.randAnim == 'boxRainReverse' || 
-                    settings.effect == 'boxRainGrow' || vars.randAnim == 'boxRainGrow' || settings.effect == 'boxRainGrowReverse' || vars.randAnim == 'boxRainGrowReverse'){
-				createBoxes(slider, settings, vars);
-				
-				var totalBoxes = settings.boxCols * settings.boxRows;
-				var i = 0;
-				var timeBuff = 0;
-				
-				// Split boxes into 2D array
-				var rowIndex = 0;
-				var colIndex = 0;
-				var box2Darr = new Array();
-				box2Darr[rowIndex] = new Array();
-				var boxes = $('.nivo-box', slider);
-				if(settings.effect == 'boxRainReverse' || vars.randAnim == 'boxRainReverse' ||
-                   settings.effect == 'boxRainGrowReverse' || vars.randAnim == 'boxRainGrowReverse'){
-					boxes = $('.nivo-box', slider)._reverse();
-				}
-				boxes.each(function(){
-					box2Darr[rowIndex][colIndex] = $(this);
-					colIndex++;
-					if(colIndex == settings.boxCols){
-						rowIndex++;
-						colIndex = 0;
-						box2Darr[rowIndex] = new Array();
-					}
-				});
-				
-				// Run animation
-				for(var cols = 0; cols < (settings.boxCols * 2); cols++){
-					var prevCol = cols;
-					for(var rows = 0; rows < settings.boxRows; rows++){
-						if(prevCol >= 0 && prevCol < settings.boxCols){
-							/* Due to some weird JS bug with loop vars 
-							being used in setTimeout, this is wrapped
-							with an anonymous function call */
-							(function(row, col, time, i, totalBoxes) {
-								var box = $(box2Darr[row][col]);
-                                var w = box.width();
-                                var h = box.height();
-                                if(settings.effect == 'boxRainGrow' || vars.randAnim == 'boxRainGrow' ||
-                                   settings.effect == 'boxRainGrowReverse' || vars.randAnim == 'boxRainGrowReverse'){
-                                    box.width(0).height(0);
-                                }
-								if(i == totalBoxes-1){
-									setTimeout(function(){
-										box.animate({ opacity:'1', width:w, height:h }, settings.animSpeed/1.3, '', function(){ slider.trigger('nivo:animFinished'); });
-									}, (100 + time));
-								} else {
-									setTimeout(function(){
-										box.animate({ opacity:'1', width:w, height:h }, settings.animSpeed/1.3);
-									}, (100 + time));
-								}
-							})(rows, prevCol, timeBuff, i, totalBoxes);
-							i++;
-						}
-						prevCol--;
-					}
-					timeBuff += 100;
-				}
-			}
-		}
-		
-		// Shuffle an array
-		var shuffle = function(arr){
-			for(var j, x, i = arr.length; i; j = parseInt(Math.random() * i), x = arr[--i], arr[i] = arr[j], arr[j] = x);
-			return arr;
-		}
-        
-        // For debugging
-        var trace = function(msg){
-            if (this.console && typeof console.log != "undefined")
-                console.log(msg);
-        }
-        
-        // Start / Stop
-        this.stop = function(){
-            if(!$(element).data('nivo:vars').stop){
-                $(element).data('nivo:vars').stop = true;
-                trace('Stop Slider');
-            }
-        }
-        
-        this.start = function(){
-            if($(element).data('nivo:vars').stop){
-                $(element).data('nivo:vars').stop = false;
-                trace('Start Slider');
-            }
-        }
-        
-        //Trigger the afterLoad callback
-        settings.afterLoad.call(this);
-		
-		return this;
+        // CSSSlider Height
+        this.sliderHeight = -1;
+
+        // Navigation "gutter"
+        this.navigationGutter = 0;
+
+        // Auto play?
+        this.autoPlay = false;
+
+        // Default Swipe Prevention - used to disable X or Y swipe based off orientation of slider
+        this.preventDefaultSwipeX = false;
+        this.preventDefaultSwipeY = true;
+
+        // Default options
+        this.options = {
+            easing: "ease-in-out",              // CSS easing
+            loop: true,                         // Loop around to the other end ("rewind" for now)
+            method: 'css',                      // Method for animation (css|animate)
+            navigation: '>.slider-navigation',  // Optional navigation element
+            navigationWidth: "24%",             // Default width of the navigation
+            next: '>.next',                     // Previous button selector
+            orientation: 'horizontal',          // Orientation of slider
+            prev: '>.prev',                     // Next button selector
+            slides: '>.slide',                  // Slide elements selector (defaults to children)
+            speed: 500,                         // Animation speed in milliseconds
+            start: 0,                           // Start slide
+            touch: false,                       // Enable touch support
+            autoPlay: false,                    // Start autoplay
+            autoPlayDelay: 5000,                // Delay between slides for autoplay in milliseconds
+            dropdownNav: true,                  // Enable support for a responsive dropdown navigation for vertical sliders
+            touchThreshold: 4                   // Sensitivty in X vs Y scroll for preventing animation/inertaction
+        };
+
+        this.initialize( el, params );
     };
-        
-    $.fn.nivoSlider = function(options) {
-    
-        return this.each(function(key, value){
-            var element = $(this);
-            // Return early if this element already has a plugin instance
-            if (element.data('nivoslider')) return element.data('nivoslider');
-            // Pass options to plugin constructor
-            var nivoslider = new NivoSlider(this, options);
-            // Store plugin object in this element's data
-            element.data('nivoslider', nivoslider);
-        });
 
-	};
-	
-	//Default settings
-	$.fn.nivoSlider.defaults = {
-		effect: 'random',
-		slices: 15,
-		boxCols: 8,
-		boxRows: 4,
-		animSpeed: 500,
-		pauseTime: 3000,
-		startSlide: 0,
-		directionNav: true,
-		directionNavHide: true,
-		controlNav: true,
-		controlNavThumbs: false,
-        controlNavThumbsFromRel: false,
-		controlNavThumbsSearch: '.jpg',
-		controlNavThumbsReplace: '_thumb.jpg',
-		keyboardNav: true,
-		pauseOnHover: true,
-		manualAdvance: false,
-		captionOpacity: 0.8,
-		prevText: 'Prev',
-		nextText: 'Next',
-		beforeChange: function(){},
-		afterChange: function(){},
-		slideshowEnd: function(){},
-        lastSlide: function(){},
-        afterLoad: function(){}
-	};
-	
-	$.fn._reverse = [].reverse;
-	
-})(jQuery);
+    // Build navigation elements themselves
+    CSSSlider.prototype._addNavigationElements = function( container ) {
+        var self = this;
+
+        this.elements.slides.each( function( ind ) {
+            var $slide = self.elements.slides.eq( ind );
+            var label = $slide.data( 'label' ) || "Slide " + ( ind + 1 );
+
+            container.append( '<a href="#" data-slide="' + ind + '"><span>' + label + '</span></a>' );
+        } );
+    };
+
+    // Adjust the dimensions of the CSSSlider
+    CSSSlider.prototype._adjustDimensions = function() {
+        var self = this;
+
+        this.sliderWidth = this.elements.slider.width();
+        this.sliderHeight = this.elements.slider.height();
+
+        if( this.elements.navigation.length && this.options.orientation == "vertical" ) {
+            if( Modernizr.mq( 'only screen and (max-width: 767px)' ) ) {
+                this.showDropdownNav();
+            } else {
+                this.hideDropdownNav();
+            }
+        }
+
+        // Get navigation gutter dimensions
+        this._getNavigationDimensions();
+
+        this.elements.slides.each( function( ind ) {
+            var css = {
+                left: ( ind - self.current ) * ( self.sliderWidth + self.navigationGutter),
+                width: self.sliderWidth - self.navigationGutter,
+                height: self.sliderHeight
+            };
+
+            if( self.options.orientation == "vertical" ) {
+                css.left = self.navigationGutter;
+                css.top = ( ind - self.current ) * self.sliderHeight;
+            }
+
+            self.elements.slides.eq( ind ).css( css, $.extend( I.prefixCSS( { transition: 'left 0ms, top 0ms' } ) ) );
+        } );
+
+        // Adjust navigation dimensions if present
+        if( this.elements.navigation.length && this.options.orientation == "vertical" ) {
+            this.elements.navigation.width( this.navigationGutter );
+
+            this.elements.navigation.height( this.sliderHeight );
+            this.elements.navigationLinks.css( {
+                height: Math.round( this.sliderHeight / this.elements.navigationLinks.length )
+            } );
+        }
+    };
+
+    CSSSlider.prototype._autoPlay = function() {
+        var self = this;
+
+        setTimeout( function() {
+            if( self.autoPlay ) {
+                self.next();
+            }
+
+            self._autoPlay();
+        }, this.options.autoPlayDelay );
+    }
+
+    CSSSlider.prototype._bindEvents = function(){
+        var self = this;
+
+        // Previous Button
+        this.elements.prev.on( 'click', function( event ) {
+            event.preventDefault();
+
+            // Turn off autoplay
+            self.autoPlay = false;
+
+            self.prev();
+        } );
+
+        // Next Button
+        this.elements.next.on( 'click', function( event ) {
+            event.preventDefault();
+
+            // Turn off autoplay
+            self.autoPlay = false;
+
+            self.next();
+        } );
+
+        // Navigation elements
+        this.elements.navigation.on( 'click', 'a', function( event ) {
+            event.preventDefault();
+
+            var $this = $.data( this, '$this' ) || $.data( this, '$this', $( this ) );
+
+            // Turn off autoplay
+            self.autoPlay = false;
+
+            self.goTo( $this.data( 'slide' ) );
+        } );
+
+        // Reset animating property
+        this.elements.body.on( 'transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd', function( event ) {
+            if( self.elements.slides.filter( event.target ).length ) {
+                self._eventComplete();
+            }
+        } );
+
+        this.elements.slider.on( 'mousedown', function( event ) {
+            // Only respect left click
+            if( event.button <= 1 ) self._touchStart( event );
+        } ).on( 'mousemove', function( event ) {
+            // Only respect left click
+            if( event.button <= 1 ) self._touchMove( event );
+        } ).on( 'mouseup', function( event ) {
+            // Only respect left click
+            if( event.button <= 1 ) self._touchEnd( event );
+        } );
+
+        if( window.addEventListener ) {
+            this.elements.slider[0].addEventListener( 'touchstart', self._touchStart, false );
+        }
+
+        // Resize watcher
+        $( window ).resize( function() {
+            // Adjust width
+            self._adjustDimensions();
+        } ).resize( $.throttle( 250, function() {
+            // Reset transition rules
+            self._setTransition();
+        } ) );
+
+        // Navigation before action
+        this.elements.slider.on( this.namespace + ':before', function( event, slider, index ) {
+            var label = self.elements.slides.eq( index ).data( 'label' ) || "Slide " + ( index + 1 );
+
+            // Update dropdown navigation
+            if( typeof( self.elements.dropdownNav ) != 'undefined' ) {
+                // Update the selected slide display
+                self.elements.dropdownNavSelected.text( label );
+
+                // Update the active dropdown option
+                self.elements.dropdownNavLinks.removeClass( 'active' ).eq( index ).addClass( 'active' );
+            }
+
+            // Update regular navigation
+            if( self.elements.navigation.length ) {
+                self.elements.navigationLinks.removeClass( 'active' ).eq( index ).addClass( 'active' );
+            }
+        } );
+    };
+
+    CSSSlider.prototype._build = function() {
+        var self = this;
+
+        // Calculate the slider width
+        this.sliderWidth = this.elements.slider.width();
+        this.sliderHeight = this.elements.slider.height();
+
+        // Build navigation if present
+        if( this.elements.navigation.length ) {
+            this._buildNavigation();
+        }
+
+        // Setup the transition rules
+        if( this.options.method == "css" ) {
+            this._setTransition();
+        }
+
+        this.elements.slides.each( function( ind ) {
+            var css = {
+                position: "absolute",
+                left: ( ind - self.current ) * self.sliderWidth
+            };
+
+            if( self.options.orientation == "vertical" ) {
+                self.preventDefaultSwipeX = true;
+                self.preventDefaultSwipeY = false;
+                css = $.extend( css, {
+                    left: this.navigationGutter,
+                    top: ( ind - self.current ) * self.sliderHeight,
+                    width: self.sliderWidth,
+                    height: self.sliderHeight
+                } );
+            }
+
+            self.elements.slides.eq( ind ).css( css );
+        } );
+    };
+
+    // Build responsive dropdown navigation
+    CSSSlider.prototype._buildDropdownNav = function() {
+        var self = this;
+
+        this.elements.dropdownNav = $( '<div class="' + this.namespace + '-dropdown-nav" />' ).insertBefore( this.elements.slider );
+        this.elements.dropdownNavSelected = $( '<div class="' + this.namespace + '-dropdown-nav-selected" />' ).appendTo( this.elements.dropdownNav );
+        this.elements.dropdownNavOptions = $( '<div class="' + this.namespace + '-dropdown-nav-options" />' ).appendTo( this.elements.dropdownNav );
+        this.elements.dropdownNavList = $('<div class="' + this.namespace + '-dropdown-nav-list" />' ).appendTo( this.elements.dropdownNavOptions );
+
+        // Build and append navigation elements to the dropdown nav options
+        this._addNavigationElements( this.elements.dropdownNavList );
+
+        this.elements.dropdownNavLinks = this.elements.dropdownNavOptions.find('a');
+
+        // Set current selected value
+        this.elements.dropdownNavSelected.text( this.elements.dropdownNavLinks.eq( this.current ).addClass( 'active' ).text() );
+
+        // Bind dropdown display event
+        this.elements.dropdownNavSelected.on( 'click', function( event ) {
+            event.preventDefault();
+
+            self.elements.dropdownNavOptions.show();
+
+            self.elements.body.on( 'click.' + self.namespace, function( event ) {
+                if( $( event.target ).closest( '.' + self.namespace + '-dropdown-nav-list, .' + self.namespace + '-dropdown-nav-selected').length < 1 ) {
+                    self.elements.dropdownNavOptions.hide();
+                    self.elements.body.off( 'click.' + self.namespace );
+                }
+            } );
+        } );
+
+        // Bind dropdown selection interaction
+        this.elements.dropdownNavOptions.on( 'click', 'a', function( event ) {
+            event.preventDefault();
+
+            var $this = $.data( this, '$this' ) || $.data( this, '$this', $( this ) );
+
+            // Hide the selection dropdown and unbind the click event
+            self.elements.dropdownNavOptions.hide();
+            self.elements.body.off( 'click.' + self.namespace );
+
+            // Turn off autoplay
+            self.autoPlay = false;
+
+            self.goTo( $this.data( 'slide' ) );
+        } );
+    };
+
+    // Build navigation
+    CSSSlider.prototype._buildNavigation = function() {
+        var self = this;
+
+        // Build and append navigation elements to the vertical nav
+        this._addNavigationElements( this.elements.navigation );
+
+        this.elements.navigationLinks = this.elements.navigation.find( 'a' );
+
+        // Set the active state
+        this.elements.navigationLinks.eq( this.current ).addClass( 'active' );
+
+        // Only build a sized navigation if this is a vertical slider
+        if( this.options.orientation == 'vertical' ) {
+            var navHeight = ( this.sliderHeight / this.elements.slides.length );
+            this._getNavigationDimensions();
+
+            this.elements.navigation.css( {
+                position: "absolute",
+                top: 0,
+                left: 0,
+                width: this.navigationGutter,
+                height: this.sliderHeight
+            } );
+            this.elements.navigationLinks.css( {
+                position: "relative",
+                height: navHeight + "px"
+            } ).eq( this.current ).addClass( 'active' );
+        }
+    };
+
+    // Animation complete event
+    CSSSlider.prototype._eventComplete = function() {
+        // Only allow the event to trigger once the last slide has completed
+        if( this._triggerEvent( 'complete' ) ) {
+            this.animating = false;
+
+            this.elements.slider.triggerHandler( this.namespace + ':complete', [ this ] );
+
+            this._eventTrigger.complete = 0;
+        }
+    };
+
+    // Get and cache elements used by this Class Instance
+    CSSSlider.prototype._getElements = function() {
+        // Body element
+        this.elements.body = $(document.body);
+
+        // Get slide elements
+        this.elements.slides = this.elements.slider.find( this.options.slides );
+
+        // Previous/Next buttons
+        this.elements.prev = this.elements.slider.find( this.options.prev );
+        if( !this.elements.prev.length ) this.elements.prev = $( this.options.prev );
+        this.elements.next = this.elements.slider.find( this.options.next );
+        if( !this.elements.next.length ) this.elements.next = $( this.options.next );
+
+        // Navigation element
+        this.elements.navigation = this.elements.slider.find( this.options.navigation );
+        if( !this.elements.navigation.length ) this.elements.navigation = $( this.options.navigation );
+    };
+
+    // Get dimensions for the navigation if it exists and updates the navigationGutter parameter
+    CSSSlider.prototype._getNavigationDimensions = function(){
+        // Don't change the gutter if we don't have navigation
+        if( this.elements.navigation.length == 0 ) return false;
+
+        // Don't change the gutter if the slider isn't vertical
+        if( this.options.orientation != 'vertical' ) return false;
+
+        this.navigationGutter = this.options.navigationWidth;
+
+        if( this.options.navigationWidth.indexOf( '%' ) != -1 ) {
+            this.navigationGutter = parseFloat( this.options.navigationWidth.replace( "%", "" ) ) / 100 * this.sliderWidth;
+        }
+
+        // Override the width to 0 if the dropdown nav is visible
+        if( this._dropdownNavVisible ) this.navigationGutter = 0;
+    };
+
+    /**
+     * Set CSS transition rules to a slide or slides
+     *
+     * Applies browser prefixed CSS transition rules to slides or, if passed, a single
+     * slide element.
+     *
+     * @param object slide Optional jQuery extended slide object
+     */
+    CSSSlider.prototype._setTransition = function( slide ) {
+        var self = this;
+
+        // Setup the prefixed transition rules
+        var css = I.prefixCSS( { transition: 'left ' + this.options.speed + 'ms ' + this.options.easing + ', top ' + this.options.speed + 'ms ' + this.options.easing } );
+
+        // Apply to a single slide
+        if( slide != undefined ) {
+            slide.css( css );
+        }
+        // Otherwise, apply to all slides
+        else {
+            this.elements.slides.css( css );
+        }
+    };
+
+    /**
+     * Stop touch interacting with slider
+     *
+     * Fire on "mouseup" or "touchend" events to stop the drag interaction
+     *
+     * @param object event The event being fired
+     */
+    CSSSlider.prototype._touchEnd = function( event ) {
+        var slider = ($(this).data("CSSSlider") == undefined)? this : $(this).data("CSSSlider");
+
+        if( slider.options.touch === false ) return false;
+
+        if( window.addEventListener ) {
+            slider.elements.slider[0].removeEventListener( 'touchmove', slider._touchMove, false );
+        }
+
+        slider._interacting = false;
+
+        slider._interactingOffset.end = slider._touchOffset( event );
+
+        slider.elements.slides.css( I.prefixCSS( { 'transition-duration': slider.options.speed + 'ms' } ) );
+
+        var breach = false;
+        var direction = 'next';
+        if( slider.options.orientation == "horizontal" ) {
+            breach = Math.abs( slider._interactingOffset.left / slider.sliderWidth ) >= 0.5;
+            if( slider._interactingOffset.left > 0 ) direction = 'prev';
+        } else {
+            breach = Math.abs( slider._interactingOffset.top / slider.sliderHeight ) >= 0.5;
+            if( slider._interactingOffset.top > 0 ) direction = 'prev';
+        }
+
+        if( slider._interactionMoving && breach ) {
+            // Turn off Autoplay
+            slider.autoPlay = false;
+
+            slider[direction]();
+        } else {
+            slider.elements.slides.each( function( ind ) {
+                var css = {};
+
+                if( slider.options.orientation == "horizontal" ) {
+                    css.left = ( ind - slider.current ) * slider.sliderWidth;
+                } else {
+                    css.top = ( ind - slider.current ) * slider.sliderHeight;
+                }
+
+                slider.elements.slides.eq( ind ).css( css );
+            } );
+        }
+
+        if( window.addEventListener ) {
+            slider.elements.slider[0].removeEventListener( 'touchend', slider._touchEnd, false );
+        }
+    };
+
+    /**
+     * Touch interacting with slider
+     *
+     * Fire on "mousemove" or "touchmove" events to drag the slides of the slider
+     *
+     * @param object event The event being fired
+     */
+    CSSSlider.prototype._touchMove = function( event ) {
+        var slider = ($(this).data("CSSSlider") == undefined)? this : $(this).data("CSSSlider");
+
+        if( slider.options.touch === false ) return false;
+
+        if( slider._interacting ) {
+            slider._interactionMoving = true;
+
+            var offset = slider._touchOffset( event );
+
+            slider._interactingOffset.left = offset.left - slider._interactingOffset.start.left;
+            slider._interactingOffset.top = offset.top - slider._interactingOffset.start.top;
+
+            // x axis swipe
+            if((Math.abs(slider._interactingOffset.left) > Math.abs(slider._interactingOffset.top) )){
+                if(slider.options.orientation == "horizontal") {
+                    event.preventDefault();
+                }
+                if ( slider.preventDefaultSwipeX ) {
+                    return false;
+                }
+            // y axis swipe
+            }else if(( Math.abs(slider._interactingOffset.top) > Math.abs(slider._interactingOffset.left) )){
+                if(slider.options.orientation == "vertical") {
+                    event.preventDefault();
+                }
+                return false;
+            }
+
+            slider.elements.slides.each( function( ind ) {
+                var css = {};
+
+                if( slider.options.orientation == "horizontal" ) {
+                    css.left = ( ( ind - slider.current ) * slider.sliderWidth ) + slider._interactingOffset.left;
+                } else {
+                    css.top = ( ( ind - slider.current ) * slider.sliderHeight ) + slider._interactingOffset.top;
+                }
+
+                slider.elements.slides.eq( ind ).css( css );
+            } );
+        }
+    };
+
+    /**
+     * Touch Event Offset
+     *
+     * Returns the top and left offset of a "touch" or drag interaction on the
+     * slider element. Automatically determines what event type is being triggered.
+     * Returns an object with "top" and "left" values in integer format
+     *
+     * @param object event The event being fired
+     *
+     * @return object
+     */
+    CSSSlider.prototype._touchOffset = function( event ) {
+        var offset = {
+            top: -1,
+            left: -1
+        };
+
+        if( event.touches ) {
+            if( event.touches.length ) {
+                if( event.touches[0].pageY ) offset.top = event.touches[0].pageY;
+                if( event.touches[0].pageX ) offset.left = event.touches[0].pageX;
+            }
+        } else {
+            offset.top = event.screenY;
+            offset.left = event.screenX;
+        }
+
+        return offset;
+    };
+
+    /**
+     * Start touch interaction with slider
+     *
+     * Fire on "mousedown" or "touchstart" events to start dragging the slides of the slider
+     *
+     * @param object event The event being fired
+     */
+    CSSSlider.prototype._touchStart = function( event ) {
+        var slider = ($(this).data("CSSSlider") == undefined)? this : $(this).data("CSSSlider");
+        if( slider.options.touch === false ) return false;
+
+        slider._interacting = true;
+        slider._interactionMoving = false;
+
+        var offset = slider._touchOffset( event );
+
+        // Turn off autoplay
+        slider.autoPlay = false;
+
+        slider._interactingOffset = {
+            top: offset.top,
+            left: offset.left,
+            start: {
+                top: offset.top,
+                left: offset.left
+            }
+        };
+
+        slider.elements.slides.css( I.prefixCSS( { 'transition-duration': '0ms' } ) );
+
+        if( window.addEventListener ) {
+            slider.elements.slider[0].addEventListener( 'touchmove', slider._touchMove, false );
+            slider.elements.slider[0].addEventListener( 'touchend', slider._touchEnd, false );
+        }
+    };
+
+    /**
+     * Check if an event can be fired
+     *
+     * Incremenets an even trigger counter to force the event trigger to only fire
+     * once it's parent even has triggered for each slide. Returns a boolean and
+     * resets the count whenever the event can actually be fired.
+     *
+     * @param string eventname The name of the event to check
+     *
+     * @return boolean
+     */
+    CSSSlider.prototype._triggerEvent = function( eventname ) {
+        if( this._eventTrigger[eventname] == undefined ) this._eventTrigger[eventname] = 0;
+
+        this._eventTrigger[eventname]++;
+
+        if( this._eventTrigger[eventname] == this.elements.slides.length ) {
+            this._eventTrigger[eventname] = 0;
+            return true;
+        }
+
+        return false;
+    };
+
+    /**
+     * Go to a particular slide
+     *
+     * @param mixed A zero-indexed integer of the slide, a CSS selector or DOM Object
+     */
+    CSSSlider.prototype.goTo = function( slide ) {
+        var index = -1;
+
+        switch( typeof( slide ) ) {
+            case 'number':
+                index = slide;
+            break;
+
+            case 'string':
+            case 'object':
+                index = this.elements.slides.index( $( slide ) );
+            break;
+        }
+
+        if( index > -1 ) {
+            this.slide( index );
+        }
+    };
+
+    // Hide dropdown navigation
+    CSSSlider.prototype.hideDropdownNav = function() {
+        // Set visibility of dropdown nav
+        this._dropdownNavVisible = false;
+
+        if( typeof( this.elements.dropdownNav ) != 'undefined' ) this.elements.dropdownNav.hide();
+        this.elements.navigation.show();
+    };
+
+    CSSSlider.prototype.initialize = function( el ) {
+        var self = this;
+
+        // Merge options for this instance with defaults
+        this.options = $.extend( this.options, arguments[1][0] || {}, $( el ).data() );
+
+        // Set autoPlay state based off option value
+        this.autoPlay = this.options.autoPlay;
+
+        // Fall back to jQuery Animation if the browser doesn't support CSS Transitions
+        if( !I.supports( 'cssanimations' ) ) {
+            this.options.method = "animate";
+        }
+
+        // Set current slide to start slide requested
+        this.current = this.options.start;
+
+        // Cache slider element
+        this.elements.slider = $( el );
+
+        // Cache elements used by this instance
+        this._getElements();
+
+        // Bind events
+        this._bindEvents();
+
+        // Build the slider
+        this._build();
+
+        // Start autoplay timer
+        this._autoPlay();
+
+        this._adjustDimensions();
+        setTimeout(function(){
+            self._setTransition();
+        }, 100);
+    };
+
+    // Go to the next slide
+    CSSSlider.prototype.next = function() {
+        var slide = Math.min( this.elements.slides.length - 1, this.current + 1 );
+
+        if( this.options.loop !== false && ( this.current == this.elements.slides.length - 1 ) ) {
+            slide = 0;
+        }
+
+        this.goTo( slide );
+    };
+
+    /**
+     * Set or get an option value
+     *
+     * Sets the requested instance's option to a particular value. If no value is
+     * passed it just returns the current option's value. Always returns the set
+     * value of the requested option.
+     *
+     * @param string key The option key to get or set
+     * @param mixed val Optional value to set the option to
+     *
+     * @return mixed
+     */
+    CSSSlider.prototype.option = function( key, val ) {
+        if( val != undefined )
+            this.options[key] = val;
+
+        return this.options[key];
+    };
+
+    // Go to the previous slide
+    CSSSlider.prototype.prev = function() {
+        var slide = Math.max( 0, this.current - 1 );
+
+        if( this.options.loop !== false && this.current == 0 ) {
+            slide = this.elements.slides.length - 1;
+        }
+
+        this.goTo( slide );
+    };
+
+    /**
+     * Method for doing actions passed to an instantiated slider
+     *
+     * Takes multiple arguments:
+     *
+     * @param action string The action to run. This should be a public method of the CSSSlider Class like "prev" or "goTo"
+     * @param args mixed Optional arguments which may or may not be required by a method
+     */
+    CSSSlider.prototype.run = function() {
+        var arguments_array = [];
+        for( var i = 0; i < arguments.length; i++ ) {
+            arguments_array.push( arguments[i] );
+        }
+
+        var action = arguments_array[0];
+        var args = arguments_array.length > 1 ? arguments_array.slice( 1 ) : [];
+
+        if( typeof( this[action] ) == 'function' ) {
+            return this[action].apply( this, args );
+        } else if( typeof( this[action] ) != 'undefined' ) {
+            if( args.length > 0 ) this[action] = args[0];
+            return this[action];
+        }
+    };
+
+    /**
+     * Slide to a slide
+     *
+     * @param integer A zero-indexed integer of the slide to slide to
+     */
+    CSSSlider.prototype.slide = function( index ) {
+        var self = this;
+
+        this.animating = true;
+
+        this.previous = this.current;
+
+        this.current = index;
+
+        this.elements.slider.triggerHandler( this.namespace + ":before", [ this, index ] );
+
+        // Update active navigation
+        if( this.elements.navigation.length ) {
+            this.elements.navigationLinks.removeClass( 'active' ).eq( this.current ).addClass( 'active' );
+        }
+
+        this.elements.slides.each( function( ind ) {
+            var $slide = self.elements.slides.eq( ind );
+
+            // Stop all queued jQuery animations if animating via JavaScript
+            if( self.options.method == "animate" ) {
+                $slide.stop();
+            }
+
+            var css = {};
+            if( self.options.orientation == "horizontal" ) {
+                css.left = ( ind - self.current ) * self.sliderWidth;
+            } else {
+                css.top = ( ind - self.current ) * self.sliderHeight;
+            }
+
+            $slide[self.options.method]( css, self.options.speed, function() {
+                if( self.options.method != "css" ) {
+                    self._eventComplete.apply( self );
+                }
+            } );
+        } );
+    };
+
+    // Show the dropdown navigation
+    CSSSlider.prototype.showDropdownNav = function() {
+        // Fail silently if dropdown nav is turned off
+        if( !this.options.dropdownNav ) {
+            return false;
+        }
+
+        // Build the dropdown nav if it hasn't been built already
+        if( !this.elements.dropdownNav ) {
+            this._buildDropdownNav();
+        }
+
+        // Set visibility of dropdown nav
+        this._dropdownNavVisible = true;
+
+        this.elements.dropdownNav.show();
+        this.elements.navigation.hide();
+    };
+
+    $.extend( $.fn, {
+        cssSlider: function() {
+            var options = action = arguments;
+            var _return = this;
+
+            this.each( function( ind ) {
+                // Look up if an instance already exists
+                var _CSSSlider = $.data( this, 'CSSSlider' );
+
+                // Else create one and store it
+                if( !_CSSSlider ) {
+                    _CSSSlider = new CSSSlider( this, options );
+                    $.data( this, 'CSSSlider', _CSSSlider );
+                }
+
+                // Act upon it
+                if( action.length > 0 ) {
+                    var _do = _CSSSlider.run.apply( _CSSSlider, action );
+                    if( typeof( _do ) != 'undefined' ) {
+                        _return = _do;
+                    }
+                }
+            } );
+
+            return _return;
+        }
+    } );
+} )( jQuery, window, null, Impress );

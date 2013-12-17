@@ -34,10 +34,17 @@
 
 
 View::name('partial.layout', 'layout');
+View::name('partial.registration_layout', 'registration_layout');
 
 View::composer('partial.layout', function($view){
     $view->nest('header', 'partial.header');
     $view->nest('footer', 'partial.footer');
+    return $view;
+});
+
+View::composer('partial.registration_layout', function($view){
+    $view->nest('header', 'partial.registration_header');
+    $view->nest('footer', 'partial.registration_footer');
     return $view;
 });
 
@@ -68,7 +75,17 @@ Route::get('privacy', function(){
 Route::get('contact', function(){
     return View::of('layout')->nest('contents', 'home.contact');
 });
+Route::post('contact', function(){
+    $data = Input::get();
+    $to      = 'rdmordido@gmail.com';
+    $subject = 'fdback - Contact Us';
+    $message = "From: ". $data['name']."Comment:".$data['comment'];
+    $headers = 'From: webmaster@fdback.com' . "\r\n" .
+        'Reply-To: webmaster@fdback.com' . "\r\n" .
+        'X-Mailer: PHP/' . phpversion();
 
+    mail($to, $subject, $message, $headers);
+});
 
 Route::get('login', function(){
     return View::of('layout')->nest('contents', 'home.login');
