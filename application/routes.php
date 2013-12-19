@@ -79,7 +79,7 @@ Route::post('contact', function(){
     $data = Input::get();
     $to      = 'rdmordido@gmail.com';
     $subject = 'fdback - Contact Us';
-    $message = "From: ". $data['name']."Comment:".$data['comment'];
+    $message = "Name: {$data['contact-name']} \nEmail: {$data['contact-email']} \nComment:\n\n {$data['contact-comment']}";
     $headers = 'From: webmaster@fdback.com' . "\r\n" .
         'Reply-To: webmaster@fdback.com' . "\r\n" .
         'X-Mailer: PHP/' . phpversion();

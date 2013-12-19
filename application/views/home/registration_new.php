@@ -5,10 +5,10 @@
                     <span id="logo">fdback</span>
                     <nav>
                         <ul class="list-unstyled">
-                             <li><a href="#benefits" class="smooth-scroll">Benefits</a></li>
-                            <li><a href="#how-it-works" class="smooth-scroll">Features</a></li>
-                            <li><a href="#plans" class="smooth-scroll">Pricing Plans</a></li>
-                            <li><a href="#contact-us" class="smooth-scroll">Contact Us</a></li>
+                            <li><a href="#benefits" class="nav-item smooth-scroll">Benefits</a></li>
+                            <li><a href="#how-it-works" class="nav-item smooth-scroll">Features</a></li>
+                            <li><a href="#plans" class="nav-item smooth-scroll">Pricing Plans</a></li>
+                            <li><a href="#contact-us" class="nav-item smooth-scroll">Contact Us</a></li>
                         </ul>
                     </nav>
                 </div>
@@ -16,7 +16,7 @@
              <div id="plans" class="wrapper section">
                 <div class="container">
                     <h2>You’re just 60 seconds away from your new account.</h2>
-                    <p>All plans come with a first <em><strong>30 days</strong></em>, no risk free trial</p>
+                    <p>All plans come with a first <em><strong style="color:#fff;">30 days</strong></em>, no risk free trial</p>
                     <div id="registration-page" class="clearfix">
                         <div id="registration-form-box">
                         <form id="registration_form" method="post" action="/registration/secret" autocomplete="off">
@@ -24,7 +24,7 @@
                             <input name="regtype" type="hidden" value="<?=URI::segment(2)?>"/>
                             <div id="registration-form">
                                 <div class="reg-header">
-                                    1. Create your fdback account
+                                    1. Create your <span style="color:#5b88a5;">fd</span><span style="color:#838383;">back</span> account
                                 </div>
                                 <div class="reg-input-block clearfix">
                                     <div class="label">First Name :</div>
@@ -83,8 +83,13 @@
                                 </div>
                                 <div class="reg-input-block">
                                     <div class="input-whole">
-                                        https://<input type="text" class="reg-site-input" name="site_name" />.fdback.com
-                                        <p>Accepts only alphanumeric characters, dash, and underscore.</p>
+                                        <div class="whole-container">
+                                            <div class="site-name-container">
+                                            <span>https://</span><input type="text" class="reg-site-input" name="site_name" /><span>.fdback.com</span>
+                                            <span id="site-name-error" name="site_name" style="font-weight:normal;"></span>
+                                            </div>
+                                            <p>Accepts only alphanumeric characters, dash, and underscore.</p>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="reg-text">
@@ -102,7 +107,7 @@
                                 <h2>Thank you for choosing fdback!</h2>
                                 <div class="reg-feat-block clearfix">
                                     <div class="reg-feat-block-icon"><img src="/img/reg-feature-1.jpg" data-original="/img/reg-feature-1.jpg" /></div>
-                                    <div class="reg-feat-text"><div class="title">You're in good hands when you use fdback.</div></div>
+                                    <div class="reg-feat-text"><div class="title">You're in good hands</br> when you use fdback.</div></div>
                                 </div>
                                 <div class="reg-feat-block clearfix">
                                     <div class="reg-feat-block-icon"><img src="/img/reg-feature-2.jpg" data-original="/img/reg-feature-2.jpg" /></div>
@@ -146,17 +151,17 @@
                                     <fieldset>
                                         <div class="control-group text-field">
                                             <div class="controls name">
-                                                <input id="contact-name" name="name" type="text" placeholder="First and last name" class="required" autocomplete="false" data-message="Please enter your full name">
+                                                <input id="contact-name" name="contact-name" type="text" placeholder="First and last name" class="required" autocomplete="false" data-message="Please enter your full name">
                                             </div>
                                         </div>
                                         <div class="control-group text-field">
                                             <div class="controls email">
-                                                <input id="contact-email" name="email" type="email" placeholder="Email" class="required" autocomplete="false">
+                                                <input id="contact-email" name="contact-email" type="email" placeholder="Email" class="required" autocomplete="false">
                                             </div>
                                         </div>
                                         <div class="control-group comment-group">
                                             <div class="controls comment">
-                                                <textarea id="contact-comment" name="comment" placeholder="Enter your comments" class="required" rows="5" autocomplete="false" data-message="Please leave a comment or question"></textarea>
+                                                <textarea id="contact-comment" name="contact-comment" placeholder="Enter your comments" class="required" rows="5" autocomplete="false" data-message="Please leave a comment or question"></textarea>
                                                 <button type="submit">Submit</button>
                                             </div>
                                         </div>

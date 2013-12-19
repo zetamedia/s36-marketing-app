@@ -1,27 +1,18 @@
-
-    $("input[name='first_name']").blur(function(){
-        $("input[name='first_name']").val('Robert');
-        $("input[name='last_name']").val('Mordido');
-        $("input[name='email']").val('robert@fdback.com');
-        $("input[name='company']").val('Prestige');
-        $("input[name='username']").val('prestige');
-        $("input[name='password']").val('password');
-        $("input[name='password_confirmation']").val('password');
-        $("input[name='site_name']").val('prestige');
-    });
     // clear the error on input focus.
     $('input, select').focus(function(){
         
         if( $(this).is('.err-text') ){
             $(this).val('');
             $(this).removeClass('err-text');
-            console.log('clear');
         }
         
         if( $(this).is('input[type=password]') || $(this).is('select') ){
             $('span[name=' + $(this).attr('name') + ']').text('');
-            console.log('span clear');
         }
+
+        $('.reg-site-input').focus(function(){
+            $("#site-name-error").hide();
+        });
 
     });
 
@@ -31,7 +22,7 @@
         var registration_form = $(this);
         var registration_type = $("input[name='regtype']").val();
         // elements with their names in span array will have their errors displayed somewhere else. not in them.
-        var span    = ['password', 'password_confirmation', 'billing_state', 'billing_country', 'expiration_month', 'expiration_year'];
+        var span    = ['password', 'password_confirmation', 'billing_state', 'billing_country', 'expiration_month', 'expiration_year', 'site_name'];
         var errors  = '';
         var data    = {};
 

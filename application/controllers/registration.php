@@ -27,11 +27,11 @@
             // if $errors is not object, it's an array error from braintree.
             $data['braintree_err'] = ( is_object($errors) ? null : $errors );
             
-            if(isset($_GET['new'])){
-                return View::of('registration_layout')->nest('contents', 'home.registration_new', $data);
-            }else{
-                return View::of('layout')->nest('contents', 'home.registration', $data);
-            }
+            //Old Registration Page
+            //return View::of('layout')->nest('contents', 'home.registration', $data);
+            //New Registration Page
+            return View::of('registration_layout')->nest('contents', 'home.registration_new', $data);
+            
         }
 
 

@@ -36,7 +36,7 @@
             $data['customer_email'] = HTML::entities( $form_data->get('email') );
             $data['account_login_url'] = HTML::entities( $account_service->create_account_url( $form_data->get('site_name') ) );
             
-            $this->subject = 'Fdback New Account';
+            $this->subject = 'fdback New Account';
             $this->body = View::make('emails.new-account', $data);
             
             return $this;

@@ -15,6 +15,7 @@ body {
     padding-right: 30px;
     z-index: 10;
 }
+
 /* Small devices (tablets, 768px and up) */
 @media (min-width: 768px) {
     .container {
@@ -39,7 +40,7 @@ body .section {
     padding-top: 30px;
     padding-bottom: 30px;
 }
-a { color: #95cc11; }
+a { color: #20a9e0; }
 a:hover { color: #9dd911; }
 a:active { color: #8abf0f; }
 h1, h2, h3, h4, h5, h6 {
@@ -1529,6 +1530,7 @@ form .validation-error {
 #plans #gurantee h3 {
     color: #fff;
     margin-bottom: 10px;
+    width: 330px;
 }
 #plans #gurantee p {
     color: #b5b4b4;
@@ -1558,6 +1560,7 @@ form .validation-error {
         padding-left: 150px;
         margin: 0 80px;
         text-align: left;
+        width: 100%;
     }
     #plans #gurantee img {
         position: absolute;
@@ -1934,10 +1937,17 @@ form .validation-error {
     height:100%;
     color:#828284;
 }
-.reg-input-block .input input.err-text,.err-text{
-    color: #b44;
+#site-name-error{
+    font-size: 12px !important;
 }
-.reg-input-block .input input:focus{
+span.err-text{
+    display: block;
+}
+.reg-input-block .input input.err-text,.err-text{
+    color: #b44 !important;
+    font-size: 14px;
+}
+.reg-input-block .input input:focus,.reg-site-input:focus{
 	outline:#5EE0E7 1px solid;
 }
 .reg-input-block p{
@@ -1975,6 +1985,7 @@ form .validation-error {
 }
 #plans #reg-features #gurantee h3{
 	font-size:22px;
+    width: 100%;
 }
 #plans #reg-features #gurantee p{
 	font-size:14px;
@@ -1994,20 +2005,26 @@ form .validation-error {
 	-moz-border-radius:3px !important;
 	border-radius:3px !important;
 	margin:0px 5px !important;
-	width:50% !important;
+	width:20% !important;
 	padding:5px 2% !important;
 	border:1px solid #DDD !important;
 	box-shadow:inset 0 1px 2px #CCC !important;
     height:100% !important;
 }
-.input-whole{
+.input-whole span{
 	color:#20a8e1;
 	font-weight:bold;
 	text-align:center;
 }
-.input-whole p{
+.input-whole div.whole-container{
 	font-weight:normal;
+    margin-left: auto;
+    margin-right: auto;
+    width: 90%;
+    font-size: 11px !important;
+    text-align: center;  
 }
+
 input.button{
 	position: relative;
 	display: inline-block;
@@ -2104,4 +2121,33 @@ input.button{
 	.reg-input-block{
 		margin:10px 0px;
 	}
+}
+
+
+@media only screen and (min-width: 320px) and (max-width: 480px){
+    .nav-item{
+        padding:0 4px !important;
+    }
+    .reg-site-input{
+        width: 30% !important;
+    }
+}
+
+@media only screen and (min-width: 309px) and (max-width: 365px){
+    #main-nav .container{
+        width: 100%;
+        padding-left: 0px;
+        padding-right: 0px;
+    }
+    .reg-site-input{
+        width: 30% !important;
+    }
+    .input-whole p{
+        margin:0px;
+        width: 100%;
+    }
+
+    .reg-input-block .input input.err-text,.err-text{
+    font-size: 12px !important;
+    }
 }
